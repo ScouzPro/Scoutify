@@ -1,11 +1,18 @@
 import express from "express";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 import { db } from "./database/database.js";
+import reportRoutes from "./routes/reportRoutes.js";
 
 dotenv.config();
 
-const app = express()
-app.use(express.json())
+const app = express();
+app.use(express.json());
 
-app.listen(3001, console.log("Conneted"))
-db()
+db();
+
+app.use('/api', reportRoutes);
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
