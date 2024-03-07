@@ -1,10 +1,6 @@
-import express from 'express';
 import playerMetricModel from '../models/metricModel.js';
 
-const router = express.Router();
-
-// Ruta para obtener todos los documentos de playerMetricModel
-router.get('/playermetrics', async (req, res) => {
+export const getPlayerMetrics = async (req, res) => {
     try {
         // Consulta todos los documentos de playerMetricModel en la base de datos
         const playerMetrics = await playerMetricModel.find();
@@ -21,7 +17,65 @@ router.get('/playermetrics', async (req, res) => {
         console.error('Error al obtener métricas de jugadores:', error);
         res.status(500).json({ message: 'Error del servidor al obtener métricas de jugadores.' });
     }
-});
+};
 
-export default router;
 
+
+export const savePlayerMetrics = async(req, res) =>{
+    try {
+      // Crear una nueva instancia del modelo con los datos del cuerpo de la solicitud
+      const newPlayerMetric = new playerMetricModel(req.body);
+  
+      // Guardar la nueva instancia en la base de datos
+      const savedPlayerMetric = await newPlayerMetric.save();
+  
+      // Responder con el objeto guardado y el código de estado 201 (Created)
+      res.status(201).json(savedPlayerMetric);
+    } catch (error) {
+      // Manejar errores y responder con el código de estado 400 (Bad Request)
+      res.status(400).json({ message: error.message });
+    }
+  }
+
+  export const updatePlayerMetric = async (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+
+    try {
+        // Encuentra y actualiza el documento con el ID proporcionado
+        const updatedPlayerMetric = await playerMetricModel.findByIdAndUpdate(id, body, { new: true });
+
+        // Si no se encuentra el documento, responde con un mensaje de error
+        if (!updatedPlayerMetric) {
+            return res.status(404).json({ message: 'No se encontró la métrica de jugador para actualizar.' });
+        }
+
+        // Responde con el documento actualizado y el código de estado 200 (OK)
+        res.status(200).json(updatedPlayerMetric);
+    } catch (error) {
+        // Si ocurre un error durante la actualización, responde con un mensaje de error
+        console.error('Error al actualizar la métrica de jugador:', error);
+        res.status(500).json({ message: 'Error del servidor al actualizar la métrica de jugador.' });
+    }
+};
+
+export const deletePlayerMetric = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Elimina el documento con el ID proporcionado
+        const deletedPlayerMetric = await playerMetricModel.findByIdAndDelete(id);
+
+        // Si no se encuentra el documento, responde con un mensaje de error
+        if (!deletedPlayerMetric) {
+            return res.status(404).json({ message: 'No se encontró la métrica de jugador para eliminar.' });
+        }
+
+        // Responde con el documento eliminado y el código de estado 200 (OK)
+        res.status(200).json(deletedPlayerMetric);
+    } catch (error) {
+        // Si ocurre un error durante la eliminación, responde con un mensaje de error
+        console.error('Error al eliminar la métrica de jugador:', error);
+        res.status(500).json({ message: 'Error del servidor al eliminar la métrica de jugador.' });
+    }
+};
