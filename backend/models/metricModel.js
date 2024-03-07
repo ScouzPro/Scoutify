@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 
 const playerMetricSchema = new Schema (
     {
-        _id:{
+        jugador_id:{
             type:Schema.Types.ObjectId,
-            ref: "reportsModel",
+            ref: "players",
             required: true,
         },
 
@@ -57,7 +57,7 @@ const playerMetricSchema = new Schema (
               }],
         Created_At: { type: Date, default: Date.now }
     },
-    { collection: 'playermetrics',versionKey: false }
+    { collection: 'playermetrics', versionKey: false }
 );
 
 playerMetricSchema.pre ( 'save', function(next)

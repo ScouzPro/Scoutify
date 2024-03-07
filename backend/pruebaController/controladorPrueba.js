@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/playermetrics', async (req, res) => {
     try {
         // Consulta todos los documentos de playerMetricModel en la base de datos
-        const playerMetrics = await playerMetricModel.find().populate('_id');
+        const playerMetrics = await playerMetricModel.find().populate('jugador_id');
 
         // Si no se encuentran documentos, responde con un mensaje de error
         if (!playerMetrics) {
