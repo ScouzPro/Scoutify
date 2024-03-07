@@ -1,16 +1,16 @@
-<nav class=" p-4 flex justify-between items-center">
-    <!-- Logo de ScouzPro -->
-    <a href="/" class="flex items-center">
-      <img src="../../../assets/images/scoutify_logo_letrado_2.png" alt="Scouzfity" class="h-28 mr-2">
-      <span class="text-white font-bold text-lg">ScouzPro</span>
-    </a>
-  
-    <!-- Botones de navegación -->
-    <div class="flex justify-center">
-      <!-- Botón de Jugadores -->
-      <a href="/players" class="text-black mx-2 hover:text-gray-300" style="cursor: pointer;">Jugadores</a>
-      <!-- Botón de Informes -->
-      <a href="/reports" class="text-black mx-2 hover:text-gray-300" style="cursor: pointer;">Informes</a>
-    </div>
-    <app-icons-navbar></app-icons-navbar>
+<nav class="p-4 flex justify-between items-center">
+  <!-- Logo de ScouzPro -->
+  <a href="./" class="flex items-center">
+    <img src="../../../assets/images/scoutify_logo_letrado_2.png" alt="Scouzfity" class="h-28 mr-2">
+    <span class="text-white font-bold text-lg">ScouzPro</span>
+  </a>
+
+  <!-- Botones de navegación -->
+  <div class="flex justify-center">
+    <!-- Botón de Jugadores -->
+    <a (click)="navigateToPlayers()" class="text-black mx-2 hover:text-gray-300" style="cursor: pointer;">Jugadores</a>
+    <!-- Botón de Informes -->
+    <a (click)="navigateToReports()" class="text-black mx-2 hover:text-gray-300" style="cursor: pointer;">Informes</a>
+  </div>
+  <app-icons-navbar></app-icons-navbar>
 </nav>
