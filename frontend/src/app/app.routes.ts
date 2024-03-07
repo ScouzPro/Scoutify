@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { LandingComponent } from './pages/landing/landing.component';
 import { PlayersComponent } from './pages/players/players.component';
 import { ReportsComponent } from './pages/reports/reports.component';
-import { DetailComponent } from './pages/detail/detail.component';
+import { LandingComponent } from './pages/landing/landing.component';
+
 
 export const routes: Routes = [
     {
-        path:'landing',
+        path:'home',
         component: LandingComponent
     },
     {   path:'players',
@@ -16,8 +16,6 @@ export const routes: Routes = [
         path:'reports',
         component:ReportsComponent
     },
-    {   path:'detail',
-        component:DetailComponent
-    },
+   
     
 ];
