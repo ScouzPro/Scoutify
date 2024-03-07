@@ -1,29 +1,16 @@
-<nav class="flex items-center justify-between bg-blue-500 p-4">
-    <!-- Logo -->
+<nav class="bg-gray-800 p-4 flex justify-between items-center">
+    <!-- Logo de ScouzPro -->
     <div class="flex items-center">
-        <p class="text-white text-2xl font-bold">scouzPro</p>
+      <!-- <img src="ruta/al/logo/scouzpro.png" alt="ScouzPro" class="h-8 mr-2"> -->
+      <span class="text-white font-bold text-lg">ScouzPro</span>
     </div>
-
-    <!-- Botones de Jugadores e Informes -->
-    <div class="flex items-center">
-        <!-- Botón de Jugadores -->
-        <a href="/players" class="text-white mr-4 hover:text-gray-300">Jugadores</a>
-        
-        <!-- Botón de Informes -->
-        <a href="/reports" class="text-white hover:text-gray-300">Informes</a>
+  
+    <!-- Botones de navegación -->
+    <div class="flex justify-center">
+      <!-- Botón de Jugadores -->
+      <a href="/players" class="text-white mx-2 hover:text-gray-300" style="cursor: pointer;">Jugadores</a>
+      <!-- Botón de Informes -->
+      <a href="/reports" class="text-white mx-2 hover:text-gray-300" style="cursor: pointer;">Informes</a>
     </div>
-
-    <!-- Icono de Usuario y Notificaciones -->
-    <div class="flex items-center">
-        <!-- Icono de Usuario (ejemplo, usa el icono que desees) -->
-        <svg class="w-6 h-6 text-white mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M12 5h.01M12 19h.01M5 5l1.5 2h10l1.5-2M5 19l1.5-2h10l1.5 2"></path>
-        </svg>
-        
-        <!-- Icono de Notificaciones (ejemplo, usa el icono que desees) -->
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m-6 10v3m-4-4h14a2 2 0 002-2V9a5 5 0 00-5-5c-1.457 0-2.844.5-4 1.4A5.95 5.95 0 005 9v3a2 2 0 002 2z"></path>
-        </svg>
-    </div>
+    <app-icons-navbar></app-icons-navbar>
 </nav>
-
