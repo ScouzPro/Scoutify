@@ -7,10 +7,10 @@ const router = express.Router();
 router.get('/playermetrics', async (req, res) => {
     try {
         // Consulta todos los documentos de playerMetricModel en la base de datos
-        const playerMetrics = await playerMetricModel.find().populate('jugador_id');
+        const playerMetrics = await playerMetricModel.find();
 
         // Si no se encuentran documentos, responde con un mensaje de error
-        if (!playerMetrics) {
+        if (!playerMetrics || playerMetrics.length === 0) {
             return res.status(404).json({ message: 'No se encontraron datos de métricas de jugadores.' });
         }
 
@@ -24,3 +24,4 @@ router.get('/playermetrics', async (req, res) => {
 });
 
 export default router;
+

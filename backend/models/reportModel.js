@@ -18,7 +18,8 @@ const reportSchema = new mongoose.Schema({
     totalTacticalSkills: Number,
     totalPhysicalSkills: Number,
     averageTotalSkills: Number
-});
+}
+);
 
 const Report = mongoose.model('Report', reportSchema);
 

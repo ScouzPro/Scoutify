@@ -4,17 +4,13 @@ const Schema = mongoose.Schema;
 
 const playerMetricSchema = new Schema (
     {
-        jugador_id:{
+        player_id:{
             type:Schema.Types.ObjectId,
             ref: "players",
             required: true,
         },
 
-        averageTotalSkills: {
-            type: Number,
-            required: true,
-        },
-
+        averageTotalSkills: {type: Number},
         principalSkills:[{
             shot :Number,
             heading: Number,
