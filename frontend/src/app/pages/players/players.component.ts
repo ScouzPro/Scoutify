@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ModalNewPLayerComponent } from '../../components/modal-new-player/modal-new-player.component';
+import { ModalNewPlayerComponent} from '../../components/modal-new-player/modal-new-player.component';
 @Component({
   selector: 'app-players',
   standalone: true,
-  imports: [ ModalNewPLayerComponent],
+  imports: [ ModalNewPlayerComponent],
   templateUrl: './players.component.html',
   styleUrl: './players.component.css'
 })
