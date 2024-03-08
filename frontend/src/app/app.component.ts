@@ -13,7 +13,7 @@ import { RegisterFormComponent } from './components/register-form/register-form.
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, NavbarComponent, FooterComponent, LandingComponent, HeroLandingComponent, LoginFormComponent, RegisterFormComponent]
+    imports: [RouterOutlet, NavbarComponent , FooterComponent, LandingComponent, HeroLandingComponent, LoginFormComponent, RegisterFormComponent]
 })
 export class AppComponent {
   title = 'Scoutify';
