@@ -4,7 +4,7 @@ const playerSchema = mongoose.Schema({
     name: {type: String, required: true},
     age: {type: Number, required: true},
     actualTeam: {type: String, required: true},
-    photo: {type: Buffer, required: true},
+    photo: {type: Buffer},
     dorsal: {type: Number, required: true},
     nationality: {type: String, required: true},
     position: {type: String, required: true},
