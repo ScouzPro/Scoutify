@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayerServiceService } from '../../service/player-service.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-modal-new-report',
   standalone: true,
@@ -12,7 +13,7 @@ export class ModalNewReportComponent implements OnInit {
   players: any[]  = [];
   isModalOpen: boolean = false;
   
-  constructor(private playerService: PlayerServiceService) {}
+  constructor(private playerService: PlayerServiceService, private router: Router) {}
 
   ngOnInit(): void {
       this.getPlayerData();
@@ -20,6 +21,7 @@ export class ModalNewReportComponent implements OnInit {
 
   async getPlayerData(){
     this.players = await this.playerService.getPlayerFollowed();
+    console.log('Players:', this.players);
   }
 
   openModal() {
@@ -28,5 +30,12 @@ export class ModalNewReportComponent implements OnInit {
 
   closeModal() {
     this.isModalOpen = false;
+  }
+  goToReport(playerId: string) {
+    if (playerId) {
+      this.router.navigate(['/players', playerId]);
+    } else {
+      console.error('Player ID is undefined or null');
+    }
   }
 }

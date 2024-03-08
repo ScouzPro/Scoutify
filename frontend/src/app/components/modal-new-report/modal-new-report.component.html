@@ -41,7 +41,17 @@
                         </th>
                       </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
+                      <tbody class="bg-white divide-y divide-gray-200">
+                        <tr *ngFor="let player of players" (click)="goToReport(player.id)">
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            {{ player.name }}
+                          </td>
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            {{ player.actualTeam }}
+                          </td>
+                        </tr>
+                      </tbody>
+                    <!-- <tbody class="bg-white divide-y divide-gray-200">
                       <tr *ngFor="let player of players">
                         <td class="px-6 py-4 whitespace-nowrap">
                           {{ player.name }}
@@ -50,7 +60,7 @@
                           {{ player.actualTeam }}
                         </td>
                       </tr>
-                    </tbody>
+                    </tbody> -->
                   </table>
                 </div>
               </div>

@@ -37,6 +37,28 @@ export const savePlayerMetrics = async(req, res) =>{
     }
   }
 
+  export const getPlayerMetricById = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Busca la métrica de jugador por el ID proporcionado
+        // const playerMetric = await playerMetricModel.findById(id);
+        const playerMetric = await playerMetricModel.findOne({ player_id: id });
+
+        // Si no se encuentra la métrica de jugador, responde con un mensaje de error
+        if (!playerMetric) {
+            return res.status(404).json({ message: 'No se encontró la métrica de jugador.' });
+        }
+
+        // Responde con la métrica de jugador encontrada y el código de estado 200 (OK)
+        res.status(200).json(playerMetric);
+    } catch (error) {
+        // Si ocurre un error durante la búsqueda, responde con un mensaje de error
+        console.error('Error al obtener la métrica de jugador por ID:', error);
+        res.status(500).json({ message: 'Error del servidor al obtener la métrica de jugador por ID.' });
+    }
+};
+
   export const updatePlayerMetric = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
