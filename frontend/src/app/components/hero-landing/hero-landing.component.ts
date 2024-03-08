@@ -14,7 +14,8 @@ export class HeroLandingComponent {
   constructor(private router: Router) {} // Inject Router service
 
   navigateToLogin() {
-    this.router.navigate(['/login']); 
+    this.router.navigate(['/login']); //Ruta que navega al componente login, importar el componente
+    
   }
   navigateToRegister() {
     this.router.navigate(['/register']); 
