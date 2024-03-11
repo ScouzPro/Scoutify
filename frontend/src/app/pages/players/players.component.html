@@ -1,30 +1,31 @@
 <div>
     <app-navbar></app-navbar>
-</div>
-<app-header-secondary></app-header-secondary>
-<section>
-<app-header-detail></app-header-detail>
-<!-- Campos de filtro -->
-<div class="filters-container">
-    <!-- Aquí puedes agregar los campos de filtro si lo deseas -->
   </div>
-
-  <!-- Tarjetas de jugadores -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <div *ngFor="let player of playersFollowed" class="max-w-sm rounded overflow-hidden shadow-lg">
-      <img class="w-full" src="data:image/jpeg;base64,{{ player.photo }}" alt="Player Photo">
-      <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2">{{ player.name }}</div>
-        <p class="text-gray-700 text-base">
-          Actual Team: {{ player.actualTeam }}
-        </p>
-        <!-- Puedes agregar más detalles del jugador según lo necesites -->
+  <app-header-secondary></app-header-secondary>
+  <section>
+    <app-header-detail></app-header-detail>
+  
+    <!-- Campos de filtro -->
+    <div class="filters-container">
+      <!-- Aquí puedes agregar los campos de filtro si lo deseas -->
+    </div>
+  
+    <!-- Tarjetas de jugadores -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div *ngFor="let player of playersFollowed" class="max-w-sm rounded overflow-hidden shadow-lg">
+        <img class="w-full" src="{{ player.photo }}" alt="Player Photo">
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2">{{ player.name }}</div>
+          <p class="text-gray-700 text-base">
+            Actual Team: {{ player.actualTeam }}
+          </p>
+          <!-- Puedes agregar más detalles del jugador según lo necesites -->
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
-
-<div>
+  </section>
+  
+  <div>
     <app-footer></app-footer>
-</div>
+  </div>
+  
