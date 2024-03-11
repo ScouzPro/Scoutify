@@ -23,14 +23,9 @@ import { FormsModule } from '@angular/forms';
   imports :[FormsModule],
   styleUrls: ['./modal-new-player.component.css']
 })
-export class ModalNewPlayerComponent implements AfterViewInit {
+export class ModalNewPlayerComponent{
 
   constructor(private playerService: PlayerServiceService) { }
-
-  ngAfterViewInit() {
-    // Llamar a showModal() después de que Angular haya renderizado el componente
-    this.showModal();
-  }
 
   showModal() {
     const modal = document.getElementById('my_modal_4') as HTMLDialogElement;
