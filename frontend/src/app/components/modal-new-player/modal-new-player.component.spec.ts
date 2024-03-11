@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ModalNewPLayerComponent } from './modal-new-player.component';
+import { ModalNewPlayerComponent } from './modal-new-player.component';
 
 describe('ModalNewPLayerComponent', () => {
-  let component: ModalNewPLayerComponent;
-  let fixture: ComponentFixture<ModalNewPLayerComponent>;
+  let component: ModalNewPlayerComponent;
+  let fixture: ComponentFixture<ModalNewPlayerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModalNewPLayerComponent]
+      imports: [ModalNewPlayerComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ModalNewPLayerComponent);
+    fixture = TestBed.createComponent(ModalNewPlayerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
