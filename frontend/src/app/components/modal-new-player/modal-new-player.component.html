@@ -1,6 +1,6 @@
 <button class="btn" (click)="showModal()">+ Create Player</button>
 <dialog id="my_modal_4" class="modal">
-    <div class="modal-box w-11/12 max-w-5xl mx-auto flex flex-col items-center justify-center h-auto">
+    <div class="modal-box w-11/12 max-w-5xl mx-auto">
         <h3 class="font-bold text-lg mb-3">Create Player</h3>
         <form #playerForm="ngForm" (ngSubmit)="submitForm(playerForm)">
             <input type="text" placeholder="Full Name" class="input input-bordered w-full max-w-xs mb-3" name="name" ngModel required />
