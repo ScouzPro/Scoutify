@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-form',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './register-form.component.css'
 })
 export class RegisterFormComponent {
+  constructor (private router: Router) {}
+  navigateToAuthRegister() {
+    this.router.navigate(["/register"]);
+  }
 
 }

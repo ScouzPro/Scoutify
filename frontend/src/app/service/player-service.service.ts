@@ -31,31 +31,5 @@ export class PlayerServiceService {
       console.error(error);
     }
   }
-
-  async getPlayerFollowed(): Promise<any> {
-    try {
-      const response = await axios.get('http://localhost:3001/player');
-      // Filtrar los campos que necesitas del JSON
-      const filteredData = response.data.map((player: any) => ({
-        name: player.name,
-        actualTeam: player.actualTeam,
-        id:player._id
-      }));
-      return filteredData;
-    } catch (error) {
-      console.error(error);
-      return []; // Retorna un arreglo vacío en caso de error
-    }
-  }
-
-  async getPlayerById(playerId: string): Promise<any> {
-    try {
-      const response = await axios.get(`http://localhost:3001/player/${playerId}`);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return null; // Retorna null en caso de error
-    }
-  }
 }
 
