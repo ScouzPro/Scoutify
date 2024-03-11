@@ -11,12 +11,16 @@ import { FooterComponent } from "../../components/footer/footer.component";
 })
 export class AuthRegComponent {
     constructor (private router: Router) {}
-    navigateToHeroLanding() {
+    navigateToHeroLanding() { //Ruta que vueve a landing al pulsar btn
         this.router.navigate([""]);
     }
     
-    navigateToAuth() {
+    navigateToAuth() { //Ruta que navega a login al pulsar btn
         this.router.navigate(["/login"])
+    }
+
+    navigateToHome() { //Ruta que navega a home al pulsar btn
+        this.router.navigate(["/home"])
     }
 
 }

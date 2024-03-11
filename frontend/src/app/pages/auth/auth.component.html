@@ -24,17 +24,22 @@
         <input type="password" class="grow" value="Contraseña" />
     </label>
 
-    <!-- Check remember me -->
+    <!-- Check remember me y redd registro -->
     <div class="form-control flex items-center flex-row justify-between mb-4">
         <div class="flex items-center">
             <label class="label cursor-pointer flex items-center ml-2 "> <!-- Agregamos mb-4 para el margen inferior y flex items-center para alinear verticalmente -->
-                <input type="checkbox" class="checkbox" />
+                <input type="checkbox" class="toggle toggle-xs" />
                 <span class="label-text pl-2"> Recuérdame </span> <!-- Agregamos pl-2 para añadir espacio a la izquierda -->
             </label>
         </div>
         <div>
             <button class="btn btn-ghost btn-xs" (click)="navigateToAuthRegister()">¿No tienes cuenta?</button>
         </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="flex justify-center">
+        <button class="btn btn-s btn-wide btn-outline btn-primary mb-4 text-center" (click)="navigateToHome()">Enviar</button>
     </div>
 
 </div>
