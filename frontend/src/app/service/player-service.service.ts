@@ -1,24 +1,3 @@
-// import { Injectable } from '@angular/core';
-// import axios from 'axios';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class PlayerServiceService {
-
-//   constructor() { }
-
-//   async CreatePlayer(newPlayer: any) {
-//     try {
-//       const response = await axios.post('http://localhost:3001/players', newPlayer);
-//       console.log(response.data);
-//       return response.data;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-// }
-
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 
@@ -50,6 +29,32 @@ export class PlayerServiceService {
       return response.data;
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  async getPlayerFollowed(): Promise<any> {
+    try {
+      const response = await axios.get('http://localhost:3001/player');
+      // Filtrar los campos que necesitas del JSON
+      const filteredData = response.data.map((player: any) => ({
+        name: player.name,
+        actualTeam: player.actualTeam,
+        id:player._id
+      }));
+      return filteredData;
+    } catch (error) {
+      console.error(error);
+      return []; // Retorna un arreglo vacío en caso de error
+    }
+  }
+
+  async getPlayerById(playerId: string): Promise<any> {
+    try {
+      const response = await axios.get(`http://localhost:3001/player/${playerId}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return null; // Retorna null en caso de error
     }
   }
 }

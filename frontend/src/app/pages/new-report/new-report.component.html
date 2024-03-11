@@ -1,0 +1,106 @@
+<div class="overflow-x-auto">
+  <table class="table-auto border-collapse w-full">
+    <tbody>
+      <ng-container *ngFor="let player of player">
+        <tr>
+          <td class="border px-4 py-2 text-center">
+            {{ player.name }}
+          </td>
+          <td class="border px-4 py-2 text-center">
+            {{ player.actualTeam }}
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+<div class="overflow-x-auto">
+  <table class="table-auto border-collapse w-full">
+    <thead>
+      <tr>
+        <th class="px-4 py-2 bg-gray-800 text-white">Habilidades Principales</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let metric of metrics">
+        <tr>
+          <td class="border px-4 py-2 text-center">
+            <ul class="list-none">
+              <li class="mb-2">Shot: {{ metric.principalSkills[0]?.shot }}</li>
+              <li class="mb-2">Heading: {{ metric.principalSkills[0]?.heading }}</li>
+              <li class="mb-2">Association: {{ metric.principalSkills[0]?.association }}</li>
+              <li class="mb-2">Right Foot: {{ metric.principalSkills[0]?.rightFoot }}</li>
+              <li class="mb-2">Left Foot: {{ metric.principalSkills[0]?.leftFoot }}</li>
+              <li class="mb-2">Long Passes: {{ metric.principalSkills[0]?.longPasses }}</li>
+              <li class="mb-2">Dribbling: {{ metric.principalSkills[0]?.dribbling }}</li>
+              <li class="mb-2">Reflexes: {{ metric.principalSkills[0]?.reflexes }}</li>
+              <li class="mb-2">Crosses: {{ metric.principalSkills[0]?.crosses }}</li>
+              <li class="mb-2">Overall Rating: {{ metric.principalSkills[0]?.overallRating }}</li>
+              <li class="mb-2">Total Principal Skills: {{ metric.principalSkills[0]?.totalPrincipalSkills }}</li>
+            </ul>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+<div class="overflow-x-auto">
+  <table class="table-auto border-collapse w-full">
+    <thead>
+      <tr>
+        <th class="px-4 py-2 bg-gray-800 text-white">Habilidades Tácticas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let metric of metrics">
+        <tr>
+          <td class="border px-4 py-2 text-center">
+            <ul class="list-none">
+              <li class="mb-2">Anticipation: {{ metric.tacticalSkills[0]?.anticipation }}</li>
+              <li class="mb-2">Placement: {{ metric.tacticalSkills[0]?.placement }}</li>
+              <li class="mb-2">Concentration: {{ metric.tacticalSkills[0]?.concentration }}</li>
+              <li class="mb-2">Forcefulness: {{ metric.tacticalSkills[0]?.forcefulness }}</li>
+              <li class="mb-2">Overlap: {{ metric.tacticalSkills[0]?.overlap }}</li>
+              <li class="mb-2">Off The Ball: {{ metric.tacticalSkills[0]?.offTheBall }}</li>
+              <li class="mb-2">Positioning: {{ metric.tacticalSkills[0]?.positioning }}</li>
+              <li class="mb-2">Game Vision: {{ metric.tacticalSkills[0]?.gameVision }}</li>
+              <li class="mb-2">Global Average: {{ metric.tacticalSkills[0]?.globalAverage }}</li>
+              <li class="mb-2">Total Tactical Skills: {{ metric.tacticalSkills[0]?.totalTacticalSkills }}</li>
+            </ul>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+<div class="overflow-x-auto">
+  <table class="table-auto border-collapse w-full">
+    <thead>
+      <tr>
+        <th class="px-4 py-2 bg-gray-800 text-white">Habilidades Físicas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let metric of metrics">
+        <tr>
+          <td class="border px-4 py-2 text-center">
+            <ul class="list-none">
+              <li class="mb-2">Agility: {{ metric.physicalSkills[0]?.agility }}</li>
+              <li class="mb-2">Flexibility: {{ metric.physicalSkills[0]?.flexibility }}</li>
+              <li class="mb-2">Strength: {{ metric.physicalSkills[0]?.strength }}</li>
+              <li class="mb-2">Power: {{ metric.physicalSkills[0]?.power }}</li>
+              <li class="mb-2">Endurance: {{ metric.physicalSkills[0]?.endurance }}</li>
+              <li class="mb-2">Jumping: {{ metric.physicalSkills[0]?.jumping }}</li>
+              <li class="mb-2">Speed: {{ metric.physicalSkills[0]?.speed }}</li>
+              <li class="mb-2">Global Average: {{ metric.physicalSkills[0]?.globalAverage }}</li>
+              <li class="mb-2">Total Physical Skills: {{ metric.physicalSkills[0]?.totalPhysicalSkills }}</li>
+            </ul>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
