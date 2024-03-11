@@ -1,43 +1,43 @@
 {
-  "hash": "fedd50e6",
-  "configHash": "741894c0",
+  "hash": "d24daa8b",
+  "configHash": "3e29379e",
   "lockfileHash": "08b71c14",
-  "browserHash": "c622b57a",
+  "browserHash": "7a63bb98",
   "optimized": {
     "@angular/common/http": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-      "fileHash": "1fba3ba9",
+      "fileHash": "0c544370",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "f24a4fd5",
-      "needsInterop": false
-    },
-    "@angular/platform-browser": {
-      "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
-      "file": "@angular_platform-browser.js",
-      "fileHash": "e6a1c3e7",
-      "needsInterop": false
-    },
-    "@angular/router": {
-      "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
-      "file": "@angular_router.js",
-      "fileHash": "dbe7d526",
+      "fileHash": "99615804",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "03c8f163",
+      "fileHash": "cb6b5dc6",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "87bfbc6b",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "b7f4c024",
       "needsInterop": false
     },
     "axios": {
-      "src": "../../../../../node_modules/axios/index.js",
+      "src": "../../../../../../../../../../../node_modules/axios/index.js",
       "file": "axios.js",
-      "fileHash": "1de963a4",
+      "fileHash": "97cf8964",
       "needsInterop": false
     }
   },
