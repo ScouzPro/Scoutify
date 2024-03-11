@@ -5,6 +5,8 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 import { AuthComponent } from './pages/auth/auth.component';
 import { HeroLandingComponent } from './components/hero-landing/hero-landing.component';
 import { HomeComponent } from './pages/home/home.component';
+import { NewReportComponent } from './pages/new-report/new-report.component';
+
 import { AuthRegComponent } from './pages/auth-reg/auth-reg.component';
 
 
@@ -33,4 +35,8 @@ export const routes: Routes = [
         component:ReportsComponent
     },
     
+    {
+        path: 'players/:id', // Ruta para el informe del jugador con un parámetro de ID
+        component: NewReportComponent // Componente del informe del jugador
+    },
 ];

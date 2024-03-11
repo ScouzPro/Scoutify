@@ -2,8 +2,14 @@
   "hash": "fedd50e6",
   "configHash": "741894c0",
   "lockfileHash": "08b71c14",
-  "browserHash": "f9d8c912",
+  "browserHash": "c8f607b2",
   "optimized": {
+    "@angular/common": {
+      "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "0a322b70",
+      "needsInterop": false
+    },
     "@angular/common/http": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
@@ -42,14 +48,14 @@
     }
   },
   "chunks": {
-    "chunk-RPTGIMJT": {
-      "file": "chunk-RPTGIMJT.js"
+    "chunk-LAYYVIQG": {
+      "file": "chunk-LAYYVIQG.js"
     },
-    "chunk-VAC7SAF5": {
-      "file": "chunk-VAC7SAF5.js"
+    "chunk-FHHGF4XE": {
+      "file": "chunk-FHHGF4XE.js"
     },
-    "chunk-T2CGMGKE": {
-      "file": "chunk-T2CGMGKE.js"
+    "chunk-TI6YBJNW": {
+      "file": "chunk-TI6YBJNW.js"
     },
     "chunk-IFULXOSD": {
       "file": "chunk-IFULXOSD.js"

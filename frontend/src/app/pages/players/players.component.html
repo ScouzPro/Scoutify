@@ -3,6 +3,17 @@
 </div>
 <app-header-secondary></app-header-secondary>
 <app-header-detail></app-header-detail>
+<div>
+    <div *ngFor="let player of playersFollowed">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ player.name }}</h5>
+            <p class="card-text">Actual Team: {{ player.actualTeam }}</p>
+            <!-- Agrega más campos según necesites -->
+          </div>
+        </div>
+      </div>
+</div>
 
 <div>
     <app-footer></app-footer>
