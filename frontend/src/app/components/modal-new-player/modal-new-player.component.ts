@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { PlayerServiceService } from '../../service/player-service.service';
 import { FormsModule } from '@angular/forms';
 
@@ -35,5 +35,3 @@ export class ModalNewPlayerComponent{
     }
   }
 }
-
-
