@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
@@ -9,5 +10,13 @@ import { FooterComponent } from "../../components/footer/footer.component";
     imports: [FooterComponent]
 })
 export class AuthRegComponent {
+    constructor (private router: Router) {}
+    navigateToHeroLanding() {
+        this.router.navigate([""]);
+    }
+    
+    navigateToAuth() {
+        this.router.navigate(["/login"])
+    }
 
 }
