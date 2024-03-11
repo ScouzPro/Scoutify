@@ -39,8 +39,7 @@ export class PlayerServiceService {
       const filteredData = response.data.map((player: any) => ({
         name: player.name,
         actualTeam: player.actualTeam,
-        id:player._id,
-        
+        id:player._id
       }));
       return filteredData;
     } catch (error) {
@@ -59,4 +58,3 @@ export class PlayerServiceService {
     }
   }
 }
-
