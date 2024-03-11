@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PlayerServiceService } from '../../service/player-service.service';
 import { MetricsService } from '../../service/metrics.service';
 import { CommonModule } from '@angular/common';
-import axios from 'axios';
+
 
 @Component({
   selector: 'app-new-report',
