@@ -8,8 +8,8 @@ const playerSchema = mongoose.Schema({
     dorsal: {type: Number, required: true},
     nationality: {type: String, required: true},
     position: {type: String, required: true},
-    weight: {type: mongoose.Schema.Types.Decimal128, required: true },
-    height: {type: mongoose.Schema.Types.Decimal128, required: true },
+    weight: {type: String, required: true },
+    height: {type: String, required: true },
     strongFoot: {type: String, required: true}
 },
 {timestamp: true}

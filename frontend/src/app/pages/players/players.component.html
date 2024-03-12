@@ -3,16 +3,19 @@
 </div>
 <app-header-secondary></app-header-secondary>
 <app-header-detail></app-header-detail>
-<div>
+<div class="flex flex-wrap justify-around">
     <div *ngFor="let player of playersFollowed">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ player.name }}</h5>
-            <img src="{{player.photo}}" alt="Image of {{ player.name }}" class="card-img-top">
-            <p class="card-text">Actual Team: {{ player.actualTeam }}</p>
-            <!-- Agrega más campos según necesites -->
+      <div class="card w-96 glass mb-10">
+        <figure><img src="{{player.photo}}" alt="{{player.name}}"/></figure>
+        <div class="card-body">
+          <h2 class="card-title">{{player.name}}</h2>
+          <p>{{player.actualTeam}}</p>
+          <p>{{player.weight}}</p>
+          <div class="card-actions justify-end">
+            <button class="btn btn-primary">Detalles</button>
           </div>
         </div>
+      </div>
       </div>
 </div>
 
