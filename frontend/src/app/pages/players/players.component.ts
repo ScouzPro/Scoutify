@@ -21,23 +21,22 @@ export class PlayersComponent implements OnInit {
     equipoFiltro: string = '';
     posicionFiltro: string = '';
     edadFiltro: string | null = null;
-    nacionalidadFiltro: string = '';
+    nacionalidadFiltro: string[] = [];
     pesoFiltro: string | null = null;
-    pieDominanteFilter: string = '';
+    pieDominanteFilter: string | null = null;
     estaturaFiltro: string | null = null;
     pageSize = 6; // Número de jugadores por página (3 filas x 3 columnas)
     currentPage = 1; // Página actual
-    nacionalidadesUnicas: string[] = [];
-    rangosEdad = ['18-25', '26-30', '31-35', '36-40', '41+'];
-    rangosPeso = ['60-70', '71-80', '81-90', '91-100', '101+'];
-    rangosEstatura = ['1.60-1.70', '1.71-1.80', '1.81-1.90', '1.91-2.00', '2.01+'];
-    piesDominantes = ['Derecho', 'Izquierdo'];
+    nacionalidadesUnicas: string[] = ['España', 'Venezuela', 'Ecuador', 'Perú', 'México']; // Lista de nacionalidades
+    rangosEdad: string[] = ['18-25', '26-30', '31-35', '36-40', '41+']; // Lista de rangos de edad
+    rangosPeso: string[] = ['45-60', '61-80', '81-100', '101-130']; // Lista de rangos de peso
+    rangosEstatura: string[] = ['140-160', '161-180', '181-200']; // Lista de rangos de estatura
+    piesDominantes: string[] = ['Derecho', 'Izquierdo', 'Ambos']; // Lista de pies dominantes
 
     constructor(private playerService: PlayerServiceService) {}
 
     ngOnInit() {
         this.loadPlayersFollowed();
-        this.obtenerNacionalidadesUnicas();
     }
 
     async loadPlayersFollowed() {
@@ -61,7 +60,7 @@ export class PlayersComponent implements OnInit {
                 pasaFiltro = false;
             }
 
-            if (this.nacionalidadFiltro && player.nationality.toLowerCase() !== this.nacionalidadFiltro.toLowerCase()) {
+            if (this.nacionalidadFiltro.length > 0 && !this.nacionalidadFiltro.includes(player.nationality)) {
                 pasaFiltro = false;
             }
 
@@ -92,22 +91,20 @@ export class PlayersComponent implements OnInit {
 
             return pasaFiltro;
         });
+
+        console.log('Datos filtrados:', this.filteredPlayers); // Mostrar los datos filtrados en la consola
     }
 
     limpiarFiltros() {
         this.equipoFiltro = '';
         this.posicionFiltro = '';
         this.edadFiltro = null;
-        this.nacionalidadFiltro = '';
+        this.nacionalidadFiltro = [];
         this.pesoFiltro = null;
-        this.pieDominanteFilter = '';
+        this.pieDominanteFilter = null;
         this.estaturaFiltro = null;
 
         // Volver a filtrar con los filtros limpios
         this.filtrarJugadores();
-    }
-
-    obtenerNacionalidadesUnicas() {
-        this.nacionalidadesUnicas = [...new Set(this.playersFollowed.map(player => player.nationality))];
     }
 }
