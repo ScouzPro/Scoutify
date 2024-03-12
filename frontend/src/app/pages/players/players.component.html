@@ -5,8 +5,8 @@
 <app-header-detail></app-header-detail>
 <div class="flex flex-wrap justify-around">
     <div *ngFor="let player of playersFollowed">
-      <div class="card w-96 glass mb-10">
-        <figure><img src="{{player.photo}}" alt="{{player.name}}"/></figure>
+      <div class="card w-96 glass mb-10 h-96">
+        <figure><img src="{{player.photo}}" alt="{{player.name}}" class="w-70 h-50"/></figure>
         <div class="card-body">
           <h2 class="card-title">{{player.name}}</h2>
           <p>{{player.actualTeam}}</p>
