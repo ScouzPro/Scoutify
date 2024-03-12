@@ -40,8 +40,7 @@ export class PlayerServiceService {
         name: player.name,
         actualTeam: player.actualTeam,
         id:player._id,
-        nationality: player.nationality
-        
+        photo: player.photo
       }));
       return filteredData;
     } catch (error) {

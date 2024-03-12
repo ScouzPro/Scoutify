@@ -1,32 +1,17 @@
 <div>
     <app-navbar></app-navbar>
-  </div>
-  <app-header-secondary></app-header-secondary>
-  <section>
-    <app-header-detail></app-header-detail>
-  
-    <!-- Campos de filtro -->
-    <div class="filters-container">
-      <!-- Aquí puedes agregar los campos de filtro si lo deseas -->
-    </div>
-  
-    <!-- Tarjetas de jugadores -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div *ngFor="let player of playersFollowed" class="max-w-sm rounded overflow-hidden shadow-lg">
-        <img class="w-full" src="{{ player.photo }}" alt="Player Photo">
-        <div class="px-6 py-4">
-          <div class="font-bold text-xl mb-2">{{ player.name }}</div>
-          <p class="text-gray-700 text-base">
-            Actual Team: {{ player.actualTeam }}
-          </p>
-          <p class="text-gray-700 text-base">
-            Nationality: {{ player.nationality }}
-          </p>
-          <p class="text-gray-700 text-base">
-            position: {{ player.position }}
-          </p>
-
-          <!-- Puedes agregar más detalles del jugador según lo necesites -->
+</div>
+<app-header-secondary></app-header-secondary>
+<app-header-detail></app-header-detail>
+<div>
+    <div *ngFor="let player of playersFollowed">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ player.name }}</h5>
+            <img src="{{player.photo}}" alt="Image of {{ player.name }}" class="card-img-top">
+            <p class="card-text">Actual Team: {{ player.actualTeam }}</p>
+            <!-- Agrega más campos según necesites -->
+          </div>
         </div>
       </div>
     </div>
