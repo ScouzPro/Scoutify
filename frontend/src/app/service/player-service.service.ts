@@ -41,7 +41,9 @@ export class PlayerServiceService {
         actualTeam: player.actualTeam,
         id:player._id,
         photo: player.photo,
-        weight: player.weight
+        weight: player.weight,
+        nationality: player.nationality,
+        height:player.height
       }));
       return filteredData;
     } catch (error) {

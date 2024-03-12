@@ -9,7 +9,6 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 // import { PlayerMetricsComponent } from './components/pruebaMetrics/pruebaMetrics-component';
 
 
-
 @Component({
     selector: 'app-root',
     standalone: true,

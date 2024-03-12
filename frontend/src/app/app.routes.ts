@@ -6,31 +6,39 @@ import { AuthComponent } from './pages/auth/auth.component';
 import { HeroLandingComponent } from './components/hero-landing/hero-landing.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthRegComponent } from './pages/auth-reg/auth-reg.component';
+import { DetailComponent } from './pages/detail/detail.component';
+
 
 
 export const routes: Routes = [
     {
-        path:'',
+        path: '',
         component: HeroLandingComponent
     },
     {
-        path:'home',
+        path: 'home',
         component: HomeComponent
     },
-    { 
-        path: 'login', 
+    {
+        path: 'login',
         component: AuthComponent //autentificaciondel login
     },
-    { 
-        path: 'register', 
+    {
+        path: 'register',
         component: AuthRegComponent //auth registro
     },
-    {   path:'players',
-        component:PlayersComponent
+    {
+        path: 'players',
+        component: PlayersComponent
     },
     {
-        path:'reports',
-        component:ReportsComponent
+        path: 'reports',
+        component: ReportsComponent
     },
-    
+    {
+        path: 'detail/:id',
+        component: DetailComponent
+    },
+
 ];
+
