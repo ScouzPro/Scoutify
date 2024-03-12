@@ -57,7 +57,5 @@ export class PlayersComponent implements OnInit {
           return pasaFiltro;
         });
     }
-    convertWeightToString(weight: number): string {
-      return weight.toString();
-    }
+   
   }

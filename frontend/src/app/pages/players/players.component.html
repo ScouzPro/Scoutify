@@ -1,29 +1,31 @@
 <div>
-    <app-navbar></app-navbar>
+  <app-navbar></app-navbar>
 </div>
 <app-header-secondary></app-header-secondary>
 <app-header-detail></app-header-detail>
+
+
+ 
+
 <div>
-    <div *ngFor="let player of playersFollowed">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ player.name }}</h5>
-            <img src="{{player.photo}}" alt="Image of {{ player.name }}" class="card-img-top">
-            <p class="card-text">Actual Team: {{ player.actualTeam }}</p>
-            <p class="card-text">Peso: {{ player.weight}}</p>
-            <p class="card-text">Edad: {{ player.age }}</p>
-            <p class="card-text">Nacionalidad: {{ player.nationality }}</p>
-            <p class="card-text">Dorsal:{{ player.dorsal}}</p>
-            <p class="card-text">Pie dominante:{{ player.strongFoot}}</p>
-            <p class="card-text">Altura:{{ player.height}}</p>
-            <!-- Agrega más campos según necesites -->
-          </div>
-        </div>
+  <div *ngFor="let player of filteredPlayers">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ player.name }}</h5>
+        <img [src]="player.photo" alt="Image of {{ player.name }}" class="card-img-top">
+        <p class="card-text">Actual Team: {{ player.actualTeam }}</p>
+        <p class="card-text">Peso: {{ player.weight }}</p>
+        <p class="card-text">Edad: {{ player.age }}</p>
+        <p class="card-text">Nacionalidad: {{ player.nationality }}</p>
+        <p class="card-text">Dorsal: {{ player.dorsal }}</p>
+        <p class="card-text">Pie dominante: {{ player.strongFoot }}</p>
+        <p class="card-text">Altura: {{ player.height }}</p>
+        <!-- Agrega más campos según necesites -->
       </div>
     </div>
-
-  
-  <div>
-    <app-footer></app-footer>
   </div>
-  
+</div>
+
+<div>
+  <app-footer></app-footer>
+</div>
