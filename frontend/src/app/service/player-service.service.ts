@@ -39,7 +39,9 @@ export class PlayerServiceService {
       const filteredData = response.data.map((player: any) => ({
         name: player.name,
         actualTeam: player.actualTeam,
-        id:player._id
+        id:player._id,
+        photo: player.photo,
+        weight: player.weight
       }));
       return filteredData;
     } catch (error) {

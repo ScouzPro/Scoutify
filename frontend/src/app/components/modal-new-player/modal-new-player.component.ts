@@ -1,12 +1,13 @@
 import { Component} from '@angular/core';
 import { PlayerServiceService } from '../../service/player-service.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-modal-new-player',
   templateUrl: './modal-new-player.component.html',
   standalone: true,
-  imports :[FormsModule],
+  imports :[FormsModule, CommonModule],
   styleUrls: ['./modal-new-player.component.css']
 })
 export class ModalNewPlayerComponent{
