@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
     standalone: true,
     templateUrl: './players.component.html',
     styleUrls: ['./players.component.css'],
-    imports: [HeaderSecondaryComponent, HeaderDetailComponent, NavbarComponent, FooterComponent, CommonModule, NgxPaginationModule, FormsModule, RouterModule]
+    imports: [HeaderSecondaryComponent,  NavbarComponent, FooterComponent, CommonModule, NgxPaginationModule, FormsModule, RouterModule]
 })
 export class PlayersComponent implements OnInit {
     playersFollowed: any[] = [];

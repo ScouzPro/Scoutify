@@ -36,7 +36,7 @@ export const routes: Routes = [
         component: ReportsComponent
     },
     {
-        path: 'detail/:id',
+        path: 'player/:id',
         component: DetailComponent
     },
 

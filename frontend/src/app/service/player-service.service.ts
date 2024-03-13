@@ -39,6 +39,7 @@ export class PlayerServiceService {
       const filteredData = response.data.map((player: any) => ({
         name: player.name,
         actualTeam: player.actualTeam,
+        age:player.age,
         id:player._id,
         photo: player.photo,
         weight: player.weight,
@@ -51,27 +52,16 @@ export class PlayerServiceService {
       return []; // Retorna un arreglo vacío en caso de error
     }
   }
-
   async getPlayerById(playerId: string): Promise<any> {
+    
     try {
       const response = await axios.get(`http://localhost:3001/player/${playerId}`);
-      const player = response.data;
-  
-      // Filtrar los campos que necesitas
-      const filteredPlayer = {
-        name: player.name,
-        nationality: player.nationality,
-        weight: player.weight,
-        photo: player.photo,
-        height: player.height,
-        strongFoot: player.strongFoot
-      };
-  
-      return filteredPlayer;
+      console.log('Datos del jugador obtenidos:', response.data); // Agregar este console.log
+      
+      return response.data; // Devuelve directamente los datos de la respuesta
     } catch (error) {
       console.error(error);
       return null; // Retorna null en caso de error
     }
-  }
-    }
-
+}
+}  
