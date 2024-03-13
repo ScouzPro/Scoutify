@@ -55,11 +55,23 @@ export class PlayerServiceService {
   async getPlayerById(playerId: string): Promise<any> {
     try {
       const response = await axios.get(`http://localhost:3001/player/${playerId}`);
-      return response.data;
+      const player = response.data;
+  
+      // Filtrar los campos que necesitas
+      const filteredPlayer = {
+        name: player.name,
+        nationality: player.nationality,
+        weight: player.weight,
+        photo: player.photo,
+        height: player.height,
+        strongFoot: player.strongFoot
+      };
+  
+      return filteredPlayer;
     } catch (error) {
       console.error(error);
       return null; // Retorna null en caso de error
     }
   }
-}
+    }
 

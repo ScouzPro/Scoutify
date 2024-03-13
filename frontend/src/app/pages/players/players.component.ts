@@ -7,13 +7,14 @@ import { PlayerServiceService } from '../../service/player-service.service';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-players',
     standalone: true,
     templateUrl: './players.component.html',
     styleUrls: ['./players.component.css'],
-    imports: [HeaderSecondaryComponent, HeaderDetailComponent, NavbarComponent, FooterComponent, CommonModule, NgxPaginationModule, FormsModule]
+    imports: [HeaderSecondaryComponent, HeaderDetailComponent, NavbarComponent, FooterComponent, CommonModule, NgxPaginationModule, FormsModule, RouterModule]
 })
 export class PlayersComponent implements OnInit {
     playersFollowed: any[] = [];

@@ -48,10 +48,13 @@
         </label>
       </div>
     </div>
-    <button (click)="filtrarJugadores()" class="btn btn-primary">Aplicar
+    <button (click)="filtrarJugadores()" class="btn btn-primary" [style.background-color]="'#C84343'">Aplicar
       filtros</button>
-    <button (click)="limpiarFiltros()" class="btn btn-secondary ml-2">Limpiar
+    <button (click)="limpiarFiltros()" class="btn btn-secondary ml-2" [style.background-color]="'#142740'">Limpiar
       filtros</button>
+      <ng-template #noResults>
+        <div class="text-red-500">No se encontraron resultados.</div>
+      </ng-template>
   </aside>
 
   <div class="w-2/3 p-4">
@@ -66,12 +69,13 @@
             <p>{{player.actualTeam}}</p>
             <p>{{player.weight}}</p>
             <div class="card-actions justify-end">
-              <button class="btn btn-primary">Detalles</button>
+              <a [routerLink]="['/detail', player.id]" class="btn btn-primary">Detalles</a>
             </div>
           </div>
         </div>
       </div>
     </div>
+   
     <pagination-controls
       (pageChange)="currentPage = $event"
       previousLabel="Anterior"
