@@ -31,6 +31,7 @@ export class ReportsComponent implements OnInit {
         for (const player of this.players) {
           const metrics = await this.playerMetricService.getPlayerMetrics(player.id);
           this.playerMetricsMap.set(player.id, metrics);
+          console.log(metrics)
           
         }
       } catch (error) {

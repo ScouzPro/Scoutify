@@ -1,25 +1,15 @@
-<table class="min-w-full divide-y divide-gray-200">
-  <thead class="bg-gray-50">
-    <tr>
-      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        Name
-      </th>
-      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        Actual Team
-      </th>
-    </tr>
-  </thead>
-  <tbody class="bg-white divide-y divide-gray-200">
-    <tr *ngFor="let player of player">
-      <td class="px-6 py-4 whitespace-nowrap">
-        <div class="text-sm text-gray-900">{{ player.name }}</div>
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-        <div class="text-sm text-gray-900">{{ player.actualTeam }}</div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  <div *ngFor="let player of player" class="bg-white overflow-hidden shadow-md rounded-lg">
+    <img src="{{player.photo}}" alt="{{player.name}}" class="w-90 h-90"/>
+  </div>
+  <div *ngFor="let player of player" class="bg-white overflow-hidden shadow-md rounded-lg">
+    <div class="p-6">
+      <div class="text-2xl font-bold text-gray-900 mb-2">{{ player.name }}</div>
+      <div class="text-sm text-gray-500">{{ player.actualTeam }}</div>
+    </div>
+  </div>
+</div>
+
 <form (submit)="submitForm()" class="max-w-md mx-auto">
   <ul>
     <li class="mb-4">
