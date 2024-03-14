@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
     standalone: true,
     templateUrl: './players.component.html',
     styleUrls: ['./players.component.css'],
-    imports: [HeaderSecondaryComponent,  NavbarComponent, FooterComponent, CommonModule, NgxPaginationModule, FormsModule, RouterModule]
+    imports: [HeaderSecondaryComponent, NavbarComponent, FooterComponent, CommonModule, NgxPaginationModule, FormsModule, RouterModule]
 })
 export class PlayersComponent implements OnInit {
     playersFollowed: any[] = [];
@@ -27,13 +27,14 @@ export class PlayersComponent implements OnInit {
     estaturaFiltro: string | null = null;
     pageSize = 6; // Número de jugadores por página (3 filas x 3 columnas)
     currentPage = 1; // Página actual
-    nacionalidadesUnicas: string[] = ['España', 'Venezuela', 'Ecuador', 'Perú', 'México']; // Lista de nacionalidades
+    nacionalidadesUnicas: string[] = ['España', 'Venezuela', 'Ecuador', 'Perú', 'México','Colombia', 'Portugal', 'Francia','Alemania', 'Italia']; // Lista de nacionalidades
     rangosEdad: string[] = ['18-25', '26-30', '31-35', '36-40', '41+']; // Lista de rangos de edad
     rangosPeso: string[] = ['45-60', '61-80', '81-100', '101-130']; // Lista de rangos de peso
     rangosEstatura: string[] = ['140-160', '161-180', '181-200']; // Lista de rangos de estatura
     piesDominantes: string[] = ['Derecho', 'Izquierdo', 'Ambos']; // Lista de pies dominantes
+    resumenFiltros: string = '';
 
-    constructor(private playerService: PlayerServiceService) {}
+    constructor(private playerService: PlayerServiceService) { }
 
     ngOnInit() {
         this.loadPlayersFollowed();
@@ -49,6 +50,32 @@ export class PlayersComponent implements OnInit {
     }
 
     filtrarJugadores() {
+        let resumen = '';
+
+        if (this.equipoFiltro) {
+            resumen += `Equipo: ${this.equipoFiltro}, `;
+        }
+        if (this.posicionFiltro) {
+            resumen += `Posición: ${this.posicionFiltro}, `;
+        }
+        if (this.nacionalidadFiltro.length > 0) {
+            resumen += `Nacionalidad: ${this.nacionalidadFiltro}, `;
+        }
+        if (this.edadFiltro) {
+            resumen += `Rango de Edad: ${this.edadFiltro}, `;
+        }
+        if (this.pesoFiltro) {
+            resumen += `Rango de Peso: ${this.pesoFiltro}, `;
+        }
+        if (this.estaturaFiltro) {
+            resumen += `Rango de Estatura: ${this.estaturaFiltro}, `;
+        }
+        if (this.pieDominanteFilter) {
+            resumen += `Pie Dominante: ${this.pieDominanteFilter}, `;
+        }
+
+        this.resumenFiltros = resumen.slice(0, -2); // Eliminar la última coma y espacio
+
         this.filteredPlayers = this.playersFollowed.filter(player => {
             let pasaFiltro: boolean = true;
 
@@ -85,11 +112,23 @@ export class PlayersComponent implements OnInit {
                 }
             }
 
-            if (this.pieDominanteFilter && player.strongFoot.toLowerCase() !== this.pieDominanteFilter.toLowerCase()) {
+            if (this.pieDominanteFilter && player.strongFoot) {
+                const pieDominante = player.strongFoot.toLowerCase();
+                const filtroPieDominante = this.pieDominanteFilter.toLowerCase();
+
+                if (
+                    !(filtroPieDominante === 'derecho' && (pieDominante === 'derecho' || pieDominante === 'Derecho')) &&
+                    !(filtroPieDominante === 'izquierdo' && (pieDominante === 'izquierdo' || pieDominante === 'Izquierdo')) &&
+                    !(filtroPieDominante === 'ambos' && (pieDominante === 'ambos' || pieDominante === 'Ambos'))
+                ) {
+                    pasaFiltro = false;
+                }
+            } else if (this.pieDominanteFilter !== null) {
+                // Si hay un filtro seleccionado pero el jugador no tiene strongFoot definido, no pasa el filtro
                 pasaFiltro = false;
             }
-
             return pasaFiltro;
+
         });
 
         console.log('Datos filtrados:', this.filteredPlayers); // Mostrar los datos filtrados en la consola

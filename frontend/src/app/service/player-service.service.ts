@@ -45,7 +45,8 @@ export class PlayerServiceService {
         photo: player.photo,
         weight: player.weight,
         nationality: player.nationality,
-        height:player.height
+        height:player.height,
+        strongFoot:player.strongFoot
       }));
       return filteredData;
     } catch (error) {
