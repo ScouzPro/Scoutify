@@ -1,6 +1,6 @@
 import {
   withHttpTransferCache
-} from "./chunk-KQAXTARW.js";
+} from "./chunk-R7HZXNNQ.js";
 import {
   CommonModule,
   DOCUMENT,
@@ -11,7 +11,7 @@ import {
   isPlatformServer,
   parseCookieValue,
   setRootDomAdapter
-} from "./chunk-QODWSEAU.js";
+} from "./chunk-ZL35P7U7.js";
 import {
   APP_ID,
   ApplicationModule,
@@ -67,11 +67,11 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-K6PN74MK.js";
+} from "./chunk-K7ZVRKOS.js";
 import {
   __spreadProps,
   __spreadValues
-} from "./chunk-GLLL6ZVE.js";
+} from "./chunk-KCQM2ZJ3.js";
 
 // node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs
 var GenericBrowserDomAdapter = class extends DomAdapter {
@@ -253,7 +253,7 @@ var _EventManager = class _EventManager {
     const plugins = this._plugins;
     plugin = plugins.find((plugin2) => plugin2.supports(eventName));
     if (!plugin) {
-      throw new RuntimeError(5101, (typeof ngDevMode === "undefined" || ngDevMode) && `No event manager plugin found for event ${eventName}`);
+      throw new RuntimeError(5101, (typeof ngDevMode === "undefined" || ngDevMode) && "No event manager plugin found for event ".concat(eventName));
     }
     this._eventNameToPlugin.set(eventName, plugin);
     return plugin;
@@ -344,13 +344,15 @@ var _SharedStylesHost = class _SharedStylesHost {
     }
   }
   onStyleRemoved(style) {
+    var _a, _b;
     const styleRef = this.styleRef;
-    styleRef.get(style)?.elements?.forEach((node) => node.remove());
+    (_b = (_a = styleRef.get(style)) == null ? void 0 : _a.elements) == null ? void 0 : _b.forEach((node) => node.remove());
     styleRef.delete(style);
   }
   collectServerRenderedStyles() {
-    const styles = this.doc.head?.querySelectorAll(`style[${APP_ID_ATTRIBUTE_NAME}="${this.appId}"]`);
-    if (styles?.length) {
+    var _a;
+    const styles = (_a = this.doc.head) == null ? void 0 : _a.querySelectorAll("style[".concat(APP_ID_ATTRIBUTE_NAME, '="').concat(this.appId, '"]'));
+    if (styles == null ? void 0 : styles.length) {
       const styleMap = /* @__PURE__ */ new Map();
       styles.forEach((style) => {
         if (style.textContent != null) {
@@ -376,8 +378,8 @@ var _SharedStylesHost = class _SharedStylesHost {
   }
   getStyleElement(host, style) {
     const styleNodesInDOM = this.styleNodesInDOM;
-    const styleEl = styleNodesInDOM?.get(style);
-    if (styleEl?.parentNode === host) {
+    const styleEl = styleNodesInDOM == null ? void 0 : styleNodesInDOM.get(style);
+    if ((styleEl == null ? void 0 : styleEl.parentNode) === host) {
       styleNodesInDOM.delete(style);
       styleEl.removeAttribute(APP_ID_ATTRIBUTE_NAME);
       if (typeof ngDevMode === "undefined" || ngDevMode) {
@@ -398,9 +400,10 @@ var _SharedStylesHost = class _SharedStylesHost {
     }
   }
   addStyleToHost(host, style) {
+    var _a;
     const styleEl = this.getStyleElement(host, style);
     const styleRef = this.styleRef;
-    const styleElRef = styleRef.get(style)?.elements;
+    const styleElRef = (_a = styleRef.get(style)) == null ? void 0 : _a.elements;
     if (styleElRef) {
       styleElRef.push(styleEl);
     } else {
@@ -465,8 +468,8 @@ var NAMESPACE_URIS = {
 };
 var COMPONENT_REGEX = /%COMP%/g;
 var COMPONENT_VARIABLE = "%COMP%";
-var HOST_ATTR = `_nghost-${COMPONENT_VARIABLE}`;
-var CONTENT_ATTR = `_ngcontent-${COMPONENT_VARIABLE}`;
+var HOST_ATTR = "_nghost-".concat(COMPONENT_VARIABLE);
+var CONTENT_ATTR = "_ngcontent-".concat(COMPONENT_VARIABLE);
 var REMOVE_STYLES_ON_COMPONENT_DESTROY_DEFAULT = true;
 var REMOVE_STYLES_ON_COMPONENT_DESTROY = new InjectionToken(ngDevMode ? "RemoveStylesOnCompDestroy" : "", {
   providedIn: "root",
@@ -631,7 +634,7 @@ var DefaultDomRenderer2 = class {
   selectRootElement(selectorOrNode, preserveContent) {
     let el = typeof selectorOrNode === "string" ? this.doc.querySelector(selectorOrNode) : selectorOrNode;
     if (!el) {
-      throw new RuntimeError(-5104, (typeof ngDevMode === "undefined" || ngDevMode) && `The selector "${selectorOrNode}" did not match any elements`);
+      throw new RuntimeError(-5104, (typeof ngDevMode === "undefined" || ngDevMode) && 'The selector "'.concat(selectorOrNode, '" did not match any elements'));
     }
     if (!preserveContent) {
       el.textContent = "";
@@ -663,7 +666,7 @@ var DefaultDomRenderer2 = class {
       if (namespaceUri) {
         el.removeAttributeNS(namespaceUri, name);
       } else {
-        el.removeAttribute(`${namespace}:${name}`);
+        el.removeAttribute("".concat(namespace, ":").concat(name));
       }
     } else {
       el.removeAttribute(name);
@@ -704,7 +707,7 @@ var DefaultDomRenderer2 = class {
     if (typeof target === "string") {
       target = getDOM().getGlobalEventTarget(this.doc, target);
       if (!target) {
-        throw new Error(`Unsupported event target ${target} for event ${event}`);
+        throw new Error("Unsupported event target ".concat(target, " for event ").concat(event));
       }
     }
     return this.eventManager.addEventListener(target, event, this.decoratePreventDefault(callback));
@@ -725,9 +728,7 @@ var DefaultDomRenderer2 = class {
 var AT_CHARCODE = (() => "@".charCodeAt(0))();
 function checkNoSyntheticProp(name, nameKind) {
   if (name.charCodeAt(0) === AT_CHARCODE) {
-    throw new RuntimeError(5105, `Unexpected synthetic ${nameKind} ${name} found. Please make sure that:
-  - Either \`BrowserAnimationsModule\` or \`NoopAnimationsModule\` are imported in your application.
-  - There is corresponding configuration for the animation named \`${name}\` defined in the \`animations\` field of the \`@Component\` decorator (see https://angular.io/api/core/Component#animations).`);
+    throw new RuntimeError(5105, "Unexpected synthetic ".concat(nameKind, " ").concat(name, " found. Please make sure that:\n  - Either `BrowserAnimationsModule` or `NoopAnimationsModule` are imported in your application.\n  - There is corresponding configuration for the animation named `").concat(name, "` defined in the `animations` field of the `@Component` decorator (see https://angular.io/api/core/Component#animations)."));
   }
 }
 function isTemplateNode(node) {
@@ -1015,8 +1016,9 @@ function createApplication(options) {
   return internalCreateApplication(createProvidersConfig(options));
 }
 function createProvidersConfig(options) {
+  var _a;
   return {
-    appProviders: [...BROWSER_MODULE_PROVIDERS, ...options?.providers ?? []],
+    appProviders: [...BROWSER_MODULE_PROVIDERS, ...(_a = options == null ? void 0 : options.providers) != null ? _a : []],
     platformProviders: INTERNAL_BROWSER_PLATFORM_PROVIDERS
   };
 }
@@ -1092,7 +1094,7 @@ var BROWSER_MODULE_PROVIDERS = [{
 var _BrowserModule = class _BrowserModule {
   constructor(providersAlreadyPresent) {
     if ((typeof ngDevMode === "undefined" || ngDevMode) && providersAlreadyPresent) {
-      throw new RuntimeError(5100, `Providers from the \`BrowserModule\` have already been loaded. If you need access to common directives such as NgIf and NgFor, import the \`CommonModule\` instead.`);
+      throw new RuntimeError(5100, "Providers from the `BrowserModule` have already been loaded. If you need access to common directives such as NgIf and NgFor, import the `CommonModule` instead.");
     }
   }
   /**
@@ -1193,7 +1195,7 @@ var _Meta = class _Meta {
   getTag(attrSelector) {
     if (!attrSelector)
       return null;
-    return this._doc.querySelector(`meta[${attrSelector}]`) || null;
+    return this._doc.querySelector("meta[".concat(attrSelector, "]")) || null;
   }
   /**
    * Retrieves a set of `<meta>` tag elements in the current HTML document.
@@ -1204,7 +1206,7 @@ var _Meta = class _Meta {
   getTags(attrSelector) {
     if (!attrSelector)
       return [];
-    const list = this._doc.querySelectorAll(`meta[${attrSelector}]`);
+    const list = this._doc.querySelectorAll("meta[".concat(attrSelector, "]"));
     return list ? [].slice.call(list) : [];
   }
   /**
@@ -1262,7 +1264,7 @@ var _Meta = class _Meta {
   }
   _parseSelector(tag) {
     const attr = tag.name ? "name" : "property";
-    return `${attr}="${tag[attr]}"`;
+    return "".concat(attr, '="').concat(tag[attr], '"');
   }
   _containsAttributes(tag, elem) {
     return Object.keys(tag).every((key) => elem.getAttribute(this._getMetaKeyMap(key)) === tag[key]);
@@ -1388,8 +1390,8 @@ var AngularProfiler = class {
       console.profileEnd(profileName);
     }
     const msPerTick = (end - start) / numTicks;
-    console.log(`ran ${numTicks} change detection cycles`);
-    console.log(`${msPerTick.toFixed(2)} ms per check`);
+    console.log("ran ".concat(numTicks, " change detection cycles"));
+    console.log("".concat(msPerTick.toFixed(2), " ms per check"));
     return new ChangeDetectionPerfRecord(msPerTick, numTicks);
   }
 };
@@ -1536,7 +1538,7 @@ var _HammerGesturesPlugin = class _HammerGesturesPlugin extends EventManagerPlug
     }
     if (!window.Hammer && !this.loader) {
       if (typeof ngDevMode === "undefined" || ngDevMode) {
-        this.console.warn(`The "${eventName}" event cannot be bound because Hammer.JS is not loaded and no custom loader has been specified.`);
+        this.console.warn('The "'.concat(eventName, '" event cannot be bound because Hammer.JS is not ') + "loaded and no custom loader has been specified.");
       }
       return false;
     }
@@ -1554,7 +1556,7 @@ var _HammerGesturesPlugin = class _HammerGesturesPlugin extends EventManagerPlug
       zone.runOutsideAngular(() => this._loaderPromise.then(() => {
         if (!window.Hammer) {
           if (typeof ngDevMode === "undefined" || ngDevMode) {
-            this.console.warn(`The custom HAMMER_LOADER completed, but Hammer.JS is not present.`);
+            this.console.warn("The custom HAMMER_LOADER completed, but Hammer.JS is not present.");
           }
           deregister = () => {
           };
@@ -1565,7 +1567,7 @@ var _HammerGesturesPlugin = class _HammerGesturesPlugin extends EventManagerPlug
         }
       }).catch(() => {
         if (typeof ngDevMode === "undefined" || ngDevMode) {
-          this.console.warn(`The "${eventName}" event cannot be bound because the custom Hammer.JS loader failed.`);
+          this.console.warn('The "'.concat(eventName, '" event cannot be bound because the custom ') + "Hammer.JS loader failed.");
         }
         deregister = () => {
         };
@@ -1750,9 +1752,9 @@ var _DomSanitizerImpl = class _DomSanitizerImpl extends DomSanitizer {
         )) {
           return unwrapSafeValue(value);
         }
-        throw new RuntimeError(5201, (typeof ngDevMode === "undefined" || ngDevMode) && `unsafe value used in a resource URL context (see ${XSS_SECURITY_URL})`);
+        throw new RuntimeError(5201, (typeof ngDevMode === "undefined" || ngDevMode) && "unsafe value used in a resource URL context (see ".concat(XSS_SECURITY_URL, ")"));
       default:
-        throw new RuntimeError(5202, (typeof ngDevMode === "undefined" || ngDevMode) && `Unexpected SecurityContext ${ctx} (see ${XSS_SECURITY_URL})`);
+        throw new RuntimeError(5202, (typeof ngDevMode === "undefined" || ngDevMode) && "Unexpected SecurityContext ".concat(ctx, " (see ").concat(XSS_SECURITY_URL, ")"));
     }
   }
   bypassSecurityTrustHtml(value) {
@@ -1894,4 +1896,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-SYGTHEYQ.js.map
+//# sourceMappingURL=chunk-LQQKVDOG.js.map

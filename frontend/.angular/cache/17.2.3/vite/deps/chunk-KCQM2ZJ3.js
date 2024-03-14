@@ -6,7 +6,7 @@ var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __spreadValues = (a, b) => {
-  for (var prop in b ||= {})
+  for (var prop in b || (b = {}))
     if (__hasOwnProp.call(b, prop))
       __defNormalProp(a, prop, b[prop]);
   if (__getOwnPropSymbols)
@@ -61,4 +61,4 @@ export {
   __export,
   __async
 };
-//# sourceMappingURL=chunk-GLLL6ZVE.js.map
+//# sourceMappingURL=chunk-KCQM2ZJ3.js.map
