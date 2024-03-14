@@ -6,6 +6,7 @@ import { AuthComponent } from './pages/auth/auth.component';
 import { HeroLandingComponent } from './components/hero-landing/hero-landing.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NewReportComponent } from './pages/new-report/new-report.component';
+import { GraphComponent } from './components/pricipa-graph/graph.component';
 
 import { AuthRegComponent } from './pages/auth-reg/auth-reg.component';
 
@@ -38,5 +39,9 @@ export const routes: Routes = [
     {
         path: 'players/:id', // Ruta para el informe del jugador con un parámetro de ID
         component: NewReportComponent // Componente del informe del jugador
+    },
+    {
+        path: 'graph', // Ruta para el informe del jugador con un parámetro de ID
+        component: GraphComponent // Componente del informe del jugador
     },
 ];
