@@ -11,6 +11,7 @@ export class PlayerServiceService {
   async CreatePlayer(newPlayer: any) {
     try {
       // Aquí puedes incluir solo los campos que deseas enviar al servidor
+      // jejeje
       const playerData = {
         name: newPlayer.name,
         age: newPlayer.age,
@@ -39,7 +40,12 @@ export class PlayerServiceService {
       const filteredData = response.data.map((player: any) => ({
         name: player.name,
         actualTeam: player.actualTeam,
-        id:player._id
+        age:player.age,
+        id:player._id,
+        photo: player.photo,
+        weight: player.weight,
+        nationality: player.nationality,
+        height:player.height
       }));
       return filteredData;
     } catch (error) {
@@ -47,15 +53,16 @@ export class PlayerServiceService {
       return []; // Retorna un arreglo vacío en caso de error
     }
   }
-
   async getPlayerById(playerId: string): Promise<any> {
+    
     try {
       const response = await axios.get(`http://localhost:3001/player/${playerId}`);
-      return response.data;
+      console.log('Datos del jugador obtenidos:', response.data); // Agregar este console.log
+      
+      return response.data; // Devuelve directamente los datos de la respuesta
     } catch (error) {
       console.error(error);
       return null; // Retorna null en caso de error
     }
-  }
 }
-
+}  

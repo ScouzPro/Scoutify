@@ -1,106 +1,153 @@
-<div class="overflow-x-auto">
-  <table class="table-auto border-collapse w-full">
-    <tbody>
-      <ng-container *ngFor="let player of player">
-        <tr>
-          <td class="border px-4 py-2 text-center">
-            {{ player.name }}
-          </td>
-          <td class="border px-4 py-2 text-center">
-            {{ player.actualTeam }}
-          </td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
-</div>
-<div class="overflow-x-auto">
-  <table class="table-auto border-collapse w-full">
-    <thead>
-      <tr>
-        <th class="px-4 py-2 bg-gray-800 text-white">Habilidades Principales</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let metric of metrics">
-        <tr>
-          <td class="border px-4 py-2 text-center">
-            <ul class="list-none">
-              <li class="mb-2">Shot: {{ metric.principalSkills[0]?.shot }}</li>
-              <li class="mb-2">Heading: {{ metric.principalSkills[0]?.heading }}</li>
-              <li class="mb-2">Association: {{ metric.principalSkills[0]?.association }}</li>
-              <li class="mb-2">Right Foot: {{ metric.principalSkills[0]?.rightFoot }}</li>
-              <li class="mb-2">Left Foot: {{ metric.principalSkills[0]?.leftFoot }}</li>
-              <li class="mb-2">Long Passes: {{ metric.principalSkills[0]?.longPasses }}</li>
-              <li class="mb-2">Dribbling: {{ metric.principalSkills[0]?.dribbling }}</li>
-              <li class="mb-2">Reflexes: {{ metric.principalSkills[0]?.reflexes }}</li>
-              <li class="mb-2">Crosses: {{ metric.principalSkills[0]?.crosses }}</li>
-              <li class="mb-2">Overall Rating: {{ metric.principalSkills[0]?.overallRating }}</li>
-              <li class="mb-2">Total Principal Skills: {{ metric.principalSkills[0]?.totalPrincipalSkills }}</li>
-            </ul>
-          </td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  <div *ngFor="let player of player" class="bg-white overflow-hidden shadow-md rounded-lg">
+    <img src="{{player.photo}}" alt="{{player.name}}" class="w-90 h-90"/>
+  </div>
+  <div *ngFor="let player of player" class="bg-white overflow-hidden shadow-md rounded-lg">
+    <div class="p-6">
+      <div class="text-2xl font-bold text-gray-900 mb-2">{{ player.name }}</div>
+      <div class="text-sm text-gray-500">{{ player.actualTeam }}</div>
+    </div>
+  </div>
 </div>
 
-<div class="overflow-x-auto">
-  <table class="table-auto border-collapse w-full">
-    <thead>
-      <tr>
-        <th class="px-4 py-2 bg-gray-800 text-white">Habilidades Tácticas</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let metric of metrics">
-        <tr>
-          <td class="border px-4 py-2 text-center">
-            <ul class="list-none">
-              <li class="mb-2">Anticipation: {{ metric.tacticalSkills[0]?.anticipation }}</li>
-              <li class="mb-2">Placement: {{ metric.tacticalSkills[0]?.placement }}</li>
-              <li class="mb-2">Concentration: {{ metric.tacticalSkills[0]?.concentration }}</li>
-              <li class="mb-2">Forcefulness: {{ metric.tacticalSkills[0]?.forcefulness }}</li>
-              <li class="mb-2">Overlap: {{ metric.tacticalSkills[0]?.overlap }}</li>
-              <li class="mb-2">Off The Ball: {{ metric.tacticalSkills[0]?.offTheBall }}</li>
-              <li class="mb-2">Positioning: {{ metric.tacticalSkills[0]?.positioning }}</li>
-              <li class="mb-2">Game Vision: {{ metric.tacticalSkills[0]?.gameVision }}</li>
-              <li class="mb-2">Global Average: {{ metric.tacticalSkills[0]?.globalAverage }}</li>
-              <li class="mb-2">Total Tactical Skills: {{ metric.tacticalSkills[0]?.totalTacticalSkills }}</li>
-            </ul>
-          </td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
-</div>
+<form (submit)="submitForm()" class="max-w-md mx-auto">
+  <ul>
+    <li class="mb-4">
+      <label for="averageTotalSkills"  class="block text-center">Average Total Skills:</label>
+      <input type="number" name="averageTotalSkills" id="averageTotalSkills" placeholder="Average Total Skills" max="10" disabled [(ngModel)]="averageTotalSkills">
+    </li>
+    <li class="my-4">
+      <label>Principal Skills:</label>
+      <ul>
+        <li>
+          <label  for="shot">Shot:</label>
+          <input type="number" name="shot" id="shot" placeholder="Shot" max="10" [(ngModel)]="shot" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="heading">Heading:</label>
+          <input type="number" name="heading" id="heading" placeholder="Heading" max="10" [(ngModel)]="heading" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="association">Association:</label>
+          <input type="number" name="association" id="association" placeholder="Association" max="10" [(ngModel)]="association" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="rightFoot">Right Foot:</label>
+          <input type="number" name="rightFoot" id="rightFoot" placeholder="Right Foot" max="10" [(ngModel)]="rightFoot" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="leftFoot">Left Foot:</label>
+          <input type="number" name="leftFoot" id="leftFoot" placeholder="Left Foot" max="10" [(ngModel)]="leftFoot" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="longPasses">Long Passes:</label>
+          <input type="number" name="longPasses" id="longPasses" placeholder="Long Passes" max="10" [(ngModel)]="longPasses" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="dribbling">Dribbling:</label>
+          <input type="number" name="dribbling" id="dribbling" placeholder="Dribbling" max="10" [(ngModel)]="dribbling" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="reflexes">Reflexes:</label>
+          <input type="number" name="reflexes" id="reflexes" placeholder="Reflexes" max="10" [(ngModel)]="reflexes" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="crosses">Crosses:</label>
+          <input type="number" name="crosses" id="crosses" placeholder="Crosses" max="10" [(ngModel)]="crosses" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="totalPrincipalSkills">Total Principal Skills:</label>
+          <input type="number" name="totalPrincipalSkills" id="totalPrincipalSkills" placeholder="Total Principal Skills" max="10" disabled [(ngModel)]="totalPrincipalSkills">
+        </li>
+      </ul>
+    </li>
+    <li class="my-4">
+      <label>Tactical Skills:</label>
+      <ul>
+        <li>
+          <label for="anticipation">Anticipation:</label>
+          <input type="number" name="anticipation" id="anticipation" placeholder="Anticipation" max="10" [(ngModel)]="anticipation" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="placement">Placement:</label>
+          <input type="number" name="placement" id="placement" placeholder="Placement" max="10" [(ngModel)]="placement" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="concentration">Concentration:</label>
+          <input type="number" name="concentration" id="concentration" placeholder="Concentration" max="10" [(ngModel)]="concentration" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="forcefulness">Forcefulness:</label>
+          <input type="number" name="forcefulness" id="forcefulness" placeholder="Forcefulness" max="10" [(ngModel)]="forcefulness" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="overlap">Overlap:</label>
+          <input type="number" name="overlap" id="overlap" placeholder="Overlap" max="10" [(ngModel)]="overlap" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="offTheBall">Off The Ball:</label>
+          <input type="number" name="offTheBall" id="offTheBall" placeholder="Off The Ball" max="10" [(ngModel)]="offTheBall" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="positioning">Positioning:</label>
+          <input type="number" name="positioning" id="positioning" placeholder="Positioning" max="10" [(ngModel)]="positioning" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="gameVision">Game Vision:</label>
+          <input type="number" name="gameVision" id="gameVision" placeholder="Game Vision" max="10" [(ngModel)]="gameVision" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="totalTacticalSkills">Total Tactical Skills:</label>
+          <input type="number" name="totalTacticalSkills" id="totalTacticalSkills" placeholder="Total Tactical Skills" max="10" disabled [(ngModel)]="totalTacticalSkills">
+        </li>
+      </ul>
+    </li>
+    <li class="my-4">
+      <label>Physical Skills:</label>
+      <ul>
+        <li>
+          <label for="agility">Agility:</label>
+          <input type="number" name="agility" id="agility" placeholder="Agility" max="10" [(ngModel)]="agility" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="flexibility">Flexibility:</label>
+          <input type="number" name="flexibility" id="flexibility" placeholder="Flexibility" max="10" [(ngModel)]="flexibility" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="strength">Strength:</label>
+          <input type="number" name="strength" id="strength" placeholder="Strength" max="10" [(ngModel)]="strength" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="power">Power:</label>
+          <input type="number" name="power" id="power" placeholder="Power" max="10" [(ngModel)]="power" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="endurance">Endurance:</label>
+          <input type="number" name="endurance" id="endurance" placeholder="Endurance" max="10" [(ngModel)]="endurance" (ngModelChange)="calculateTotal()">
+        </li>
+        <li>
+          <label for="jumping" >Jumping:</label>
+          <input type="number" name="jumping" id="jumping" placeholder="Jumping" max="10" [(ngModel)]="jumping" (ngModelChange)="calculateTotal()">
+        </li>
+        <li class="flex items-center justify-between mb-4">
+          <label for="speed" class="block text-center">Speed:</label>
+          <input type="number" name="speed" id="speed" placeholder="Speed" max="10" [(ngModel)]="speed" (ngModelChange)="calculateTotal()">
+        </li>
+        <li class="flex items-center justify-between mb-4">
+          <label for="totalPhysicalSkills" class="block text-center">Total Physical Skills:</label>
+          <input type="number" name="totalPhysicalSkills" id="totalPhysicalSkills" placeholder="Total Physical Skills" max="10" disabled [(ngModel)]="totalPhysicalSkills">
+        </li>
+      </ul>
+    </li>
+    <li class="flex items-center justify-between mb-4">
+      <label for="matchSummary"  class="block text-center">Match Summary</label>
+      <input type="text" name="matchSummary" id="matchSummary" placeholder="Resume Match" [(ngModel)]="matchSummary">
+    </li>
+  </ul>
+  <!-- Submit Button -->
+  <button type="submit" class="w-full px-4 py-2 mt-4 text-white bg-blue-500 rounded-md focus:outline-none focus:ring focus:ring-blue-500">Submit</button>
+</form>
 
-<div class="overflow-x-auto">
-  <table class="table-auto border-collapse w-full">
-    <thead>
-      <tr>
-        <th class="px-4 py-2 bg-gray-800 text-white">Habilidades Físicas</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let metric of metrics">
-        <tr>
-          <td class="border px-4 py-2 text-center">
-            <ul class="list-none">
-              <li class="mb-2">Agility: {{ metric.physicalSkills[0]?.agility }}</li>
-              <li class="mb-2">Flexibility: {{ metric.physicalSkills[0]?.flexibility }}</li>
-              <li class="mb-2">Strength: {{ metric.physicalSkills[0]?.strength }}</li>
-              <li class="mb-2">Power: {{ metric.physicalSkills[0]?.power }}</li>
-              <li class="mb-2">Endurance: {{ metric.physicalSkills[0]?.endurance }}</li>
-              <li class="mb-2">Jumping: {{ metric.physicalSkills[0]?.jumping }}</li>
-              <li class="mb-2">Speed: {{ metric.physicalSkills[0]?.speed }}</li>
-              <li class="mb-2">Global Average: {{ metric.physicalSkills[0]?.globalAverage }}</li>
-              <li class="mb-2">Total Physical Skills: {{ metric.physicalSkills[0]?.totalPhysicalSkills }}</li>
-            </ul>
-          </td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
-</div>
+
+
 
