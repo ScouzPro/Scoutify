@@ -1,70 +1,70 @@
 {
-  "hash": "fe37de57",
-  "configHash": "9c38ed64",
-  "lockfileHash": "7f8758ed",
-  "browserHash": "1e8d46f8",
+  "hash": "3d663293",
+  "configHash": "47b75c05",
+  "lockfileHash": "9b4107a1",
+  "browserHash": "825c5d0f",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "33fe8f0e",
+      "fileHash": "b3a6e91e",
       "needsInterop": false
     },
     "@angular/common/http": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-      "fileHash": "3a023d96",
+      "fileHash": "f6c88afe",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "9f79d03f",
+      "fileHash": "2c4b0c6f",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "e105fb81",
+      "fileHash": "0ff80b3f",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "f5119985",
+      "fileHash": "673293ed",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "1daa8df2",
+      "fileHash": "2c00b6ce",
       "needsInterop": false
     },
     "axios": {
       "src": "../../../../../node_modules/axios/index.js",
       "file": "axios.js",
-      "fileHash": "907c05b3",
+      "fileHash": "9f82d427",
       "needsInterop": false
     },
     "ngx-pagination": {
       "src": "../../../../../node_modules/ngx-pagination/fesm2020/ngx-pagination.mjs",
       "file": "ngx-pagination.js",
-      "fileHash": "7995a163",
+      "fileHash": "50afa33e",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-SYGTHEYQ": {
-      "file": "chunk-SYGTHEYQ.js"
+    "chunk-LAYYVIQG": {
+      "file": "chunk-LAYYVIQG.js"
     },
-    "chunk-KQAXTARW": {
-      "file": "chunk-KQAXTARW.js"
+    "chunk-FHHGF4XE": {
+      "file": "chunk-FHHGF4XE.js"
     },
-    "chunk-QODWSEAU": {
-      "file": "chunk-QODWSEAU.js"
+    "chunk-TI6YBJNW": {
+      "file": "chunk-TI6YBJNW.js"
     },
-    "chunk-K6PN74MK": {
-      "file": "chunk-K6PN74MK.js"
+    "chunk-IFULXOSD": {
+      "file": "chunk-IFULXOSD.js"
     },
     "chunk-GLLL6ZVE": {
       "file": "chunk-GLLL6ZVE.js"
