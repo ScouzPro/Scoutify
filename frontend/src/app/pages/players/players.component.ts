@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderSecondaryComponent } from '../../components/header-secondary/header-secondary.component';
-import { HeaderDetailComponent } from '../../components/header-detail/header-detail.component';
 import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { FooterComponent } from "../../components/footer/footer.component";
 import { PlayerServiceService } from '../../service/player-service.service';

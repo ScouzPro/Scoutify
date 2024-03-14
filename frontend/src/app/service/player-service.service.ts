@@ -11,6 +11,7 @@ export class PlayerServiceService {
   async CreatePlayer(newPlayer: any) {
     try {
       // Aquí puedes incluir solo los campos que deseas enviar al servidor
+      // jejeje
       const playerData = {
         name: newPlayer.name,
         age: newPlayer.age,
