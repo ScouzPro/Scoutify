@@ -45,7 +45,9 @@ export class PlayerServiceService {
         photo: player.photo,
         weight: player.weight,
         nationality: player.nationality,
-        height:player.height
+        height:player.height,
+        dorsal:player.dorsal,
+        position:player.position
       }));
       return filteredData;
     } catch (error) {
@@ -64,5 +66,15 @@ export class PlayerServiceService {
       console.error(error);
       return null; // Retorna null en caso de error
     }
+}
+async deletePlayer(playerId: string): Promise<boolean> {
+  try {
+    const response = await axios.delete(`http://localhost:3001/player/${playerId}`);
+    console.log('Jugador eliminado:', response.data); // Agrega este console.log para verificar
+    return true; // Retorna true si la eliminación fue exitosa
+  } catch (error) {
+    console.error(error);
+    return false; // Retorna false si hubo algún error en la eliminación
+  }
 }
 }  

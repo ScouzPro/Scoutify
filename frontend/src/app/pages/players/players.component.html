@@ -70,6 +70,7 @@
             <p>{{player.weight}}</p>
             <div class="card-actions justify-end">
               <a [routerLink]="['/player', player.id]" class="btn btn-primary">Detalles</a>
+              <button (click)="eliminarJugador(player.id)" class="btn btn-danger ml-2">Eliminar</button>
             </div>
           </div>
         </div>
