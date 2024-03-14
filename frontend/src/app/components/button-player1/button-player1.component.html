@@ -1,0 +1,11 @@
+<button class="btn" (click)="openModal()">Choose first player</button>
+<dialog id="my_modal_3" class="modal" [(open)]="modalOpen">
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" (click)="closeModal()">✕</button>
+    </form>
+    <div *ngFor="let player of players">
+    <h3 class="skeleton font-bold text-lg m-4 text-center" style="cursor: pointer;" (click)="viewPlayerDetails(player.id)">{{ player.name }}</h3>
+  </div>
+  </div>
+</dialog>
