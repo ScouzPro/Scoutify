@@ -4,42 +4,50 @@ import { ReportsComponent } from './pages/reports/reports.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { HeroLandingComponent } from './components/hero-landing/hero-landing.component';
 import { HomeComponent } from './pages/home/home.component';
+import { AuthRegComponent } from './pages/auth-reg/auth-reg.component';
+import { DetailComponent } from './pages/detail/detail.component';
 import { NewReportComponent } from './pages/new-report/new-report.component';
 import { GraphComponent } from './pages/graph/graph.component';
-import { AuthRegComponent } from './pages/auth-reg/auth-reg.component';
+
 
 
 export const routes: Routes = [
     {
-        path:'',
+        path: '',
         component: HeroLandingComponent
     },
     {
-        path:'home',
+        path: 'home',
         component: HomeComponent
     },
-    { 
-        path: 'login', 
+    {
+        path: 'login',
         component: AuthComponent //autentificaciondel login
     },
-    { 
-        path: 'register', 
+    {
+        path: 'register',
         component: AuthRegComponent //auth registro
     },
-    {   path:'players',
-        component:PlayersComponent
+    {
+        path: 'players',
+        component: PlayersComponent
     },
     {
-        path:'reports',
-        component:ReportsComponent
-    },
-    
-    {
-        path: 'players/:id', // Ruta para el informe del jugador con un parámetro de ID
-        component: NewReportComponent // Componente del informe del jugador
+        path: 'reports',
+        component: ReportsComponent
     },
     {
-        path: 'graph', // Ruta para el informe del jugador con un parámetro de ID
-        component: GraphComponent // Componente del informe del jugador
+        path: 'player/:id',
+        component: DetailComponent
     },
+    {
+    path: 'players/:id',
+    component: NewReportComponent
+    },
+    {
+     path: 'graph',
+     component: GraphComponent
+    },
+
 ];
+

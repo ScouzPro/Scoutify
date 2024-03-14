@@ -1,24 +1,88 @@
 <div>
-    <app-navbar></app-navbar>
+  <app-navbar></app-navbar>
 </div>
 <app-header-secondary></app-header-secondary>
-<app-header-detail></app-header-detail>
-<div class="flex flex-wrap justify-around">
-    <div *ngFor="let player of playersFollowed">
-      <div class="card w-96 glass mb-10 h-96">
-        <figure><img src="{{player.photo}}" alt="{{player.name}}" class="w-70 h-50"/></figure>
-        <div class="card-body">
-          <h2 class="card-title">{{player.name}}</h2>
-          <p>{{player.actualTeam}}</p>
-          <p>{{player.weight}}</p>
-          <div class="card-actions justify-end">
-            <button class="btn btn-primary">Detalles</button>
+<main class="flex">
+  <aside class="w-1/3 p-4">
+    <!-- Filtros existentes -->
+    <label class="label">Nacionalidad</label>
+    <select [(ngModel)]="nacionalidadFiltro"
+      class="select select-bordered w-full">
+      <option value>Todas</option>
+      <option *ngFor="let nacionalidad of nacionalidadesUnicas"
+        [value]="nacionalidad">{{ nacionalidad }}</option>
+    </select>
+    <label class="label">Rango de Edad</label>
+    <div class="flex flex-wrap">
+      <div *ngFor="let rango of rangosEdad" class="form-control mr-2 mb-2">
+        <label class="label cursor-pointer">
+          <span class="label-text">{{ rango }}</span>
+          <input type="radio" [value]="rango" [(ngModel)]="edadFiltro" name="edadFiltro" class="radio checked:bg-primary" />
+        </label>
+      </div>
+    </div>
+    <label class="label">Rango de Peso</label>
+    <div class="flex flex-wrap">
+      <div *ngFor="let rango of rangosPeso" class="form-control mr-2 mb-2">
+        <label class="label cursor-pointer">
+          <span class="label-text">{{ rango }}</span>
+          <input type="radio" [value]="rango" [(ngModel)]="pesoFiltro" name="pesoFiltro" class="radio checked:bg-primary" />
+        </label>
+      </div>
+    </div>
+    <label class="label">Rango de Estatura</label>
+    <div class="flex flex-wrap">
+      <div *ngFor="let rango of rangosEstatura" class="form-control mr-2 mb-2">
+        <label class="label cursor-pointer">
+          <span class="label-text">{{ rango }}</span>
+          <input type="radio" [value]="rango" [(ngModel)]="estaturaFiltro" name="estaturaFiltro" class="radio checked:bg-primary" />
+        </label>
+      </div>
+    </div>
+    <label class="label">Pie Dominante</label>
+    <div class="flex">
+      <div *ngFor="let pie of piesDominantes" class="form-control mr-2">
+        <label class="label cursor-pointer">
+          <span class="label-text">{{ pie }}</span>
+          <input type="radio" [value]="pie" [(ngModel)]="pieDominanteFilter" name="pieDominante" class="radio checked:bg-primary" />
+        </label>
+      </div>
+    </div>
+    <button (click)="filtrarJugadores()" class="btn btn-primary" [style.background-color]="'#C84343'">Aplicar
+      filtros</button>
+    <button (click)="limpiarFiltros()" class="btn btn-secondary ml-2" [style.background-color]="'#142740'">Limpiar
+      filtros</button>
+      <ng-template #noResults>
+        <div class="text-red-500">No se encontraron resultados.</div>
+      </ng-template>
+  </aside>
+
+  <div class="w-2/3 p-4">
+    <div class="grid grid-cols-3 gap-4">
+      <div
+        *ngFor="let player of filteredPlayers | paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
+        <div class="card glass mb-10 h-96">
+          <figure><img src="{{player.photo}}" alt="{{player.name}}"
+              class="w-full h-48 object-cover" /></figure>
+          <div class="card-body">
+            <h2 class="card-title">{{player.name}}</h2>
+            <p>{{player.actualTeam}}</p>
+            <p>{{player.weight}}</p>
+            <div class="card-actions justify-end">
+              <a [routerLink]="['/player', player.id]" class="btn btn-primary">Detalles</a>
+            </div>
           </div>
         </div>
       </div>
-      </div>
-</div>
-
+    </div>
+   
+    <pagination-controls
+      (pageChange)="currentPage = $event"
+      previousLabel="Anterior"
+      nextLabel="Siguiente"
+      class="mt-4"></pagination-controls>
+  </div>
+</main>
 <div>
-    <app-footer></app-footer>
+  <app-footer></app-footer>
 </div>
