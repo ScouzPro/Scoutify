@@ -3354,7 +3354,12 @@ var EventEmitter_ = class extends Subject {
     this.__isAsync = isAsync;
   }
   emit(value) {
-    super.next(value);
+    const prevConsumer = setActiveConsumer(null);
+    try {
+      super.next(value);
+    } finally {
+      setActiveConsumer(prevConsumer);
+    }
   }
   subscribe(observerOrNext, error, complete) {
     let nextFn = observerOrNext;
@@ -3532,6 +3537,11 @@ function assertOneOf(value, ...validValues) {
   if (validValues.indexOf(value) !== -1)
     return true;
   throwError2(`Expected value to be one of ${JSON.stringify(validValues)} but was ${JSON.stringify(value)}.`);
+}
+function assertNotReactive(fn) {
+  if (getActiveConsumer() !== null) {
+    throwError2(`${fn}() should never be called in a reactive context.`);
+  }
 }
 var ChangeDetectionStrategy;
 (function(ChangeDetectionStrategy2) {
@@ -6153,6 +6163,7 @@ var R3Injector = class extends EnvironmentInjector {
   destroy() {
     this.assertNotDestroyed();
     this._destroyed = true;
+    const prevConsumer = setActiveConsumer(null);
     try {
       for (const service of this._ngOnDestroyHooks) {
         service.ngOnDestroy();
@@ -6166,6 +6177,7 @@ var R3Injector = class extends EnvironmentInjector {
       this.records.clear();
       this._ngOnDestroyHooks.clear();
       this.injectorDefTypes.clear();
+      setActiveConsumer(prevConsumer);
     }
   }
   onDestroy(callback) {
@@ -6245,6 +6257,7 @@ var R3Injector = class extends EnvironmentInjector {
   }
   /** @internal */
   resolveInjectorInitializers() {
+    const prevConsumer = setActiveConsumer(null);
     const previousInjector = setCurrentInjector(this);
     const previousInjectImplementation = setInjectImplementation(void 0);
     let prevInjectContext;
@@ -6263,6 +6276,7 @@ var R3Injector = class extends EnvironmentInjector {
       setCurrentInjector(previousInjector);
       setInjectImplementation(previousInjectImplementation);
       ngDevMode && setInjectorProfilerContext(prevInjectContext);
+      setActiveConsumer(prevConsumer);
     }
   }
   toString() {
@@ -6317,23 +6331,28 @@ var R3Injector = class extends EnvironmentInjector {
     this.records.set(token, record);
   }
   hydrate(token, record) {
-    if (ngDevMode && record.value === CIRCULAR) {
-      throwCyclicDependencyError(stringify(token));
-    } else if (record.value === NOT_YET) {
-      record.value = CIRCULAR;
-      if (ngDevMode) {
-        runInInjectorProfilerContext(this, token, () => {
+    const prevConsumer = setActiveConsumer(null);
+    try {
+      if (ngDevMode && record.value === CIRCULAR) {
+        throwCyclicDependencyError(stringify(token));
+      } else if (record.value === NOT_YET) {
+        record.value = CIRCULAR;
+        if (ngDevMode) {
+          runInInjectorProfilerContext(this, token, () => {
+            record.value = record.factory();
+            emitInstanceCreatedByInjectorEvent(record.value);
+          });
+        } else {
           record.value = record.factory();
-          emitInstanceCreatedByInjectorEvent(record.value);
-        });
-      } else {
-        record.value = record.factory();
+        }
       }
+      if (typeof record.value === "object" && record.value && hasOnDestroy(record.value)) {
+        this._ngOnDestroyHooks.add(record.value);
+      }
+      return record.value;
+    } finally {
+      setActiveConsumer(prevConsumer);
     }
-    if (typeof record.value === "object" && record.value && hasOnDestroy(record.value)) {
-      this._ngOnDestroyHooks.add(record.value);
-    }
-    return record.value;
   }
   injectableDefInScope(def) {
     if (!def.providedIn) {
@@ -8703,7 +8722,11 @@ function destroyLView(tView, lView) {
   }
 }
 function cleanUpView(tView, lView) {
-  if (!(lView[FLAGS] & 256)) {
+  if (lView[FLAGS] & 256) {
+    return;
+  }
+  const prevConsumer = setActiveConsumer(null);
+  try {
     lView[FLAGS] &= ~128;
     lView[FLAGS] |= 256;
     lView[REACTIVE_TEMPLATE_CONSUMER] && consumerDestroy(lView[REACTIVE_TEMPLATE_CONSUMER]);
@@ -8724,9 +8747,12 @@ function cleanUpView(tView, lView) {
       }
     }
     unregisterLView(lView);
+  } finally {
+    setActiveConsumer(prevConsumer);
   }
 }
 function processCleanups(tView, lView) {
+  ngDevMode && assertNotReactive(processCleanups.name);
   const tCleanup = tView.cleanup;
   const lCleanup = lView[CLEANUP];
   if (tCleanup !== null) {
@@ -8760,6 +8786,7 @@ function processCleanups(tView, lView) {
   }
 }
 function executeOnDestroys(tView, lView) {
+  ngDevMode && assertNotReactive(executeOnDestroys.name);
   let destroyHooks;
   if (tView != null && (destroyHooks = tView.destroyHooks) != null) {
     for (let i = 0; i < destroyHooks.length; i += 2) {
@@ -10038,6 +10065,7 @@ function syncViewWithBlueprint(tView, lView) {
 }
 function renderView(tView, lView, context2) {
   ngDevMode && assertEqual(isCreationMode(lView), true, "Should be run in creation mode");
+  ngDevMode && assertNotReactive(renderView.name);
   enterView(lView);
   try {
     const viewQuery = tView.viewQuery;
@@ -10079,21 +10107,26 @@ function renderChildComponents(hostLView, components) {
   }
 }
 function createAndRenderEmbeddedLView(declarationLView, templateTNode, context2, options) {
-  const embeddedTView = templateTNode.tView;
-  ngDevMode && assertDefined(embeddedTView, "TView must be defined for a template node.");
-  ngDevMode && assertTNodeForLView(templateTNode, declarationLView);
-  const isSignalView = declarationLView[FLAGS] & 4096;
-  const viewFlags = isSignalView ? 4096 : 16;
-  const embeddedLView = createLView(declarationLView, embeddedTView, context2, viewFlags, null, templateTNode, null, null, null, options?.injector ?? null, options?.dehydratedView ?? null);
-  const declarationLContainer = declarationLView[templateTNode.index];
-  ngDevMode && assertLContainer(declarationLContainer);
-  embeddedLView[DECLARATION_LCONTAINER] = declarationLContainer;
-  const declarationViewLQueries = declarationLView[QUERIES];
-  if (declarationViewLQueries !== null) {
-    embeddedLView[QUERIES] = declarationViewLQueries.createEmbeddedView(embeddedTView);
+  const prevConsumer = setActiveConsumer(null);
+  try {
+    const embeddedTView = templateTNode.tView;
+    ngDevMode && assertDefined(embeddedTView, "TView must be defined for a template node.");
+    ngDevMode && assertTNodeForLView(templateTNode, declarationLView);
+    const isSignalView = declarationLView[FLAGS] & 4096;
+    const viewFlags = isSignalView ? 4096 : 16;
+    const embeddedLView = createLView(declarationLView, embeddedTView, context2, viewFlags, null, templateTNode, null, null, null, options?.injector ?? null, options?.dehydratedView ?? null);
+    const declarationLContainer = declarationLView[templateTNode.index];
+    ngDevMode && assertLContainer(declarationLContainer);
+    embeddedLView[DECLARATION_LCONTAINER] = declarationLContainer;
+    const declarationViewLQueries = declarationLView[QUERIES];
+    if (declarationViewLQueries !== null) {
+      embeddedLView[QUERIES] = declarationViewLQueries.createEmbeddedView(embeddedTView);
+    }
+    renderView(embeddedTView, embeddedLView, context2);
+    return embeddedLView;
+  } finally {
+    setActiveConsumer(prevConsumer);
   }
-  renderView(embeddedTView, embeddedLView, context2);
-  return embeddedLView;
 }
 function getLViewFromLContainer(lContainer, index) {
   const adjustedIndex = CONTAINER_HEADER_OFFSET + index;
@@ -11375,1032 +11408,6 @@ _Sanitizer.ɵprov = ɵɵdefineInjectable({
 });
 var Sanitizer = _Sanitizer;
 var NOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR = {};
-function isSignal(value) {
-  return typeof value === "function" && value[SIGNAL] !== void 0;
-}
-var markedFeatures = /* @__PURE__ */ new Set();
-function performanceMarkFeature(feature) {
-  if (markedFeatures.has(feature)) {
-    return;
-  }
-  markedFeatures.add(feature);
-  performance?.mark?.("mark_feature_usage", { detail: { feature } });
-}
-function computed(computation, options) {
-  performanceMarkFeature("NgSignals");
-  const getter = createComputed(computation);
-  if (options?.equal) {
-    getter[SIGNAL].equal = options.equal;
-  }
-  if (ngDevMode) {
-    getter.toString = () => `[Computed: ${getter()}]`;
-  }
-  return getter;
-}
-var WRITABLE_SIGNAL = Symbol("WRITABLE_SIGNAL");
-function ɵunwrapWritableSignal(value) {
-  return null;
-}
-function signal(initialValue, options) {
-  performanceMarkFeature("NgSignals");
-  const signalFn = createSignal(initialValue);
-  const node = signalFn[SIGNAL];
-  if (options?.equal) {
-    node.equal = options.equal;
-  }
-  signalFn.set = (newValue) => signalSetFn(node, newValue);
-  signalFn.update = (updateFn) => signalUpdateFn(node, updateFn);
-  signalFn.asReadonly = signalAsReadonlyFn.bind(signalFn);
-  if (ngDevMode) {
-    signalFn.toString = () => `[Signal: ${signalFn()}]`;
-  }
-  return signalFn;
-}
-function signalAsReadonlyFn() {
-  const node = this[SIGNAL];
-  if (node.readonlyFn === void 0) {
-    const readonlyFn = () => this();
-    readonlyFn[SIGNAL] = node;
-    node.readonlyFn = readonlyFn;
-  }
-  return node.readonlyFn;
-}
-function isWritableSignal(value) {
-  return isSignal(value) && typeof value.set === "function";
-}
-function untracked(nonReactiveReadsFn) {
-  const prevConsumer = setActiveConsumer(null);
-  try {
-    return nonReactiveReadsFn();
-  } finally {
-    setActiveConsumer(prevConsumer);
-  }
-}
-function isListLikeIterable(obj) {
-  if (!isJsObject(obj))
-    return false;
-  return Array.isArray(obj) || !(obj instanceof Map) && // JS Map are iterables but return entries as [k, v]
-  Symbol.iterator in obj;
-}
-function areIterablesEqual(a, b, comparator) {
-  const iterator1 = a[Symbol.iterator]();
-  const iterator2 = b[Symbol.iterator]();
-  while (true) {
-    const item1 = iterator1.next();
-    const item2 = iterator2.next();
-    if (item1.done && item2.done)
-      return true;
-    if (item1.done || item2.done)
-      return false;
-    if (!comparator(item1.value, item2.value))
-      return false;
-  }
-}
-function iterateListLike(obj, fn) {
-  if (Array.isArray(obj)) {
-    for (let i = 0; i < obj.length; i++) {
-      fn(obj[i]);
-    }
-  } else {
-    const iterator2 = obj[Symbol.iterator]();
-    let item;
-    while (!(item = iterator2.next()).done) {
-      fn(item.value);
-    }
-  }
-}
-function isJsObject(o) {
-  return o !== null && (typeof o === "function" || typeof o === "object");
-}
-var DefaultIterableDifferFactory = class {
-  constructor() {
-  }
-  supports(obj) {
-    return isListLikeIterable(obj);
-  }
-  create(trackByFn) {
-    return new DefaultIterableDiffer(trackByFn);
-  }
-};
-var trackByIdentity = (index, item) => item;
-var DefaultIterableDiffer = class {
-  constructor(trackByFn) {
-    this.length = 0;
-    this._linkedRecords = null;
-    this._unlinkedRecords = null;
-    this._previousItHead = null;
-    this._itHead = null;
-    this._itTail = null;
-    this._additionsHead = null;
-    this._additionsTail = null;
-    this._movesHead = null;
-    this._movesTail = null;
-    this._removalsHead = null;
-    this._removalsTail = null;
-    this._identityChangesHead = null;
-    this._identityChangesTail = null;
-    this._trackByFn = trackByFn || trackByIdentity;
-  }
-  forEachItem(fn) {
-    let record;
-    for (record = this._itHead; record !== null; record = record._next) {
-      fn(record);
-    }
-  }
-  forEachOperation(fn) {
-    let nextIt = this._itHead;
-    let nextRemove = this._removalsHead;
-    let addRemoveOffset = 0;
-    let moveOffsets = null;
-    while (nextIt || nextRemove) {
-      const record = !nextRemove || nextIt && nextIt.currentIndex < getPreviousIndex(nextRemove, addRemoveOffset, moveOffsets) ? nextIt : nextRemove;
-      const adjPreviousIndex = getPreviousIndex(record, addRemoveOffset, moveOffsets);
-      const currentIndex = record.currentIndex;
-      if (record === nextRemove) {
-        addRemoveOffset--;
-        nextRemove = nextRemove._nextRemoved;
-      } else {
-        nextIt = nextIt._next;
-        if (record.previousIndex == null) {
-          addRemoveOffset++;
-        } else {
-          if (!moveOffsets)
-            moveOffsets = [];
-          const localMovePreviousIndex = adjPreviousIndex - addRemoveOffset;
-          const localCurrentIndex = currentIndex - addRemoveOffset;
-          if (localMovePreviousIndex != localCurrentIndex) {
-            for (let i = 0; i < localMovePreviousIndex; i++) {
-              const offset = i < moveOffsets.length ? moveOffsets[i] : moveOffsets[i] = 0;
-              const index = offset + i;
-              if (localCurrentIndex <= index && index < localMovePreviousIndex) {
-                moveOffsets[i] = offset + 1;
-              }
-            }
-            const previousIndex = record.previousIndex;
-            moveOffsets[previousIndex] = localCurrentIndex - localMovePreviousIndex;
-          }
-        }
-      }
-      if (adjPreviousIndex !== currentIndex) {
-        fn(record, adjPreviousIndex, currentIndex);
-      }
-    }
-  }
-  forEachPreviousItem(fn) {
-    let record;
-    for (record = this._previousItHead; record !== null; record = record._nextPrevious) {
-      fn(record);
-    }
-  }
-  forEachAddedItem(fn) {
-    let record;
-    for (record = this._additionsHead; record !== null; record = record._nextAdded) {
-      fn(record);
-    }
-  }
-  forEachMovedItem(fn) {
-    let record;
-    for (record = this._movesHead; record !== null; record = record._nextMoved) {
-      fn(record);
-    }
-  }
-  forEachRemovedItem(fn) {
-    let record;
-    for (record = this._removalsHead; record !== null; record = record._nextRemoved) {
-      fn(record);
-    }
-  }
-  forEachIdentityChange(fn) {
-    let record;
-    for (record = this._identityChangesHead; record !== null; record = record._nextIdentityChange) {
-      fn(record);
-    }
-  }
-  diff(collection) {
-    if (collection == null)
-      collection = [];
-    if (!isListLikeIterable(collection)) {
-      throw new RuntimeError(900, ngDevMode && `Error trying to diff '${stringify(collection)}'. Only arrays and iterables are allowed`);
-    }
-    if (this.check(collection)) {
-      return this;
-    } else {
-      return null;
-    }
-  }
-  onDestroy() {
-  }
-  check(collection) {
-    this._reset();
-    let record = this._itHead;
-    let mayBeDirty = false;
-    let index;
-    let item;
-    let itemTrackBy;
-    if (Array.isArray(collection)) {
-      this.length = collection.length;
-      for (let index2 = 0; index2 < this.length; index2++) {
-        item = collection[index2];
-        itemTrackBy = this._trackByFn(index2, item);
-        if (record === null || !Object.is(record.trackById, itemTrackBy)) {
-          record = this._mismatch(record, item, itemTrackBy, index2);
-          mayBeDirty = true;
-        } else {
-          if (mayBeDirty) {
-            record = this._verifyReinsertion(record, item, itemTrackBy, index2);
-          }
-          if (!Object.is(record.item, item))
-            this._addIdentityChange(record, item);
-        }
-        record = record._next;
-      }
-    } else {
-      index = 0;
-      iterateListLike(collection, (item2) => {
-        itemTrackBy = this._trackByFn(index, item2);
-        if (record === null || !Object.is(record.trackById, itemTrackBy)) {
-          record = this._mismatch(record, item2, itemTrackBy, index);
-          mayBeDirty = true;
-        } else {
-          if (mayBeDirty) {
-            record = this._verifyReinsertion(record, item2, itemTrackBy, index);
-          }
-          if (!Object.is(record.item, item2))
-            this._addIdentityChange(record, item2);
-        }
-        record = record._next;
-        index++;
-      });
-      this.length = index;
-    }
-    this._truncate(record);
-    this.collection = collection;
-    return this.isDirty;
-  }
-  /* CollectionChanges is considered dirty if it has any additions, moves, removals, or identity
-   * changes.
-   */
-  get isDirty() {
-    return this._additionsHead !== null || this._movesHead !== null || this._removalsHead !== null || this._identityChangesHead !== null;
-  }
-  /**
-   * Reset the state of the change objects to show no changes. This means set previousKey to
-   * currentKey, and clear all of the queues (additions, moves, removals).
-   * Set the previousIndexes of moved and added items to their currentIndexes
-   * Reset the list of additions, moves and removals
-   *
-   * @internal
-   */
-  _reset() {
-    if (this.isDirty) {
-      let record;
-      for (record = this._previousItHead = this._itHead; record !== null; record = record._next) {
-        record._nextPrevious = record._next;
-      }
-      for (record = this._additionsHead; record !== null; record = record._nextAdded) {
-        record.previousIndex = record.currentIndex;
-      }
-      this._additionsHead = this._additionsTail = null;
-      for (record = this._movesHead; record !== null; record = record._nextMoved) {
-        record.previousIndex = record.currentIndex;
-      }
-      this._movesHead = this._movesTail = null;
-      this._removalsHead = this._removalsTail = null;
-      this._identityChangesHead = this._identityChangesTail = null;
-    }
-  }
-  /**
-   * This is the core function which handles differences between collections.
-   *
-   * - `record` is the record which we saw at this position last time. If null then it is a new
-   *   item.
-   * - `item` is the current item in the collection
-   * - `index` is the position of the item in the collection
-   *
-   * @internal
-   */
-  _mismatch(record, item, itemTrackBy, index) {
-    let previousRecord;
-    if (record === null) {
-      previousRecord = this._itTail;
-    } else {
-      previousRecord = record._prev;
-      this._remove(record);
-    }
-    record = this._unlinkedRecords === null ? null : this._unlinkedRecords.get(itemTrackBy, null);
-    if (record !== null) {
-      if (!Object.is(record.item, item))
-        this._addIdentityChange(record, item);
-      this._reinsertAfter(record, previousRecord, index);
-    } else {
-      record = this._linkedRecords === null ? null : this._linkedRecords.get(itemTrackBy, index);
-      if (record !== null) {
-        if (!Object.is(record.item, item))
-          this._addIdentityChange(record, item);
-        this._moveAfter(record, previousRecord, index);
-      } else {
-        record = this._addAfter(new IterableChangeRecord_(item, itemTrackBy), previousRecord, index);
-      }
-    }
-    return record;
-  }
-  /**
-   * This check is only needed if an array contains duplicates. (Short circuit of nothing dirty)
-   *
-   * Use case: `[a, a]` => `[b, a, a]`
-   *
-   * If we did not have this check then the insertion of `b` would:
-   *   1) evict first `a`
-   *   2) insert `b` at `0` index.
-   *   3) leave `a` at index `1` as is. <-- this is wrong!
-   *   3) reinsert `a` at index 2. <-- this is wrong!
-   *
-   * The correct behavior is:
-   *   1) evict first `a`
-   *   2) insert `b` at `0` index.
-   *   3) reinsert `a` at index 1.
-   *   3) move `a` at from `1` to `2`.
-   *
-   *
-   * Double check that we have not evicted a duplicate item. We need to check if the item type may
-   * have already been removed:
-   * The insertion of b will evict the first 'a'. If we don't reinsert it now it will be reinserted
-   * at the end. Which will show up as the two 'a's switching position. This is incorrect, since a
-   * better way to think of it is as insert of 'b' rather then switch 'a' with 'b' and then add 'a'
-   * at the end.
-   *
-   * @internal
-   */
-  _verifyReinsertion(record, item, itemTrackBy, index) {
-    let reinsertRecord = this._unlinkedRecords === null ? null : this._unlinkedRecords.get(itemTrackBy, null);
-    if (reinsertRecord !== null) {
-      record = this._reinsertAfter(reinsertRecord, record._prev, index);
-    } else if (record.currentIndex != index) {
-      record.currentIndex = index;
-      this._addToMoves(record, index);
-    }
-    return record;
-  }
-  /**
-   * Get rid of any excess {@link IterableChangeRecord_}s from the previous collection
-   *
-   * - `record` The first excess {@link IterableChangeRecord_}.
-   *
-   * @internal
-   */
-  _truncate(record) {
-    while (record !== null) {
-      const nextRecord = record._next;
-      this._addToRemovals(this._unlink(record));
-      record = nextRecord;
-    }
-    if (this._unlinkedRecords !== null) {
-      this._unlinkedRecords.clear();
-    }
-    if (this._additionsTail !== null) {
-      this._additionsTail._nextAdded = null;
-    }
-    if (this._movesTail !== null) {
-      this._movesTail._nextMoved = null;
-    }
-    if (this._itTail !== null) {
-      this._itTail._next = null;
-    }
-    if (this._removalsTail !== null) {
-      this._removalsTail._nextRemoved = null;
-    }
-    if (this._identityChangesTail !== null) {
-      this._identityChangesTail._nextIdentityChange = null;
-    }
-  }
-  /** @internal */
-  _reinsertAfter(record, prevRecord, index) {
-    if (this._unlinkedRecords !== null) {
-      this._unlinkedRecords.remove(record);
-    }
-    const prev = record._prevRemoved;
-    const next = record._nextRemoved;
-    if (prev === null) {
-      this._removalsHead = next;
-    } else {
-      prev._nextRemoved = next;
-    }
-    if (next === null) {
-      this._removalsTail = prev;
-    } else {
-      next._prevRemoved = prev;
-    }
-    this._insertAfter(record, prevRecord, index);
-    this._addToMoves(record, index);
-    return record;
-  }
-  /** @internal */
-  _moveAfter(record, prevRecord, index) {
-    this._unlink(record);
-    this._insertAfter(record, prevRecord, index);
-    this._addToMoves(record, index);
-    return record;
-  }
-  /** @internal */
-  _addAfter(record, prevRecord, index) {
-    this._insertAfter(record, prevRecord, index);
-    if (this._additionsTail === null) {
-      this._additionsTail = this._additionsHead = record;
-    } else {
-      this._additionsTail = this._additionsTail._nextAdded = record;
-    }
-    return record;
-  }
-  /** @internal */
-  _insertAfter(record, prevRecord, index) {
-    const next = prevRecord === null ? this._itHead : prevRecord._next;
-    record._next = next;
-    record._prev = prevRecord;
-    if (next === null) {
-      this._itTail = record;
-    } else {
-      next._prev = record;
-    }
-    if (prevRecord === null) {
-      this._itHead = record;
-    } else {
-      prevRecord._next = record;
-    }
-    if (this._linkedRecords === null) {
-      this._linkedRecords = new _DuplicateMap();
-    }
-    this._linkedRecords.put(record);
-    record.currentIndex = index;
-    return record;
-  }
-  /** @internal */
-  _remove(record) {
-    return this._addToRemovals(this._unlink(record));
-  }
-  /** @internal */
-  _unlink(record) {
-    if (this._linkedRecords !== null) {
-      this._linkedRecords.remove(record);
-    }
-    const prev = record._prev;
-    const next = record._next;
-    if (prev === null) {
-      this._itHead = next;
-    } else {
-      prev._next = next;
-    }
-    if (next === null) {
-      this._itTail = prev;
-    } else {
-      next._prev = prev;
-    }
-    return record;
-  }
-  /** @internal */
-  _addToMoves(record, toIndex) {
-    if (record.previousIndex === toIndex) {
-      return record;
-    }
-    if (this._movesTail === null) {
-      this._movesTail = this._movesHead = record;
-    } else {
-      this._movesTail = this._movesTail._nextMoved = record;
-    }
-    return record;
-  }
-  _addToRemovals(record) {
-    if (this._unlinkedRecords === null) {
-      this._unlinkedRecords = new _DuplicateMap();
-    }
-    this._unlinkedRecords.put(record);
-    record.currentIndex = null;
-    record._nextRemoved = null;
-    if (this._removalsTail === null) {
-      this._removalsTail = this._removalsHead = record;
-      record._prevRemoved = null;
-    } else {
-      record._prevRemoved = this._removalsTail;
-      this._removalsTail = this._removalsTail._nextRemoved = record;
-    }
-    return record;
-  }
-  /** @internal */
-  _addIdentityChange(record, item) {
-    record.item = item;
-    if (this._identityChangesTail === null) {
-      this._identityChangesTail = this._identityChangesHead = record;
-    } else {
-      this._identityChangesTail = this._identityChangesTail._nextIdentityChange = record;
-    }
-    return record;
-  }
-};
-var IterableChangeRecord_ = class {
-  constructor(item, trackById) {
-    this.item = item;
-    this.trackById = trackById;
-    this.currentIndex = null;
-    this.previousIndex = null;
-    this._nextPrevious = null;
-    this._prev = null;
-    this._next = null;
-    this._prevDup = null;
-    this._nextDup = null;
-    this._prevRemoved = null;
-    this._nextRemoved = null;
-    this._nextAdded = null;
-    this._nextMoved = null;
-    this._nextIdentityChange = null;
-  }
-};
-var _DuplicateItemRecordList = class {
-  constructor() {
-    this._head = null;
-    this._tail = null;
-  }
-  /**
-   * Append the record to the list of duplicates.
-   *
-   * Note: by design all records in the list of duplicates hold the same value in record.item.
-   */
-  add(record) {
-    if (this._head === null) {
-      this._head = this._tail = record;
-      record._nextDup = null;
-      record._prevDup = null;
-    } else {
-      this._tail._nextDup = record;
-      record._prevDup = this._tail;
-      record._nextDup = null;
-      this._tail = record;
-    }
-  }
-  // Returns a IterableChangeRecord_ having IterableChangeRecord_.trackById == trackById and
-  // IterableChangeRecord_.currentIndex >= atOrAfterIndex
-  get(trackById, atOrAfterIndex) {
-    let record;
-    for (record = this._head; record !== null; record = record._nextDup) {
-      if ((atOrAfterIndex === null || atOrAfterIndex <= record.currentIndex) && Object.is(record.trackById, trackById)) {
-        return record;
-      }
-    }
-    return null;
-  }
-  /**
-   * Remove one {@link IterableChangeRecord_} from the list of duplicates.
-   *
-   * Returns whether the list of duplicates is empty.
-   */
-  remove(record) {
-    const prev = record._prevDup;
-    const next = record._nextDup;
-    if (prev === null) {
-      this._head = next;
-    } else {
-      prev._nextDup = next;
-    }
-    if (next === null) {
-      this._tail = prev;
-    } else {
-      next._prevDup = prev;
-    }
-    return this._head === null;
-  }
-};
-var _DuplicateMap = class {
-  constructor() {
-    this.map = /* @__PURE__ */ new Map();
-  }
-  put(record) {
-    const key = record.trackById;
-    let duplicates = this.map.get(key);
-    if (!duplicates) {
-      duplicates = new _DuplicateItemRecordList();
-      this.map.set(key, duplicates);
-    }
-    duplicates.add(record);
-  }
-  /**
-   * Retrieve the `value` using key. Because the IterableChangeRecord_ value may be one which we
-   * have already iterated over, we use the `atOrAfterIndex` to pretend it is not there.
-   *
-   * Use case: `[a, b, c, a, a]` if we are at index `3` which is the second `a` then asking if we
-   * have any more `a`s needs to return the second `a`.
-   */
-  get(trackById, atOrAfterIndex) {
-    const key = trackById;
-    const recordList = this.map.get(key);
-    return recordList ? recordList.get(trackById, atOrAfterIndex) : null;
-  }
-  /**
-   * Removes a {@link IterableChangeRecord_} from the list of duplicates.
-   *
-   * The list of duplicates also is removed from the map if it gets empty.
-   */
-  remove(record) {
-    const key = record.trackById;
-    const recordList = this.map.get(key);
-    if (recordList.remove(record)) {
-      this.map.delete(key);
-    }
-    return record;
-  }
-  get isEmpty() {
-    return this.map.size === 0;
-  }
-  clear() {
-    this.map.clear();
-  }
-};
-function getPreviousIndex(item, addRemoveOffset, moveOffsets) {
-  const previousIndex = item.previousIndex;
-  if (previousIndex === null)
-    return previousIndex;
-  let moveOffset = 0;
-  if (moveOffsets && previousIndex < moveOffsets.length) {
-    moveOffset = moveOffsets[previousIndex];
-  }
-  return previousIndex + addRemoveOffset + moveOffset;
-}
-var DefaultKeyValueDifferFactory = class {
-  constructor() {
-  }
-  supports(obj) {
-    return obj instanceof Map || isJsObject(obj);
-  }
-  create() {
-    return new DefaultKeyValueDiffer();
-  }
-};
-var DefaultKeyValueDiffer = class {
-  constructor() {
-    this._records = /* @__PURE__ */ new Map();
-    this._mapHead = null;
-    this._appendAfter = null;
-    this._previousMapHead = null;
-    this._changesHead = null;
-    this._changesTail = null;
-    this._additionsHead = null;
-    this._additionsTail = null;
-    this._removalsHead = null;
-    this._removalsTail = null;
-  }
-  get isDirty() {
-    return this._additionsHead !== null || this._changesHead !== null || this._removalsHead !== null;
-  }
-  forEachItem(fn) {
-    let record;
-    for (record = this._mapHead; record !== null; record = record._next) {
-      fn(record);
-    }
-  }
-  forEachPreviousItem(fn) {
-    let record;
-    for (record = this._previousMapHead; record !== null; record = record._nextPrevious) {
-      fn(record);
-    }
-  }
-  forEachChangedItem(fn) {
-    let record;
-    for (record = this._changesHead; record !== null; record = record._nextChanged) {
-      fn(record);
-    }
-  }
-  forEachAddedItem(fn) {
-    let record;
-    for (record = this._additionsHead; record !== null; record = record._nextAdded) {
-      fn(record);
-    }
-  }
-  forEachRemovedItem(fn) {
-    let record;
-    for (record = this._removalsHead; record !== null; record = record._nextRemoved) {
-      fn(record);
-    }
-  }
-  diff(map2) {
-    if (!map2) {
-      map2 = /* @__PURE__ */ new Map();
-    } else if (!(map2 instanceof Map || isJsObject(map2))) {
-      throw new RuntimeError(900, ngDevMode && `Error trying to diff '${stringify(map2)}'. Only maps and objects are allowed`);
-    }
-    return this.check(map2) ? this : null;
-  }
-  onDestroy() {
-  }
-  /**
-   * Check the current state of the map vs the previous.
-   * The algorithm is optimised for when the keys do no change.
-   */
-  check(map2) {
-    this._reset();
-    let insertBefore = this._mapHead;
-    this._appendAfter = null;
-    this._forEach(map2, (value, key) => {
-      if (insertBefore && insertBefore.key === key) {
-        this._maybeAddToChanges(insertBefore, value);
-        this._appendAfter = insertBefore;
-        insertBefore = insertBefore._next;
-      } else {
-        const record = this._getOrCreateRecordForKey(key, value);
-        insertBefore = this._insertBeforeOrAppend(insertBefore, record);
-      }
-    });
-    if (insertBefore) {
-      if (insertBefore._prev) {
-        insertBefore._prev._next = null;
-      }
-      this._removalsHead = insertBefore;
-      for (let record = insertBefore; record !== null; record = record._nextRemoved) {
-        if (record === this._mapHead) {
-          this._mapHead = null;
-        }
-        this._records.delete(record.key);
-        record._nextRemoved = record._next;
-        record.previousValue = record.currentValue;
-        record.currentValue = null;
-        record._prev = null;
-        record._next = null;
-      }
-    }
-    if (this._changesTail)
-      this._changesTail._nextChanged = null;
-    if (this._additionsTail)
-      this._additionsTail._nextAdded = null;
-    return this.isDirty;
-  }
-  /**
-   * Inserts a record before `before` or append at the end of the list when `before` is null.
-   *
-   * Notes:
-   * - This method appends at `this._appendAfter`,
-   * - This method updates `this._appendAfter`,
-   * - The return value is the new value for the insertion pointer.
-   */
-  _insertBeforeOrAppend(before, record) {
-    if (before) {
-      const prev = before._prev;
-      record._next = before;
-      record._prev = prev;
-      before._prev = record;
-      if (prev) {
-        prev._next = record;
-      }
-      if (before === this._mapHead) {
-        this._mapHead = record;
-      }
-      this._appendAfter = before;
-      return before;
-    }
-    if (this._appendAfter) {
-      this._appendAfter._next = record;
-      record._prev = this._appendAfter;
-    } else {
-      this._mapHead = record;
-    }
-    this._appendAfter = record;
-    return null;
-  }
-  _getOrCreateRecordForKey(key, value) {
-    if (this._records.has(key)) {
-      const record2 = this._records.get(key);
-      this._maybeAddToChanges(record2, value);
-      const prev = record2._prev;
-      const next = record2._next;
-      if (prev) {
-        prev._next = next;
-      }
-      if (next) {
-        next._prev = prev;
-      }
-      record2._next = null;
-      record2._prev = null;
-      return record2;
-    }
-    const record = new KeyValueChangeRecord_(key);
-    this._records.set(key, record);
-    record.currentValue = value;
-    this._addToAdditions(record);
-    return record;
-  }
-  /** @internal */
-  _reset() {
-    if (this.isDirty) {
-      let record;
-      this._previousMapHead = this._mapHead;
-      for (record = this._previousMapHead; record !== null; record = record._next) {
-        record._nextPrevious = record._next;
-      }
-      for (record = this._changesHead; record !== null; record = record._nextChanged) {
-        record.previousValue = record.currentValue;
-      }
-      for (record = this._additionsHead; record != null; record = record._nextAdded) {
-        record.previousValue = record.currentValue;
-      }
-      this._changesHead = this._changesTail = null;
-      this._additionsHead = this._additionsTail = null;
-      this._removalsHead = null;
-    }
-  }
-  // Add the record or a given key to the list of changes only when the value has actually changed
-  _maybeAddToChanges(record, newValue) {
-    if (!Object.is(newValue, record.currentValue)) {
-      record.previousValue = record.currentValue;
-      record.currentValue = newValue;
-      this._addToChanges(record);
-    }
-  }
-  _addToAdditions(record) {
-    if (this._additionsHead === null) {
-      this._additionsHead = this._additionsTail = record;
-    } else {
-      this._additionsTail._nextAdded = record;
-      this._additionsTail = record;
-    }
-  }
-  _addToChanges(record) {
-    if (this._changesHead === null) {
-      this._changesHead = this._changesTail = record;
-    } else {
-      this._changesTail._nextChanged = record;
-      this._changesTail = record;
-    }
-  }
-  /** @internal */
-  _forEach(obj, fn) {
-    if (obj instanceof Map) {
-      obj.forEach(fn);
-    } else {
-      Object.keys(obj).forEach((k) => fn(obj[k], k));
-    }
-  }
-};
-var KeyValueChangeRecord_ = class {
-  constructor(key) {
-    this.key = key;
-    this.previousValue = null;
-    this.currentValue = null;
-    this._nextPrevious = null;
-    this._next = null;
-    this._prev = null;
-    this._nextAdded = null;
-    this._nextRemoved = null;
-    this._nextChanged = null;
-  }
-};
-function defaultIterableDiffersFactory() {
-  return new IterableDiffers([new DefaultIterableDifferFactory()]);
-}
-var _IterableDiffers = class _IterableDiffers {
-  constructor(factories) {
-    this.factories = factories;
-  }
-  static create(factories, parent) {
-    if (parent != null) {
-      const copied = parent.factories.slice();
-      factories = factories.concat(copied);
-    }
-    return new _IterableDiffers(factories);
-  }
-  /**
-   * Takes an array of {@link IterableDifferFactory} and returns a provider used to extend the
-   * inherited {@link IterableDiffers} instance with the provided factories and return a new
-   * {@link IterableDiffers} instance.
-   *
-   * @usageNotes
-   * ### Example
-   *
-   * The following example shows how to extend an existing list of factories,
-   * which will only be applied to the injector for this component and its children.
-   * This step is all that's required to make a new {@link IterableDiffer} available.
-   *
-   * ```
-   * @Component({
-   *   viewProviders: [
-   *     IterableDiffers.extend([new ImmutableListDiffer()])
-   *   ]
-   * })
-   * ```
-   */
-  static extend(factories) {
-    return {
-      provide: _IterableDiffers,
-      useFactory: (parent) => {
-        return _IterableDiffers.create(factories, parent || defaultIterableDiffersFactory());
-      },
-      // Dependency technically isn't optional, but we can provide a better error message this way.
-      deps: [[_IterableDiffers, new SkipSelf(), new Optional()]]
-    };
-  }
-  find(iterable) {
-    const factory = this.factories.find((f) => f.supports(iterable));
-    if (factory != null) {
-      return factory;
-    } else {
-      throw new RuntimeError(901, ngDevMode && `Cannot find a differ supporting object '${iterable}' of type '${getTypeNameForDebugging(iterable)}'`);
-    }
-  }
-};
-_IterableDiffers.ɵprov = ɵɵdefineInjectable({ token: _IterableDiffers, providedIn: "root", factory: defaultIterableDiffersFactory });
-var IterableDiffers = _IterableDiffers;
-function getTypeNameForDebugging(type) {
-  return type["name"] || typeof type;
-}
-function defaultKeyValueDiffersFactory() {
-  return new KeyValueDiffers([new DefaultKeyValueDifferFactory()]);
-}
-var _KeyValueDiffers = class _KeyValueDiffers {
-  constructor(factories) {
-    this.factories = factories;
-  }
-  static create(factories, parent) {
-    if (parent) {
-      const copied = parent.factories.slice();
-      factories = factories.concat(copied);
-    }
-    return new _KeyValueDiffers(factories);
-  }
-  /**
-   * Takes an array of {@link KeyValueDifferFactory} and returns a provider used to extend the
-   * inherited {@link KeyValueDiffers} instance with the provided factories and return a new
-   * {@link KeyValueDiffers} instance.
-   *
-   * @usageNotes
-   * ### Example
-   *
-   * The following example shows how to extend an existing list of factories,
-   * which will only be applied to the injector for this component and its children.
-   * This step is all that's required to make a new {@link KeyValueDiffer} available.
-   *
-   * ```
-   * @Component({
-   *   viewProviders: [
-   *     KeyValueDiffers.extend([new ImmutableMapDiffer()])
-   *   ]
-   * })
-   * ```
-   */
-  static extend(factories) {
-    return {
-      provide: _KeyValueDiffers,
-      useFactory: (parent) => {
-        return _KeyValueDiffers.create(factories, parent || defaultKeyValueDiffersFactory());
-      },
-      // Dependency technically isn't optional, but we can provide a better error message this way.
-      deps: [[_KeyValueDiffers, new SkipSelf(), new Optional()]]
-    };
-  }
-  find(kv) {
-    const factory = this.factories.find((f) => f.supports(kv));
-    if (factory) {
-      return factory;
-    }
-    throw new RuntimeError(901, ngDevMode && `Cannot find a differ supporting object '${kv}'`);
-  }
-};
-_KeyValueDiffers.ɵprov = ɵɵdefineInjectable({ token: _KeyValueDiffers, providedIn: "root", factory: defaultKeyValueDiffersFactory });
-var KeyValueDiffers = _KeyValueDiffers;
-function devModeEqual(a, b) {
-  const isListLikeIterableA = isListLikeIterable(a);
-  const isListLikeIterableB = isListLikeIterable(b);
-  if (isListLikeIterableA && isListLikeIterableB) {
-    return areIterablesEqual(a, b, devModeEqual);
-  } else {
-    const isAObject = a && (typeof a === "object" || typeof a === "function");
-    const isBObject = b && (typeof b === "object" || typeof b === "function");
-    if (!isListLikeIterableA && isAObject && !isListLikeIterableB && isBObject) {
-      return true;
-    } else {
-      return Object.is(a, b);
-    }
-  }
-}
-var _ChangeDetectorRef = class _ChangeDetectorRef {
-};
-_ChangeDetectorRef.__NG_ELEMENT_ID__ = injectChangeDetectorRef;
-var ChangeDetectorRef = _ChangeDetectorRef;
-function injectChangeDetectorRef(flags) {
-  return createViewRef(
-    getCurrentTNode(),
-    getLView(),
-    (flags & 16) === 16
-    /* InternalInjectFlags.ForPipe */
-  );
-}
-function createViewRef(tNode, lView, isPipe2) {
-  if (isComponentHost(tNode) && !isPipe2) {
-    const componentView = getComponentLViewByIndex(tNode.index, lView);
-    return new ViewRef$1(componentView, componentView);
-  } else if (tNode.type & (3 | 12 | 32)) {
-    const hostComponentView = lView[DECLARATION_COMPONENT_VIEW];
-    return new ViewRef$1(hostComponentView, lView);
-  }
-  return null;
-}
-var keyValDiff = [new DefaultKeyValueDifferFactory()];
-var iterableDiff = [new DefaultIterableDifferFactory()];
-var defaultIterableDiffers = new IterableDiffers(iterableDiff);
-var defaultKeyValueDiffers = new KeyValueDiffers(keyValDiff);
 var _DestroyRef = class _DestroyRef {
 };
 _DestroyRef.__NG_ELEMENT_ID__ = injectDestroyRef;
@@ -12424,110 +11431,13 @@ function assertNotInReactiveContext(debugFn, extraContext) {
     throw new RuntimeError(-602, ngDevMode && `${debugFn.name}() cannot be called from within a reactive context.${extraContext ? ` ${extraContext}` : ""}`);
   }
 }
-var APP_EFFECT_SCHEDULER = new InjectionToken("", {
-  providedIn: "root",
-  factory: () => inject(EffectScheduler)
-});
-var _EffectScheduler = class _EffectScheduler {
-};
-_EffectScheduler.ɵprov = ɵɵdefineInjectable({
-  token: _EffectScheduler,
-  providedIn: "root",
-  factory: () => new ZoneAwareEffectScheduler()
-});
-var EffectScheduler = _EffectScheduler;
-var ZoneAwareEffectScheduler = class {
-  constructor() {
-    this.hasQueuedFlush = false;
-    this.queuedEffectCount = 0;
-    this.queues = /* @__PURE__ */ new Map();
+var markedFeatures = /* @__PURE__ */ new Set();
+function performanceMarkFeature(feature) {
+  if (markedFeatures.has(feature)) {
+    return;
   }
-  scheduleEffect(handle) {
-    this.enqueue(handle);
-    if (!this.hasQueuedFlush) {
-      queueMicrotask(() => this.flush());
-      this.hasQueuedFlush = false;
-    }
-  }
-  enqueue(handle) {
-    const zone = handle.creationZone;
-    if (!this.queues.has(zone)) {
-      this.queues.set(zone, /* @__PURE__ */ new Set());
-    }
-    const queue2 = this.queues.get(zone);
-    if (queue2.has(handle)) {
-      return;
-    }
-    this.queuedEffectCount++;
-    queue2.add(handle);
-  }
-  /**
-   * Run all scheduled effects.
-   *
-   * Execution order of effects within the same zone is guaranteed to be FIFO, but there is no
-   * ordering guarantee between effects scheduled in different zones.
-   */
-  flush() {
-    while (this.queuedEffectCount > 0) {
-      for (const [zone, queue2] of this.queues) {
-        if (zone === null) {
-          this.flushQueue(queue2);
-        } else {
-          zone.run(() => this.flushQueue(queue2));
-        }
-      }
-    }
-  }
-  flushQueue(queue2) {
-    for (const handle of queue2) {
-      queue2.delete(handle);
-      this.queuedEffectCount--;
-      handle.run();
-    }
-  }
-};
-var EffectHandle = class {
-  constructor(scheduler, effectFn, creationZone, destroyRef, injector, allowSignalWrites) {
-    this.scheduler = scheduler;
-    this.effectFn = effectFn;
-    this.creationZone = creationZone;
-    this.injector = injector;
-    this.watcher = createWatch((onCleanup) => this.runEffect(onCleanup), () => this.schedule(), allowSignalWrites);
-    this.unregisterOnDestroy = destroyRef?.onDestroy(() => this.destroy());
-  }
-  runEffect(onCleanup) {
-    try {
-      this.effectFn(onCleanup);
-    } catch (err) {
-      const errorHandler = this.injector.get(ErrorHandler, null, { optional: true });
-      errorHandler?.handleError(err);
-    }
-  }
-  run() {
-    this.watcher.run();
-  }
-  schedule() {
-    this.scheduler.scheduleEffect(this);
-  }
-  destroy() {
-    this.watcher.destroy();
-    this.unregisterOnDestroy?.();
-  }
-};
-function effect(effectFn, options) {
-  performanceMarkFeature("NgSignals");
-  ngDevMode && assertNotInReactiveContext(effect, "Call `effect` outside of a reactive context. For example, schedule the effect inside the component constructor.");
-  !options?.injector && assertInInjectionContext(effect);
-  const injector = options?.injector ?? inject(Injector);
-  const destroyRef = options?.manualCleanup !== true ? injector.get(DestroyRef) : null;
-  const handle = new EffectHandle(injector.get(APP_EFFECT_SCHEDULER), effectFn, typeof Zone === "undefined" ? null : Zone.current, destroyRef, injector, options?.allowSignalWrites ?? false);
-  const cdr = injector.get(ChangeDetectorRef, null, { optional: true });
-  if (!cdr || !(cdr._lView[FLAGS] & 8)) {
-    handle.watcher.notify();
-  } else {
-    (cdr._lView[EFFECTS_TO_SCHEDULE] ??= []).push(handle.watcher.notify);
-  }
-  return handle;
+  markedFeatures.add(feature);
+  performance?.mark?.("mark_feature_usage", { detail: { feature } });
 }
 function noop2(...args) {
 }
@@ -13325,83 +12235,88 @@ var ComponentFactory = class extends ComponentFactory$1 {
     this.isBoundToModule = !!ngModule;
   }
   create(injector, projectableNodes, rootSelectorOrNode, environmentInjector) {
-    if (ngDevMode && (typeof ngJitMode === "undefined" || ngJitMode) && this.componentDef.debugInfo?.forbidOrphanRendering) {
-      if (depsTracker.isOrphanComponent(this.componentType)) {
-        throw new RuntimeError(1001, `Orphan component found! Trying to render the component ${debugStringifyTypeForError(this.componentType)} without first loading the NgModule that declares it. It is recommended to make this component standalone in order to avoid this error. If this is not possible now, import the component's NgModule in the appropriate NgModule, or the standalone component in which you are trying to render this component. If this is a lazy import, load the NgModule lazily as well and use its module injector.`);
-      }
-    }
-    environmentInjector = environmentInjector || this.ngModule;
-    let realEnvironmentInjector = environmentInjector instanceof EnvironmentInjector ? environmentInjector : environmentInjector?.injector;
-    if (realEnvironmentInjector && this.componentDef.getStandaloneInjector !== null) {
-      realEnvironmentInjector = this.componentDef.getStandaloneInjector(realEnvironmentInjector) || realEnvironmentInjector;
-    }
-    const rootViewInjector = realEnvironmentInjector ? new ChainedInjector(injector, realEnvironmentInjector) : injector;
-    const rendererFactory = rootViewInjector.get(RendererFactory2, null);
-    if (rendererFactory === null) {
-      throw new RuntimeError(407, ngDevMode && "Angular was not able to inject a renderer (RendererFactory2). Likely this is due to a broken DI hierarchy. Make sure that any injector used to create this component has a correct parent.");
-    }
-    const sanitizer = rootViewInjector.get(Sanitizer, null);
-    const afterRenderEventManager = rootViewInjector.get(AfterRenderEventManager, null);
-    const changeDetectionScheduler = rootViewInjector.get(ChangeDetectionScheduler, null);
-    const environment = {
-      rendererFactory,
-      sanitizer,
-      // We don't use inline effects (yet).
-      inlineEffectRunner: null,
-      afterRenderEventManager,
-      changeDetectionScheduler
-    };
-    const hostRenderer = rendererFactory.createRenderer(null, this.componentDef);
-    const elementName = this.componentDef.selectors[0][0] || "div";
-    const hostRNode = rootSelectorOrNode ? locateHostElement(hostRenderer, rootSelectorOrNode, this.componentDef.encapsulation, rootViewInjector) : createElementNode(hostRenderer, elementName, getNamespace(elementName));
-    let rootFlags = 512;
-    if (this.componentDef.signals) {
-      rootFlags |= 4096;
-    } else if (!this.componentDef.onPush) {
-      rootFlags |= 16;
-    }
-    let hydrationInfo = null;
-    if (hostRNode !== null) {
-      hydrationInfo = retrieveHydrationInfo(
-        hostRNode,
-        rootViewInjector,
-        true
-        /* isRootView */
-      );
-    }
-    const rootTView = createTView(0, null, null, 1, 0, null, null, null, null, null, null);
-    const rootLView = createLView(null, rootTView, null, rootFlags, null, null, environment, hostRenderer, rootViewInjector, null, hydrationInfo);
-    enterView(rootLView);
-    let component;
-    let tElementNode;
+    const prevConsumer = setActiveConsumer(null);
     try {
-      const rootComponentDef = this.componentDef;
-      let rootDirectives;
-      let hostDirectiveDefs = null;
-      if (rootComponentDef.findHostDirectiveDefs) {
-        rootDirectives = [];
-        hostDirectiveDefs = /* @__PURE__ */ new Map();
-        rootComponentDef.findHostDirectiveDefs(rootComponentDef, rootDirectives, hostDirectiveDefs);
-        rootDirectives.push(rootComponentDef);
-        ngDevMode && assertNoDuplicateDirectives(rootDirectives);
-      } else {
-        rootDirectives = [rootComponentDef];
+      if (ngDevMode && (typeof ngJitMode === "undefined" || ngJitMode) && this.componentDef.debugInfo?.forbidOrphanRendering) {
+        if (depsTracker.isOrphanComponent(this.componentType)) {
+          throw new RuntimeError(1001, `Orphan component found! Trying to render the component ${debugStringifyTypeForError(this.componentType)} without first loading the NgModule that declares it. It is recommended to make this component standalone in order to avoid this error. If this is not possible now, import the component's NgModule in the appropriate NgModule, or the standalone component in which you are trying to render this component. If this is a lazy import, load the NgModule lazily as well and use its module injector.`);
+        }
       }
-      const hostTNode = createRootComponentTNode(rootLView, hostRNode);
-      const componentView = createRootComponentView(hostTNode, hostRNode, rootComponentDef, rootDirectives, rootLView, environment, hostRenderer);
-      tElementNode = getTNode(rootTView, HEADER_OFFSET);
-      if (hostRNode) {
-        setRootNodeAttributes(hostRenderer, rootComponentDef, hostRNode, rootSelectorOrNode);
+      environmentInjector = environmentInjector || this.ngModule;
+      let realEnvironmentInjector = environmentInjector instanceof EnvironmentInjector ? environmentInjector : environmentInjector?.injector;
+      if (realEnvironmentInjector && this.componentDef.getStandaloneInjector !== null) {
+        realEnvironmentInjector = this.componentDef.getStandaloneInjector(realEnvironmentInjector) || realEnvironmentInjector;
       }
-      if (projectableNodes !== void 0) {
-        projectNodes(tElementNode, this.ngContentSelectors, projectableNodes);
+      const rootViewInjector = realEnvironmentInjector ? new ChainedInjector(injector, realEnvironmentInjector) : injector;
+      const rendererFactory = rootViewInjector.get(RendererFactory2, null);
+      if (rendererFactory === null) {
+        throw new RuntimeError(407, ngDevMode && "Angular was not able to inject a renderer (RendererFactory2). Likely this is due to a broken DI hierarchy. Make sure that any injector used to create this component has a correct parent.");
       }
-      component = createRootComponent(componentView, rootComponentDef, rootDirectives, hostDirectiveDefs, rootLView, [LifecycleHooksFeature]);
-      renderView(rootTView, rootLView, null);
+      const sanitizer = rootViewInjector.get(Sanitizer, null);
+      const afterRenderEventManager = rootViewInjector.get(AfterRenderEventManager, null);
+      const changeDetectionScheduler = rootViewInjector.get(ChangeDetectionScheduler, null);
+      const environment = {
+        rendererFactory,
+        sanitizer,
+        // We don't use inline effects (yet).
+        inlineEffectRunner: null,
+        afterRenderEventManager,
+        changeDetectionScheduler
+      };
+      const hostRenderer = rendererFactory.createRenderer(null, this.componentDef);
+      const elementName = this.componentDef.selectors[0][0] || "div";
+      const hostRNode = rootSelectorOrNode ? locateHostElement(hostRenderer, rootSelectorOrNode, this.componentDef.encapsulation, rootViewInjector) : createElementNode(hostRenderer, elementName, getNamespace(elementName));
+      let rootFlags = 512;
+      if (this.componentDef.signals) {
+        rootFlags |= 4096;
+      } else if (!this.componentDef.onPush) {
+        rootFlags |= 16;
+      }
+      let hydrationInfo = null;
+      if (hostRNode !== null) {
+        hydrationInfo = retrieveHydrationInfo(
+          hostRNode,
+          rootViewInjector,
+          true
+          /* isRootView */
+        );
+      }
+      const rootTView = createTView(0, null, null, 1, 0, null, null, null, null, null, null);
+      const rootLView = createLView(null, rootTView, null, rootFlags, null, null, environment, hostRenderer, rootViewInjector, null, hydrationInfo);
+      enterView(rootLView);
+      let component;
+      let tElementNode;
+      try {
+        const rootComponentDef = this.componentDef;
+        let rootDirectives;
+        let hostDirectiveDefs = null;
+        if (rootComponentDef.findHostDirectiveDefs) {
+          rootDirectives = [];
+          hostDirectiveDefs = /* @__PURE__ */ new Map();
+          rootComponentDef.findHostDirectiveDefs(rootComponentDef, rootDirectives, hostDirectiveDefs);
+          rootDirectives.push(rootComponentDef);
+          ngDevMode && assertNoDuplicateDirectives(rootDirectives);
+        } else {
+          rootDirectives = [rootComponentDef];
+        }
+        const hostTNode = createRootComponentTNode(rootLView, hostRNode);
+        const componentView = createRootComponentView(hostTNode, hostRNode, rootComponentDef, rootDirectives, rootLView, environment, hostRenderer);
+        tElementNode = getTNode(rootTView, HEADER_OFFSET);
+        if (hostRNode) {
+          setRootNodeAttributes(hostRenderer, rootComponentDef, hostRNode, rootSelectorOrNode);
+        }
+        if (projectableNodes !== void 0) {
+          projectNodes(tElementNode, this.ngContentSelectors, projectableNodes);
+        }
+        component = createRootComponent(componentView, rootComponentDef, rootDirectives, hostDirectiveDefs, rootLView, [LifecycleHooksFeature]);
+        renderView(rootTView, rootLView, null);
+      } finally {
+        leaveView();
+      }
+      return new ComponentRef(this.componentType, component, createElementRef(tElementNode, rootLView), rootLView, tElementNode);
     } finally {
-      leaveView();
+      setActiveConsumer(prevConsumer);
     }
-    return new ComponentRef(this.componentType, component, createElementRef(tElementNode, rootLView), rootLView, tElementNode);
   }
 };
 var ComponentRef = class extends ComponentRef$1 {
@@ -13519,7 +12434,7 @@ function createRootComponent(componentView, rootComponentDef, rootDirectives, ho
 }
 function setRootNodeAttributes(hostRenderer, componentDef, hostRNode, rootSelectorOrNode) {
   if (rootSelectorOrNode) {
-    setUpAttributes(hostRenderer, hostRNode, ["ng-version", "17.2.3"]);
+    setUpAttributes(hostRenderer, hostRNode, ["ng-version", "17.2.4"]);
   } else {
     const { attrs, classes } = extractAttrsAndClassesFromSelector(componentDef.selectors[0]);
     if (attrs) {
@@ -14132,6 +13047,40 @@ function getQueryResults(lView, queryIndex) {
   const tQuery = getTQuery(tView, queryIndex);
   return tQuery.crossesNgTemplate ? collectQueryResults(tView, lView, queryIndex, []) : materializeViewResults(tView, lView, tQuery, queryIndex);
 }
+function isSignal(value) {
+  return typeof value === "function" && value[SIGNAL] !== void 0;
+}
+var WRITABLE_SIGNAL = Symbol("WRITABLE_SIGNAL");
+function ɵunwrapWritableSignal(value) {
+  return null;
+}
+function signal(initialValue, options) {
+  performanceMarkFeature("NgSignals");
+  const signalFn = createSignal(initialValue);
+  const node = signalFn[SIGNAL];
+  if (options?.equal) {
+    node.equal = options.equal;
+  }
+  signalFn.set = (newValue) => signalSetFn(node, newValue);
+  signalFn.update = (updateFn) => signalUpdateFn(node, updateFn);
+  signalFn.asReadonly = signalAsReadonlyFn.bind(signalFn);
+  if (ngDevMode) {
+    signalFn.toString = () => `[Signal: ${signalFn()}]`;
+  }
+  return signalFn;
+}
+function signalAsReadonlyFn() {
+  const node = this[SIGNAL];
+  if (node.readonlyFn === void 0) {
+    const readonlyFn = () => this();
+    readonlyFn[SIGNAL] = node;
+    node.readonlyFn = readonlyFn;
+  }
+  return node.readonlyFn;
+}
+function isWritableSignal(value) {
+  return isSignal(value) && typeof value.set === "function";
+}
 function createQuerySignalFn(firstOnly, required) {
   let node;
   const signalFn = createComputed(() => {
@@ -14241,7 +13190,7 @@ function createModelSignal(initialValue) {
     }
   }
   getter[SIGNAL] = node;
-  getter.asReadonly = () => getter();
+  getter.asReadonly = signalAsReadonlyFn.bind(getter);
   getter.set = (newValue) => {
     if (!node.equal(node.value, newValue)) {
       signalSetFn(node, newValue);
@@ -14867,6 +13816,57 @@ var PendingTasks = _PendingTasks;
     args: [{ providedIn: "root" }]
   }], null, null);
 })();
+function isListLikeIterable(obj) {
+  if (!isJsObject(obj))
+    return false;
+  return Array.isArray(obj) || !(obj instanceof Map) && // JS Map are iterables but return entries as [k, v]
+  Symbol.iterator in obj;
+}
+function areIterablesEqual(a, b, comparator) {
+  const iterator1 = a[Symbol.iterator]();
+  const iterator2 = b[Symbol.iterator]();
+  while (true) {
+    const item1 = iterator1.next();
+    const item2 = iterator2.next();
+    if (item1.done && item2.done)
+      return true;
+    if (item1.done || item2.done)
+      return false;
+    if (!comparator(item1.value, item2.value))
+      return false;
+  }
+}
+function iterateListLike(obj, fn) {
+  if (Array.isArray(obj)) {
+    for (let i = 0; i < obj.length; i++) {
+      fn(obj[i]);
+    }
+  } else {
+    const iterator2 = obj[Symbol.iterator]();
+    let item;
+    while (!(item = iterator2.next()).done) {
+      fn(item.value);
+    }
+  }
+}
+function isJsObject(o) {
+  return o !== null && (typeof o === "function" || typeof o === "object");
+}
+function devModeEqual(a, b) {
+  const isListLikeIterableA = isListLikeIterable(a);
+  const isListLikeIterableB = isListLikeIterable(b);
+  if (isListLikeIterableA && isListLikeIterableB) {
+    return areIterablesEqual(a, b, devModeEqual);
+  } else {
+    const isAObject = a && (typeof a === "object" || typeof a === "function");
+    const isBObject = b && (typeof b === "object" || typeof b === "function");
+    if (!isListLikeIterableA && isAObject && !isListLikeIterableB && isBObject) {
+      return true;
+    } else {
+      return Object.is(a, b);
+    }
+  }
+}
 function updateBinding(lView, bindingIndex, value) {
   return lView[bindingIndex] = value;
 }
@@ -18743,6 +17743,7 @@ function listenerInternal(tView, lView, renderer, tNode, eventName, listenerFn, 
   }
 }
 function executeListenerWithErrorHandling(lView, context2, listenerFn, e) {
+  const prevConsumer = setActiveConsumer(null);
   try {
     profiler(6, context2, listenerFn);
     return listenerFn(e) !== false;
@@ -18751,6 +17752,7 @@ function executeListenerWithErrorHandling(lView, context2, listenerFn, e) {
     return false;
   } finally {
     profiler(7, context2, listenerFn);
+    setActiveConsumer(prevConsumer);
   }
 }
 function wrapListener(tNode, lView, context2, listenerFn, wrapWithPreventDefault) {
@@ -20885,7 +19887,7 @@ var Version = class {
     this.patch = parts.slice(2).join(".");
   }
 };
-var VERSION = new Version("17.2.3");
+var VERSION = new Version("17.2.4");
 var _Console = class _Console {
   log(message) {
     console.log(message);
@@ -21793,6 +20795,7 @@ var _ApplicationRef = class _ApplicationRef {
     if (this._runningTick) {
       throw new RuntimeError(101, ngDevMode && "ApplicationRef.tick is called recursively");
     }
+    const prevConsumer = setActiveConsumer(null);
     try {
       this._runningTick = true;
       this.detectChangesInAttachedViews();
@@ -21805,6 +20808,7 @@ var _ApplicationRef = class _ApplicationRef {
       this.internalErrorHandler(e);
     } finally {
       this._runningTick = false;
+      setActiveConsumer(prevConsumer);
     }
   }
   detectChangesInAttachedViews() {
@@ -22434,6 +21438,28 @@ function getNgModuleById(id) {
 function noModuleError(id) {
   return new Error(`No module with ID ${id} loaded`);
 }
+var _ChangeDetectorRef = class _ChangeDetectorRef {
+};
+_ChangeDetectorRef.__NG_ELEMENT_ID__ = injectChangeDetectorRef;
+var ChangeDetectorRef = _ChangeDetectorRef;
+function injectChangeDetectorRef(flags) {
+  return createViewRef(
+    getCurrentTNode(),
+    getLView(),
+    (flags & 16) === 16
+    /* InternalInjectFlags.ForPipe */
+  );
+}
+function createViewRef(tNode, lView, isPipe2) {
+  if (isComponentHost(tNode) && !isPipe2) {
+    const componentView = getComponentLViewByIndex(tNode.index, lView);
+    return new ViewRef$1(componentView, componentView);
+  } else if (tNode.type & (3 | 12 | 32)) {
+    const hostComponentView = lView[DECLARATION_COMPONENT_VIEW];
+    return new ViewRef$1(hostComponentView, lView);
+  }
+  return null;
+}
 var ViewRef = class extends ChangeDetectorRef {
 };
 var EmbeddedViewRef = class extends ViewRef {
@@ -22846,6 +21872,898 @@ function getDebugNode(nativeNode) {
   }
   return null;
 }
+var DefaultIterableDifferFactory = class {
+  constructor() {
+  }
+  supports(obj) {
+    return isListLikeIterable(obj);
+  }
+  create(trackByFn) {
+    return new DefaultIterableDiffer(trackByFn);
+  }
+};
+var trackByIdentity = (index, item) => item;
+var DefaultIterableDiffer = class {
+  constructor(trackByFn) {
+    this.length = 0;
+    this._linkedRecords = null;
+    this._unlinkedRecords = null;
+    this._previousItHead = null;
+    this._itHead = null;
+    this._itTail = null;
+    this._additionsHead = null;
+    this._additionsTail = null;
+    this._movesHead = null;
+    this._movesTail = null;
+    this._removalsHead = null;
+    this._removalsTail = null;
+    this._identityChangesHead = null;
+    this._identityChangesTail = null;
+    this._trackByFn = trackByFn || trackByIdentity;
+  }
+  forEachItem(fn) {
+    let record;
+    for (record = this._itHead; record !== null; record = record._next) {
+      fn(record);
+    }
+  }
+  forEachOperation(fn) {
+    let nextIt = this._itHead;
+    let nextRemove = this._removalsHead;
+    let addRemoveOffset = 0;
+    let moveOffsets = null;
+    while (nextIt || nextRemove) {
+      const record = !nextRemove || nextIt && nextIt.currentIndex < getPreviousIndex(nextRemove, addRemoveOffset, moveOffsets) ? nextIt : nextRemove;
+      const adjPreviousIndex = getPreviousIndex(record, addRemoveOffset, moveOffsets);
+      const currentIndex = record.currentIndex;
+      if (record === nextRemove) {
+        addRemoveOffset--;
+        nextRemove = nextRemove._nextRemoved;
+      } else {
+        nextIt = nextIt._next;
+        if (record.previousIndex == null) {
+          addRemoveOffset++;
+        } else {
+          if (!moveOffsets)
+            moveOffsets = [];
+          const localMovePreviousIndex = adjPreviousIndex - addRemoveOffset;
+          const localCurrentIndex = currentIndex - addRemoveOffset;
+          if (localMovePreviousIndex != localCurrentIndex) {
+            for (let i = 0; i < localMovePreviousIndex; i++) {
+              const offset = i < moveOffsets.length ? moveOffsets[i] : moveOffsets[i] = 0;
+              const index = offset + i;
+              if (localCurrentIndex <= index && index < localMovePreviousIndex) {
+                moveOffsets[i] = offset + 1;
+              }
+            }
+            const previousIndex = record.previousIndex;
+            moveOffsets[previousIndex] = localCurrentIndex - localMovePreviousIndex;
+          }
+        }
+      }
+      if (adjPreviousIndex !== currentIndex) {
+        fn(record, adjPreviousIndex, currentIndex);
+      }
+    }
+  }
+  forEachPreviousItem(fn) {
+    let record;
+    for (record = this._previousItHead; record !== null; record = record._nextPrevious) {
+      fn(record);
+    }
+  }
+  forEachAddedItem(fn) {
+    let record;
+    for (record = this._additionsHead; record !== null; record = record._nextAdded) {
+      fn(record);
+    }
+  }
+  forEachMovedItem(fn) {
+    let record;
+    for (record = this._movesHead; record !== null; record = record._nextMoved) {
+      fn(record);
+    }
+  }
+  forEachRemovedItem(fn) {
+    let record;
+    for (record = this._removalsHead; record !== null; record = record._nextRemoved) {
+      fn(record);
+    }
+  }
+  forEachIdentityChange(fn) {
+    let record;
+    for (record = this._identityChangesHead; record !== null; record = record._nextIdentityChange) {
+      fn(record);
+    }
+  }
+  diff(collection) {
+    if (collection == null)
+      collection = [];
+    if (!isListLikeIterable(collection)) {
+      throw new RuntimeError(900, ngDevMode && `Error trying to diff '${stringify(collection)}'. Only arrays and iterables are allowed`);
+    }
+    if (this.check(collection)) {
+      return this;
+    } else {
+      return null;
+    }
+  }
+  onDestroy() {
+  }
+  check(collection) {
+    this._reset();
+    let record = this._itHead;
+    let mayBeDirty = false;
+    let index;
+    let item;
+    let itemTrackBy;
+    if (Array.isArray(collection)) {
+      this.length = collection.length;
+      for (let index2 = 0; index2 < this.length; index2++) {
+        item = collection[index2];
+        itemTrackBy = this._trackByFn(index2, item);
+        if (record === null || !Object.is(record.trackById, itemTrackBy)) {
+          record = this._mismatch(record, item, itemTrackBy, index2);
+          mayBeDirty = true;
+        } else {
+          if (mayBeDirty) {
+            record = this._verifyReinsertion(record, item, itemTrackBy, index2);
+          }
+          if (!Object.is(record.item, item))
+            this._addIdentityChange(record, item);
+        }
+        record = record._next;
+      }
+    } else {
+      index = 0;
+      iterateListLike(collection, (item2) => {
+        itemTrackBy = this._trackByFn(index, item2);
+        if (record === null || !Object.is(record.trackById, itemTrackBy)) {
+          record = this._mismatch(record, item2, itemTrackBy, index);
+          mayBeDirty = true;
+        } else {
+          if (mayBeDirty) {
+            record = this._verifyReinsertion(record, item2, itemTrackBy, index);
+          }
+          if (!Object.is(record.item, item2))
+            this._addIdentityChange(record, item2);
+        }
+        record = record._next;
+        index++;
+      });
+      this.length = index;
+    }
+    this._truncate(record);
+    this.collection = collection;
+    return this.isDirty;
+  }
+  /* CollectionChanges is considered dirty if it has any additions, moves, removals, or identity
+   * changes.
+   */
+  get isDirty() {
+    return this._additionsHead !== null || this._movesHead !== null || this._removalsHead !== null || this._identityChangesHead !== null;
+  }
+  /**
+   * Reset the state of the change objects to show no changes. This means set previousKey to
+   * currentKey, and clear all of the queues (additions, moves, removals).
+   * Set the previousIndexes of moved and added items to their currentIndexes
+   * Reset the list of additions, moves and removals
+   *
+   * @internal
+   */
+  _reset() {
+    if (this.isDirty) {
+      let record;
+      for (record = this._previousItHead = this._itHead; record !== null; record = record._next) {
+        record._nextPrevious = record._next;
+      }
+      for (record = this._additionsHead; record !== null; record = record._nextAdded) {
+        record.previousIndex = record.currentIndex;
+      }
+      this._additionsHead = this._additionsTail = null;
+      for (record = this._movesHead; record !== null; record = record._nextMoved) {
+        record.previousIndex = record.currentIndex;
+      }
+      this._movesHead = this._movesTail = null;
+      this._removalsHead = this._removalsTail = null;
+      this._identityChangesHead = this._identityChangesTail = null;
+    }
+  }
+  /**
+   * This is the core function which handles differences between collections.
+   *
+   * - `record` is the record which we saw at this position last time. If null then it is a new
+   *   item.
+   * - `item` is the current item in the collection
+   * - `index` is the position of the item in the collection
+   *
+   * @internal
+   */
+  _mismatch(record, item, itemTrackBy, index) {
+    let previousRecord;
+    if (record === null) {
+      previousRecord = this._itTail;
+    } else {
+      previousRecord = record._prev;
+      this._remove(record);
+    }
+    record = this._unlinkedRecords === null ? null : this._unlinkedRecords.get(itemTrackBy, null);
+    if (record !== null) {
+      if (!Object.is(record.item, item))
+        this._addIdentityChange(record, item);
+      this._reinsertAfter(record, previousRecord, index);
+    } else {
+      record = this._linkedRecords === null ? null : this._linkedRecords.get(itemTrackBy, index);
+      if (record !== null) {
+        if (!Object.is(record.item, item))
+          this._addIdentityChange(record, item);
+        this._moveAfter(record, previousRecord, index);
+      } else {
+        record = this._addAfter(new IterableChangeRecord_(item, itemTrackBy), previousRecord, index);
+      }
+    }
+    return record;
+  }
+  /**
+   * This check is only needed if an array contains duplicates. (Short circuit of nothing dirty)
+   *
+   * Use case: `[a, a]` => `[b, a, a]`
+   *
+   * If we did not have this check then the insertion of `b` would:
+   *   1) evict first `a`
+   *   2) insert `b` at `0` index.
+   *   3) leave `a` at index `1` as is. <-- this is wrong!
+   *   3) reinsert `a` at index 2. <-- this is wrong!
+   *
+   * The correct behavior is:
+   *   1) evict first `a`
+   *   2) insert `b` at `0` index.
+   *   3) reinsert `a` at index 1.
+   *   3) move `a` at from `1` to `2`.
+   *
+   *
+   * Double check that we have not evicted a duplicate item. We need to check if the item type may
+   * have already been removed:
+   * The insertion of b will evict the first 'a'. If we don't reinsert it now it will be reinserted
+   * at the end. Which will show up as the two 'a's switching position. This is incorrect, since a
+   * better way to think of it is as insert of 'b' rather then switch 'a' with 'b' and then add 'a'
+   * at the end.
+   *
+   * @internal
+   */
+  _verifyReinsertion(record, item, itemTrackBy, index) {
+    let reinsertRecord = this._unlinkedRecords === null ? null : this._unlinkedRecords.get(itemTrackBy, null);
+    if (reinsertRecord !== null) {
+      record = this._reinsertAfter(reinsertRecord, record._prev, index);
+    } else if (record.currentIndex != index) {
+      record.currentIndex = index;
+      this._addToMoves(record, index);
+    }
+    return record;
+  }
+  /**
+   * Get rid of any excess {@link IterableChangeRecord_}s from the previous collection
+   *
+   * - `record` The first excess {@link IterableChangeRecord_}.
+   *
+   * @internal
+   */
+  _truncate(record) {
+    while (record !== null) {
+      const nextRecord = record._next;
+      this._addToRemovals(this._unlink(record));
+      record = nextRecord;
+    }
+    if (this._unlinkedRecords !== null) {
+      this._unlinkedRecords.clear();
+    }
+    if (this._additionsTail !== null) {
+      this._additionsTail._nextAdded = null;
+    }
+    if (this._movesTail !== null) {
+      this._movesTail._nextMoved = null;
+    }
+    if (this._itTail !== null) {
+      this._itTail._next = null;
+    }
+    if (this._removalsTail !== null) {
+      this._removalsTail._nextRemoved = null;
+    }
+    if (this._identityChangesTail !== null) {
+      this._identityChangesTail._nextIdentityChange = null;
+    }
+  }
+  /** @internal */
+  _reinsertAfter(record, prevRecord, index) {
+    if (this._unlinkedRecords !== null) {
+      this._unlinkedRecords.remove(record);
+    }
+    const prev = record._prevRemoved;
+    const next = record._nextRemoved;
+    if (prev === null) {
+      this._removalsHead = next;
+    } else {
+      prev._nextRemoved = next;
+    }
+    if (next === null) {
+      this._removalsTail = prev;
+    } else {
+      next._prevRemoved = prev;
+    }
+    this._insertAfter(record, prevRecord, index);
+    this._addToMoves(record, index);
+    return record;
+  }
+  /** @internal */
+  _moveAfter(record, prevRecord, index) {
+    this._unlink(record);
+    this._insertAfter(record, prevRecord, index);
+    this._addToMoves(record, index);
+    return record;
+  }
+  /** @internal */
+  _addAfter(record, prevRecord, index) {
+    this._insertAfter(record, prevRecord, index);
+    if (this._additionsTail === null) {
+      this._additionsTail = this._additionsHead = record;
+    } else {
+      this._additionsTail = this._additionsTail._nextAdded = record;
+    }
+    return record;
+  }
+  /** @internal */
+  _insertAfter(record, prevRecord, index) {
+    const next = prevRecord === null ? this._itHead : prevRecord._next;
+    record._next = next;
+    record._prev = prevRecord;
+    if (next === null) {
+      this._itTail = record;
+    } else {
+      next._prev = record;
+    }
+    if (prevRecord === null) {
+      this._itHead = record;
+    } else {
+      prevRecord._next = record;
+    }
+    if (this._linkedRecords === null) {
+      this._linkedRecords = new _DuplicateMap();
+    }
+    this._linkedRecords.put(record);
+    record.currentIndex = index;
+    return record;
+  }
+  /** @internal */
+  _remove(record) {
+    return this._addToRemovals(this._unlink(record));
+  }
+  /** @internal */
+  _unlink(record) {
+    if (this._linkedRecords !== null) {
+      this._linkedRecords.remove(record);
+    }
+    const prev = record._prev;
+    const next = record._next;
+    if (prev === null) {
+      this._itHead = next;
+    } else {
+      prev._next = next;
+    }
+    if (next === null) {
+      this._itTail = prev;
+    } else {
+      next._prev = prev;
+    }
+    return record;
+  }
+  /** @internal */
+  _addToMoves(record, toIndex) {
+    if (record.previousIndex === toIndex) {
+      return record;
+    }
+    if (this._movesTail === null) {
+      this._movesTail = this._movesHead = record;
+    } else {
+      this._movesTail = this._movesTail._nextMoved = record;
+    }
+    return record;
+  }
+  _addToRemovals(record) {
+    if (this._unlinkedRecords === null) {
+      this._unlinkedRecords = new _DuplicateMap();
+    }
+    this._unlinkedRecords.put(record);
+    record.currentIndex = null;
+    record._nextRemoved = null;
+    if (this._removalsTail === null) {
+      this._removalsTail = this._removalsHead = record;
+      record._prevRemoved = null;
+    } else {
+      record._prevRemoved = this._removalsTail;
+      this._removalsTail = this._removalsTail._nextRemoved = record;
+    }
+    return record;
+  }
+  /** @internal */
+  _addIdentityChange(record, item) {
+    record.item = item;
+    if (this._identityChangesTail === null) {
+      this._identityChangesTail = this._identityChangesHead = record;
+    } else {
+      this._identityChangesTail = this._identityChangesTail._nextIdentityChange = record;
+    }
+    return record;
+  }
+};
+var IterableChangeRecord_ = class {
+  constructor(item, trackById) {
+    this.item = item;
+    this.trackById = trackById;
+    this.currentIndex = null;
+    this.previousIndex = null;
+    this._nextPrevious = null;
+    this._prev = null;
+    this._next = null;
+    this._prevDup = null;
+    this._nextDup = null;
+    this._prevRemoved = null;
+    this._nextRemoved = null;
+    this._nextAdded = null;
+    this._nextMoved = null;
+    this._nextIdentityChange = null;
+  }
+};
+var _DuplicateItemRecordList = class {
+  constructor() {
+    this._head = null;
+    this._tail = null;
+  }
+  /**
+   * Append the record to the list of duplicates.
+   *
+   * Note: by design all records in the list of duplicates hold the same value in record.item.
+   */
+  add(record) {
+    if (this._head === null) {
+      this._head = this._tail = record;
+      record._nextDup = null;
+      record._prevDup = null;
+    } else {
+      this._tail._nextDup = record;
+      record._prevDup = this._tail;
+      record._nextDup = null;
+      this._tail = record;
+    }
+  }
+  // Returns a IterableChangeRecord_ having IterableChangeRecord_.trackById == trackById and
+  // IterableChangeRecord_.currentIndex >= atOrAfterIndex
+  get(trackById, atOrAfterIndex) {
+    let record;
+    for (record = this._head; record !== null; record = record._nextDup) {
+      if ((atOrAfterIndex === null || atOrAfterIndex <= record.currentIndex) && Object.is(record.trackById, trackById)) {
+        return record;
+      }
+    }
+    return null;
+  }
+  /**
+   * Remove one {@link IterableChangeRecord_} from the list of duplicates.
+   *
+   * Returns whether the list of duplicates is empty.
+   */
+  remove(record) {
+    const prev = record._prevDup;
+    const next = record._nextDup;
+    if (prev === null) {
+      this._head = next;
+    } else {
+      prev._nextDup = next;
+    }
+    if (next === null) {
+      this._tail = prev;
+    } else {
+      next._prevDup = prev;
+    }
+    return this._head === null;
+  }
+};
+var _DuplicateMap = class {
+  constructor() {
+    this.map = /* @__PURE__ */ new Map();
+  }
+  put(record) {
+    const key = record.trackById;
+    let duplicates = this.map.get(key);
+    if (!duplicates) {
+      duplicates = new _DuplicateItemRecordList();
+      this.map.set(key, duplicates);
+    }
+    duplicates.add(record);
+  }
+  /**
+   * Retrieve the `value` using key. Because the IterableChangeRecord_ value may be one which we
+   * have already iterated over, we use the `atOrAfterIndex` to pretend it is not there.
+   *
+   * Use case: `[a, b, c, a, a]` if we are at index `3` which is the second `a` then asking if we
+   * have any more `a`s needs to return the second `a`.
+   */
+  get(trackById, atOrAfterIndex) {
+    const key = trackById;
+    const recordList = this.map.get(key);
+    return recordList ? recordList.get(trackById, atOrAfterIndex) : null;
+  }
+  /**
+   * Removes a {@link IterableChangeRecord_} from the list of duplicates.
+   *
+   * The list of duplicates also is removed from the map if it gets empty.
+   */
+  remove(record) {
+    const key = record.trackById;
+    const recordList = this.map.get(key);
+    if (recordList.remove(record)) {
+      this.map.delete(key);
+    }
+    return record;
+  }
+  get isEmpty() {
+    return this.map.size === 0;
+  }
+  clear() {
+    this.map.clear();
+  }
+};
+function getPreviousIndex(item, addRemoveOffset, moveOffsets) {
+  const previousIndex = item.previousIndex;
+  if (previousIndex === null)
+    return previousIndex;
+  let moveOffset = 0;
+  if (moveOffsets && previousIndex < moveOffsets.length) {
+    moveOffset = moveOffsets[previousIndex];
+  }
+  return previousIndex + addRemoveOffset + moveOffset;
+}
+var DefaultKeyValueDifferFactory = class {
+  constructor() {
+  }
+  supports(obj) {
+    return obj instanceof Map || isJsObject(obj);
+  }
+  create() {
+    return new DefaultKeyValueDiffer();
+  }
+};
+var DefaultKeyValueDiffer = class {
+  constructor() {
+    this._records = /* @__PURE__ */ new Map();
+    this._mapHead = null;
+    this._appendAfter = null;
+    this._previousMapHead = null;
+    this._changesHead = null;
+    this._changesTail = null;
+    this._additionsHead = null;
+    this._additionsTail = null;
+    this._removalsHead = null;
+    this._removalsTail = null;
+  }
+  get isDirty() {
+    return this._additionsHead !== null || this._changesHead !== null || this._removalsHead !== null;
+  }
+  forEachItem(fn) {
+    let record;
+    for (record = this._mapHead; record !== null; record = record._next) {
+      fn(record);
+    }
+  }
+  forEachPreviousItem(fn) {
+    let record;
+    for (record = this._previousMapHead; record !== null; record = record._nextPrevious) {
+      fn(record);
+    }
+  }
+  forEachChangedItem(fn) {
+    let record;
+    for (record = this._changesHead; record !== null; record = record._nextChanged) {
+      fn(record);
+    }
+  }
+  forEachAddedItem(fn) {
+    let record;
+    for (record = this._additionsHead; record !== null; record = record._nextAdded) {
+      fn(record);
+    }
+  }
+  forEachRemovedItem(fn) {
+    let record;
+    for (record = this._removalsHead; record !== null; record = record._nextRemoved) {
+      fn(record);
+    }
+  }
+  diff(map2) {
+    if (!map2) {
+      map2 = /* @__PURE__ */ new Map();
+    } else if (!(map2 instanceof Map || isJsObject(map2))) {
+      throw new RuntimeError(900, ngDevMode && `Error trying to diff '${stringify(map2)}'. Only maps and objects are allowed`);
+    }
+    return this.check(map2) ? this : null;
+  }
+  onDestroy() {
+  }
+  /**
+   * Check the current state of the map vs the previous.
+   * The algorithm is optimised for when the keys do no change.
+   */
+  check(map2) {
+    this._reset();
+    let insertBefore = this._mapHead;
+    this._appendAfter = null;
+    this._forEach(map2, (value, key) => {
+      if (insertBefore && insertBefore.key === key) {
+        this._maybeAddToChanges(insertBefore, value);
+        this._appendAfter = insertBefore;
+        insertBefore = insertBefore._next;
+      } else {
+        const record = this._getOrCreateRecordForKey(key, value);
+        insertBefore = this._insertBeforeOrAppend(insertBefore, record);
+      }
+    });
+    if (insertBefore) {
+      if (insertBefore._prev) {
+        insertBefore._prev._next = null;
+      }
+      this._removalsHead = insertBefore;
+      for (let record = insertBefore; record !== null; record = record._nextRemoved) {
+        if (record === this._mapHead) {
+          this._mapHead = null;
+        }
+        this._records.delete(record.key);
+        record._nextRemoved = record._next;
+        record.previousValue = record.currentValue;
+        record.currentValue = null;
+        record._prev = null;
+        record._next = null;
+      }
+    }
+    if (this._changesTail)
+      this._changesTail._nextChanged = null;
+    if (this._additionsTail)
+      this._additionsTail._nextAdded = null;
+    return this.isDirty;
+  }
+  /**
+   * Inserts a record before `before` or append at the end of the list when `before` is null.
+   *
+   * Notes:
+   * - This method appends at `this._appendAfter`,
+   * - This method updates `this._appendAfter`,
+   * - The return value is the new value for the insertion pointer.
+   */
+  _insertBeforeOrAppend(before, record) {
+    if (before) {
+      const prev = before._prev;
+      record._next = before;
+      record._prev = prev;
+      before._prev = record;
+      if (prev) {
+        prev._next = record;
+      }
+      if (before === this._mapHead) {
+        this._mapHead = record;
+      }
+      this._appendAfter = before;
+      return before;
+    }
+    if (this._appendAfter) {
+      this._appendAfter._next = record;
+      record._prev = this._appendAfter;
+    } else {
+      this._mapHead = record;
+    }
+    this._appendAfter = record;
+    return null;
+  }
+  _getOrCreateRecordForKey(key, value) {
+    if (this._records.has(key)) {
+      const record2 = this._records.get(key);
+      this._maybeAddToChanges(record2, value);
+      const prev = record2._prev;
+      const next = record2._next;
+      if (prev) {
+        prev._next = next;
+      }
+      if (next) {
+        next._prev = prev;
+      }
+      record2._next = null;
+      record2._prev = null;
+      return record2;
+    }
+    const record = new KeyValueChangeRecord_(key);
+    this._records.set(key, record);
+    record.currentValue = value;
+    this._addToAdditions(record);
+    return record;
+  }
+  /** @internal */
+  _reset() {
+    if (this.isDirty) {
+      let record;
+      this._previousMapHead = this._mapHead;
+      for (record = this._previousMapHead; record !== null; record = record._next) {
+        record._nextPrevious = record._next;
+      }
+      for (record = this._changesHead; record !== null; record = record._nextChanged) {
+        record.previousValue = record.currentValue;
+      }
+      for (record = this._additionsHead; record != null; record = record._nextAdded) {
+        record.previousValue = record.currentValue;
+      }
+      this._changesHead = this._changesTail = null;
+      this._additionsHead = this._additionsTail = null;
+      this._removalsHead = null;
+    }
+  }
+  // Add the record or a given key to the list of changes only when the value has actually changed
+  _maybeAddToChanges(record, newValue) {
+    if (!Object.is(newValue, record.currentValue)) {
+      record.previousValue = record.currentValue;
+      record.currentValue = newValue;
+      this._addToChanges(record);
+    }
+  }
+  _addToAdditions(record) {
+    if (this._additionsHead === null) {
+      this._additionsHead = this._additionsTail = record;
+    } else {
+      this._additionsTail._nextAdded = record;
+      this._additionsTail = record;
+    }
+  }
+  _addToChanges(record) {
+    if (this._changesHead === null) {
+      this._changesHead = this._changesTail = record;
+    } else {
+      this._changesTail._nextChanged = record;
+      this._changesTail = record;
+    }
+  }
+  /** @internal */
+  _forEach(obj, fn) {
+    if (obj instanceof Map) {
+      obj.forEach(fn);
+    } else {
+      Object.keys(obj).forEach((k) => fn(obj[k], k));
+    }
+  }
+};
+var KeyValueChangeRecord_ = class {
+  constructor(key) {
+    this.key = key;
+    this.previousValue = null;
+    this.currentValue = null;
+    this._nextPrevious = null;
+    this._next = null;
+    this._prev = null;
+    this._nextAdded = null;
+    this._nextRemoved = null;
+    this._nextChanged = null;
+  }
+};
+function defaultIterableDiffersFactory() {
+  return new IterableDiffers([new DefaultIterableDifferFactory()]);
+}
+var _IterableDiffers = class _IterableDiffers {
+  constructor(factories) {
+    this.factories = factories;
+  }
+  static create(factories, parent) {
+    if (parent != null) {
+      const copied = parent.factories.slice();
+      factories = factories.concat(copied);
+    }
+    return new _IterableDiffers(factories);
+  }
+  /**
+   * Takes an array of {@link IterableDifferFactory} and returns a provider used to extend the
+   * inherited {@link IterableDiffers} instance with the provided factories and return a new
+   * {@link IterableDiffers} instance.
+   *
+   * @usageNotes
+   * ### Example
+   *
+   * The following example shows how to extend an existing list of factories,
+   * which will only be applied to the injector for this component and its children.
+   * This step is all that's required to make a new {@link IterableDiffer} available.
+   *
+   * ```
+   * @Component({
+   *   viewProviders: [
+   *     IterableDiffers.extend([new ImmutableListDiffer()])
+   *   ]
+   * })
+   * ```
+   */
+  static extend(factories) {
+    return {
+      provide: _IterableDiffers,
+      useFactory: (parent) => {
+        return _IterableDiffers.create(factories, parent || defaultIterableDiffersFactory());
+      },
+      // Dependency technically isn't optional, but we can provide a better error message this way.
+      deps: [[_IterableDiffers, new SkipSelf(), new Optional()]]
+    };
+  }
+  find(iterable) {
+    const factory = this.factories.find((f) => f.supports(iterable));
+    if (factory != null) {
+      return factory;
+    } else {
+      throw new RuntimeError(901, ngDevMode && `Cannot find a differ supporting object '${iterable}' of type '${getTypeNameForDebugging(iterable)}'`);
+    }
+  }
+};
+_IterableDiffers.ɵprov = ɵɵdefineInjectable({ token: _IterableDiffers, providedIn: "root", factory: defaultIterableDiffersFactory });
+var IterableDiffers = _IterableDiffers;
+function getTypeNameForDebugging(type) {
+  return type["name"] || typeof type;
+}
+function defaultKeyValueDiffersFactory() {
+  return new KeyValueDiffers([new DefaultKeyValueDifferFactory()]);
+}
+var _KeyValueDiffers = class _KeyValueDiffers {
+  constructor(factories) {
+    this.factories = factories;
+  }
+  static create(factories, parent) {
+    if (parent) {
+      const copied = parent.factories.slice();
+      factories = factories.concat(copied);
+    }
+    return new _KeyValueDiffers(factories);
+  }
+  /**
+   * Takes an array of {@link KeyValueDifferFactory} and returns a provider used to extend the
+   * inherited {@link KeyValueDiffers} instance with the provided factories and return a new
+   * {@link KeyValueDiffers} instance.
+   *
+   * @usageNotes
+   * ### Example
+   *
+   * The following example shows how to extend an existing list of factories,
+   * which will only be applied to the injector for this component and its children.
+   * This step is all that's required to make a new {@link KeyValueDiffer} available.
+   *
+   * ```
+   * @Component({
+   *   viewProviders: [
+   *     KeyValueDiffers.extend([new ImmutableMapDiffer()])
+   *   ]
+   * })
+   * ```
+   */
+  static extend(factories) {
+    return {
+      provide: _KeyValueDiffers,
+      useFactory: (parent) => {
+        return _KeyValueDiffers.create(factories, parent || defaultKeyValueDiffersFactory());
+      },
+      // Dependency technically isn't optional, but we can provide a better error message this way.
+      deps: [[_KeyValueDiffers, new SkipSelf(), new Optional()]]
+    };
+  }
+  find(kv) {
+    const factory = this.factories.find((f) => f.supports(kv));
+    if (factory) {
+      return factory;
+    }
+    throw new RuntimeError(901, ngDevMode && `Cannot find a differ supporting object '${kv}'`);
+  }
+};
+_KeyValueDiffers.ɵprov = ɵɵdefineInjectable({ token: _KeyValueDiffers, providedIn: "root", factory: defaultKeyValueDiffersFactory });
+var KeyValueDiffers = _KeyValueDiffers;
+var keyValDiff = [new DefaultKeyValueDifferFactory()];
+var iterableDiff = [new DefaultIterableDifferFactory()];
+var defaultIterableDiffers = new IterableDiffers(iterableDiff);
+var defaultKeyValueDiffers = new KeyValueDiffers(keyValDiff);
 var platformCore = createPlatformFactory(null, "core", []);
 var _ApplicationModule = class _ApplicationModule {
   // Inject ApplicationRef to make it eager...
@@ -23726,6 +23644,135 @@ function ɵɵngDeclarePipe(decl) {
   const compiler = getCompilerFacade({ usage: 1, kind: "pipe", type: decl.type });
   return compiler.compilePipeDeclaration(angularCoreEnv, `ng:///${decl.type.name}/ɵpipe.js`, decl);
 }
+function computed(computation, options) {
+  performanceMarkFeature("NgSignals");
+  const getter = createComputed(computation);
+  if (options?.equal) {
+    getter[SIGNAL].equal = options.equal;
+  }
+  if (ngDevMode) {
+    getter.toString = () => `[Computed: ${getter()}]`;
+  }
+  return getter;
+}
+function untracked(nonReactiveReadsFn) {
+  const prevConsumer = setActiveConsumer(null);
+  try {
+    return nonReactiveReadsFn();
+  } finally {
+    setActiveConsumer(prevConsumer);
+  }
+}
+var APP_EFFECT_SCHEDULER = new InjectionToken("", {
+  providedIn: "root",
+  factory: () => inject(EffectScheduler)
+});
+var _EffectScheduler = class _EffectScheduler {
+};
+_EffectScheduler.ɵprov = ɵɵdefineInjectable({
+  token: _EffectScheduler,
+  providedIn: "root",
+  factory: () => new ZoneAwareEffectScheduler()
+});
+var EffectScheduler = _EffectScheduler;
+var ZoneAwareEffectScheduler = class {
+  constructor() {
+    this.queuedEffectCount = 0;
+    this.queues = /* @__PURE__ */ new Map();
+    this.pendingTasks = inject(PendingTasks);
+    this.taskId = null;
+  }
+  scheduleEffect(handle) {
+    this.enqueue(handle);
+    if (this.taskId === null) {
+      const taskId = this.taskId = this.pendingTasks.add();
+      queueMicrotask(() => {
+        this.flush();
+        this.pendingTasks.remove(taskId);
+        this.taskId = null;
+      });
+    }
+  }
+  enqueue(handle) {
+    const zone = handle.creationZone;
+    if (!this.queues.has(zone)) {
+      this.queues.set(zone, /* @__PURE__ */ new Set());
+    }
+    const queue2 = this.queues.get(zone);
+    if (queue2.has(handle)) {
+      return;
+    }
+    this.queuedEffectCount++;
+    queue2.add(handle);
+  }
+  /**
+   * Run all scheduled effects.
+   *
+   * Execution order of effects within the same zone is guaranteed to be FIFO, but there is no
+   * ordering guarantee between effects scheduled in different zones.
+   */
+  flush() {
+    while (this.queuedEffectCount > 0) {
+      for (const [zone, queue2] of this.queues) {
+        if (zone === null) {
+          this.flushQueue(queue2);
+        } else {
+          zone.run(() => this.flushQueue(queue2));
+        }
+      }
+    }
+  }
+  flushQueue(queue2) {
+    for (const handle of queue2) {
+      queue2.delete(handle);
+      this.queuedEffectCount--;
+      handle.run();
+    }
+  }
+};
+var EffectHandle = class {
+  constructor(scheduler, effectFn, creationZone, destroyRef, injector, allowSignalWrites) {
+    this.scheduler = scheduler;
+    this.effectFn = effectFn;
+    this.creationZone = creationZone;
+    this.injector = injector;
+    this.watcher = createWatch((onCleanup) => this.runEffect(onCleanup), () => this.schedule(), allowSignalWrites);
+    this.unregisterOnDestroy = destroyRef?.onDestroy(() => this.destroy());
+  }
+  runEffect(onCleanup) {
+    try {
+      this.effectFn(onCleanup);
+    } catch (err) {
+      const errorHandler = this.injector.get(ErrorHandler, null, { optional: true });
+      errorHandler?.handleError(err);
+    }
+  }
+  run() {
+    this.watcher.run();
+  }
+  schedule() {
+    this.scheduler.scheduleEffect(this);
+  }
+  destroy() {
+    this.watcher.destroy();
+    this.unregisterOnDestroy?.();
+  }
+};
+function effect(effectFn, options) {
+  performanceMarkFeature("NgSignals");
+  ngDevMode && assertNotInReactiveContext(effect, "Call `effect` outside of a reactive context. For example, schedule the effect inside the component constructor.");
+  !options?.injector && assertInInjectionContext(effect);
+  const injector = options?.injector ?? inject(Injector);
+  const destroyRef = options?.manualCleanup !== true ? injector.get(DestroyRef) : null;
+  const handle = new EffectHandle(injector.get(APP_EFFECT_SCHEDULER), effectFn, typeof Zone === "undefined" ? null : Zone.current, destroyRef, injector, options?.allowSignalWrites ?? false);
+  const cdr = injector.get(ChangeDetectorRef, null, { optional: true });
+  if (!cdr || !(cdr._lView[FLAGS] & 8)) {
+    handle.watcher.notify();
+  } else {
+    (cdr._lView[EFFECTS_TO_SCHEDULE] ??= []).push(handle.watcher.notify);
+  }
+  return handle;
+}
 function createComponent(component, options) {
   ngDevMode && assertComponentDef(component);
   const componentDef = getComponentDef(component);
@@ -23947,24 +23994,9 @@ export {
   Renderer2,
   Sanitizer,
   NOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR,
-  isSignal,
-  performanceMarkFeature,
-  computed,
-  ɵunwrapWritableSignal,
-  signal,
-  untracked,
-  DefaultIterableDiffer,
-  IterableDiffers,
-  KeyValueDiffers,
-  devModeEqual,
-  ChangeDetectorRef,
-  injectChangeDetectorRef,
-  defaultIterableDiffers,
-  defaultKeyValueDiffers,
   DestroyRef,
   assertNotInReactiveContext,
-  EffectScheduler,
-  effect,
+  performanceMarkFeature,
   NgZone,
   NoopNgZone,
   AfterRenderPhase,
@@ -23979,6 +24011,9 @@ export {
   ComponentRef,
   LifecycleHooksFeature,
   ViewContainerRef,
+  isSignal,
+  ɵunwrapWritableSignal,
+  signal,
   viewChild,
   viewChildren,
   contentChild,
@@ -24011,6 +24046,7 @@ export {
   setClassMetadataAsync,
   setClassMetadata,
   PendingTasks,
+  devModeEqual,
   ɵɵtemplate,
   DeferBlockState,
   DeferBlockBehavior,
@@ -24227,6 +24263,8 @@ export {
   enableProdMode,
   getModuleFactory,
   getNgModuleById,
+  ChangeDetectorRef,
+  injectChangeDetectorRef,
   ViewRef,
   EmbeddedViewRef,
   DebugEventListener,
@@ -24234,6 +24272,11 @@ export {
   DebugNode,
   DebugElement,
   getDebugNode,
+  DefaultIterableDiffer,
+  IterableDiffers,
+  KeyValueDiffers,
+  defaultIterableDiffers,
+  defaultKeyValueDiffers,
   platformCore,
   ApplicationModule,
   setAlternateWeakRefImpl,
@@ -24253,6 +24296,10 @@ export {
   ɵɵngDeclareInjector,
   ɵɵngDeclareNgModule,
   ɵɵngDeclarePipe,
+  computed,
+  untracked,
+  EffectScheduler,
+  effect,
   createComponent,
   reflectComponentType,
   mergeApplicationConfig
@@ -24261,14 +24308,14 @@ export {
 
 @angular/core/fesm2022/primitives/signals.mjs:
   (**
-   * @license Angular v17.2.3
+   * @license Angular v17.2.4
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
 
 @angular/core/fesm2022/core.mjs:
   (**
-   * @license Angular v17.2.3
+   * @license Angular v17.2.4
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
@@ -24291,4 +24338,4 @@ export {
    * found in the LICENSE file at https://angular.io/license
    *)
 */
-//# sourceMappingURL=chunk-IFULXOSD.js.map
+//# sourceMappingURL=chunk-K6PN74MK.js.map
