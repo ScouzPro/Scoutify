@@ -6,12 +6,14 @@ import { PlayerServiceService } from '../../service/player-service.service';
 import { MetricsService } from '../../service/metrics.service';
 import { CommonModule } from '@angular/common';
 
+
+
 @Component({
     selector: 'app-reports',
     standalone: true,
     templateUrl: './reports.component.html',
     styleUrl: './reports.component.css',
-    imports: [HeaderSecondary2Component, NavbarComponent, FooterComponent, CommonModule]
+    imports: [HeaderSecondary2Component, NavbarComponent, FooterComponent, CommonModule,]
 })
 export class ReportsComponent implements OnInit {
 
@@ -27,7 +29,6 @@ export class ReportsComponent implements OnInit {
     async loadPlayers() {
       try {
         this.players = await this.playerService.getPlayerFollowed();
-        // Cargar métricas para cada jugador
         for (const player of this.players) {
           const metrics = await this.playerMetricService.getPlayerMetrics(player.id);
           this.playerMetricsMap.set(player.id, metrics);
