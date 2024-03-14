@@ -11,6 +11,7 @@ export class PlayerServiceService {
   async CreatePlayer(newPlayer: any) {
     try {
       // Aquí puedes incluir solo los campos que deseas enviar al servidor
+      // jejeje
       const playerData = {
         name: newPlayer.name,
         age: newPlayer.age,
@@ -39,7 +40,9 @@ export class PlayerServiceService {
       const filteredData = response.data.map((player: any) => ({
         name: player.name,
         actualTeam: player.actualTeam,
-        id:player._id
+        id:player._id,
+        photo: player.photo,
+        weight: player.weight
       }));
       return filteredData;
     } catch (error) {
