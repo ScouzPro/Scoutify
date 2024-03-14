@@ -1,10 +1,6 @@
 import {
   getDOM
-<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_forms.js
-} from "./chunk-O66W3HBT.js";
-=======
 } from "./chunk-QODWSEAU.js";
->>>>>>> origin/develop:frontend/.angular/cache/17.2.3/vite/deps/@angular_forms.js
 import {
   ChangeDetectorRef,
   Directive,
@@ -46,12 +42,7 @@ import {
   ɵɵdirectiveInject,
   ɵɵgetInheritedFactory,
   ɵɵlistener
-<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_forms.js
-} from "./chunk-RDRRF72H.js";
-import "./chunk-AOF462FV.js";
-=======
 } from "./chunk-K6PN74MK.js";
->>>>>>> origin/develop:frontend/.angular/cache/17.2.3/vite/deps/@angular_forms.js
 import {
   __spreadProps,
   __spreadValues

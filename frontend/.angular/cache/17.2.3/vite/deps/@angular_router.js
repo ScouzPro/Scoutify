@@ -1,12 +1,7 @@
 import {
   Title
-<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_router.js
-} from "./chunk-F3K4EACX.js";
-import "./chunk-KRY3D4YM.js";
-=======
 } from "./chunk-SYGTHEYQ.js";
 import "./chunk-KQAXTARW.js";
->>>>>>> origin/develop:frontend/.angular/cache/17.2.3/vite/deps/@angular_router.js
 import {
   DOCUMENT,
   HashLocationStrategy,
@@ -15,11 +10,7 @@ import {
   LocationStrategy,
   PathLocationStrategy,
   ViewportScroller
-<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_router.js
-} from "./chunk-O66W3HBT.js";
-=======
 } from "./chunk-QODWSEAU.js";
->>>>>>> origin/develop:frontend/.angular/cache/17.2.3/vite/deps/@angular_router.js
 import {
   APP_BOOTSTRAP_LISTENER,
   APP_INITIALIZER,
@@ -120,12 +111,7 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵsanitizeUrlOrResourceUrl
-<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_router.js
-} from "./chunk-RDRRF72H.js";
-import "./chunk-AOF462FV.js";
-=======
 } from "./chunk-K6PN74MK.js";
->>>>>>> origin/develop:frontend/.angular/cache/17.2.3/vite/deps/@angular_router.js
 import {
   __spreadProps,
   __spreadValues
