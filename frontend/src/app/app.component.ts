@@ -8,6 +8,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 @Component({
     selector: 'app-root',
     standalone: true,

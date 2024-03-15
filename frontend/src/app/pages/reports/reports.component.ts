@@ -6,12 +6,14 @@ import { PlayerServiceService } from '../../service/player-service.service';
 import { MetricsService } from '../../service/metrics.service';
 import { CommonModule } from '@angular/common';
 
+
+
 @Component({
     selector: 'app-reports',
     standalone: true,
     templateUrl: './reports.component.html',
     styleUrl: './reports.component.css',
-    imports: [HeaderSecondary2Component, NavbarComponent, FooterComponent, CommonModule]
+    imports: [HeaderSecondary2Component, NavbarComponent, FooterComponent, CommonModule,]
 })
 export class ReportsComponent implements OnInit {
 
@@ -27,12 +29,10 @@ export class ReportsComponent implements OnInit {
     async loadPlayers() {
       try {
         this.players = await this.playerService.getPlayerFollowed();
-        // Cargar métricas para cada jugador
         for (const player of this.players) {
           const metrics = await this.playerMetricService.getPlayerMetrics(player.id);
           this.playerMetricsMap.set(player.id, metrics);
-          console.log(metrics)
-          
+          console.log(metrics);
         }
       } catch (error) {
         console.error(error);
@@ -42,6 +42,8 @@ export class ReportsComponent implements OnInit {
     getPlayerMetrics(playerId: string): any[] {
       return this.playerMetricsMap.get(playerId) || [];
     }
+
+    
     formatCreatedAt(dateString: string): string {
         const date = new Date(dateString);
         const year = date.getFullYear();
@@ -49,18 +51,6 @@ export class ReportsComponent implements OnInit {
         const day = date.getDate().toString().padStart(2, '0'); // Agrega un 0 al principio si el día es de un solo dígito
         return `${year}-${month}-${day}`;
       }
-
-      async editarMetricas(metricId: string, nuevasMetricas: any) {
-        try {
-          // Llama al servicio para editar las métricas utilizando el _id de las métricas
-          await this.playerMetricService.editPlayerMetrics(metricId, nuevasMetricas);
-          // Vuelve a cargar los jugadores con las nuevas métricas
-          await this.loadPlayers();
-        } catch (error) {
-          console.error('Error al editar métricas:', error);
-        }
-      }
-    
       async eliminarMetricas(playerId: string) {
         try {
           // Obtener las métricas correspondientes al jugador
