@@ -129,5 +129,8 @@
   </table>
   
 </div>
-    <app-season-player [playerId]="player.id"></app-season-player>
+    <div style="display: flex; flex-direction: row-reverse; justify-content: space-around;">
+        <app-season-player [playerId]="player.id"></app-season-player>
+        <app-total-graphics [playerId]="player.id" ></app-total-graphics>
+    </div>
 </div>

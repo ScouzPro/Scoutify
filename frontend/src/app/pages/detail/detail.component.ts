@@ -5,13 +5,14 @@ import { PlayerServiceService } from '../../service/player-service.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
 import { SeasonPlayerComponent } from "../../components/season-player/season-player.component";
+import { TotalGraphicsComponent } from "../../components/total-graphics/total-graphics.component";
 
 @Component({
   selector: 'app-detail',
   standalone: true,
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
-  imports: [NavbarComponent,  CommonModule, FormsModule,SeasonPlayerComponent]
+  imports: [NavbarComponent,  CommonModule, FormsModule,SeasonPlayerComponent, TotalGraphicsComponent]
 })
 export class DetailComponent implements OnInit {
   player: any;
