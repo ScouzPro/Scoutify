@@ -8,6 +8,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { AuthRegComponent } from './pages/auth-reg/auth-reg.component';
 import { DetailComponent } from './pages/detail/detail.component';
 import { NewReportComponent } from './pages/new-report/new-report.component';
+import { MetricsGraphicsComponent } from './components/metrics-graphics/metrics-graphics.component';
 
 
 
@@ -44,6 +45,10 @@ export const routes: Routes = [
     path: 'players/:id',
     component: NewReportComponent
     },
+    {
+        path:'metricGraph',
+        component: MetricsGraphicsComponent
+    }
 
 
 ];

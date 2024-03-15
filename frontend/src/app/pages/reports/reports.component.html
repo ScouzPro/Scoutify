@@ -1,58 +1,52 @@
 <div>
-    <app-navbar></app-navbar>
+  <app-navbar></app-navbar>
 </div>
 <app-header-secondary2></app-header-secondary2>
-<div class="max-w-md mx-auto">
-    <!-- Player Fields -->
-    <div *ngIf="players.length > 0">
-      <h2 class="text-lg font-semibold mb-4">Informs</h2>
-        
-        <div class="card w-96 glass mb-10 h-96">
-          <div *ngFor="let player of players">
-            <div class="bg-white shadow-md rounded-lg p-4 mb-4">
-              <figure><img src="{{player.photo}}" alt="{{player.name}}" class="w-70 h-50"/></figure>
-              <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Name</label>
-                <p class="text-gray-900">{{ player.name }}</p>
-              </div>
-              <div class="mb-4">
-                <label  >Actual Team</label>
-                <p class="text-gray-900">{{ player.actualTeam }}</p>
-              </div>
-              <!-- Metrics Fields -->
-              <div *ngIf="getPlayerMetrics(player.id).length > 0; else noMetrics">
-                <h2 class="text-lg font-semibold mt-4 mb-2">Last Match</h2>
-                <div *ngFor="let metric of getPlayerMetrics(player.id)" class="bg-gray-100 rounded-md p-2 mb-2">
-                  <div class="mb-2">
-                    <label class="block text-sm font-medium text-gray-700">Match Summary</label>
-                    <p class="text-gray-900">{{ metric.matchSummary }}</p>
-                  </div>
-                  <div class="mb-2">
-                    <label class="block text-sm font-medium text-gray-700">Date</label>
-                    <p class="text-gray-900">{{ formatCreatedAt(metric.Created_At) }}</p>
-                  </div>
-                  <div class="mb-2">
-                    <label class="block text-sm font-medium text-gray-700">Average Total Skills</label>
-                    <p class="text-gray-900">{{ metric.averageTotalSkills }}</p>
-                  </div>
-                  <!-- Botones de editar y eliminar -->
-                  <div class="flex justify-end">
-                    <button class="mr-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" (click)="editarMetricas(metric._id, nuevasMetricas)">Editar</button>
-                    <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" (click)="eliminarMetricas(metric._id)">Eliminar</button>
-                  </div>
-                </div>
-              </div>
-              <ng-template #noMetrics>
-                <p class="text-gray-900">Sin informe</p>
-              </ng-template>
-            </div>
-          </div>
+<div class="container">
+  <!-- Iteración sobre las tarjetas de informes -->
+  <ng-container *ngFor="let player of players">
+    <div *ngFor="let metric of getPlayerMetrics(player.id)" class="card1">
+      <div class="PrincipalCard">
+        <img src="{{player.photo}}" alt="{{player.name}}" />
+        <div>       
+          <p>{{ player.name }}</p>
+          <p>{{player.position}}</p>
+          <p>{{player.dorsal}}</p>
         </div>
+      </div>
+      <h2>Last Match</h2>
+      <div>
+        <label>Match Summary:</label>
+        <p>{{ metric.matchSummary }}</p>
+      </div>
+      <div class="metricClass">
+        <div>
+          <label>Date:</label>
+          <p>{{ formatCreatedAt(metric.Created_At) }}</p>
+        </div>
+        <div>
+          <label>Evaluation:</label>
+          <p>{{ metric.averageTotalSkills }}</p>
+        </div>
+      </div>
+      <!-- Botones de Editar y Eliminar -->
+      <div class="buttonMetrics">
+        <button>Edit</button>
+        <button (click)="eliminarMetricas(player.id)">Eliminar</button>
+      </div>
     </div>
-  </div>
-  <div>
-    <app-footer></app-footer>
+  </ng-container>
 </div>
+
+<div class="footer">
+  <app-footer></app-footer>
+</div>
+
+
+
+
+
+
 
 
 

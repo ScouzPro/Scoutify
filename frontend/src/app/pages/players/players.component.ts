@@ -40,6 +40,20 @@ export class PlayersComponent implements OnInit {
         this.loadPlayersFollowed();
     }
 
+    async eliminarJugador(playerId: string) {
+        try {
+          const success = await this.playerService.deletePlayer(playerId);
+          if (success) {
+            // Actualizar la lista de jugadores después de eliminar uno
+            this.loadPlayersFollowed();
+          } else {
+            console.error('Error al eliminar el jugador.');
+          }
+        } catch (error) {
+          console.error('Error al eliminar el jugador:', error);
+        }
+      }
+
     async loadPlayersFollowed() {
         try {
             this.playersFollowed = await this.playerService.getPlayerFollowed();
