@@ -9,8 +9,7 @@ h2 {
 .container {
     display: flex;
     flex-direction: column;
-    max-width: 40%;
-    margin-left: 60%;
+    
 }
 
 .container > div {
