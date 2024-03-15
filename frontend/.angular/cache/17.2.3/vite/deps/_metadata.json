@@ -1,55 +1,55 @@
 {
-  "hash": "fe37de57",
-  "configHash": "9c38ed64",
-  "lockfileHash": "7f8758ed",
-  "browserHash": "1e8d46f8",
+  "hash": "930b7bb0",
+  "configHash": "77b65851",
+  "lockfileHash": "93491a31",
+  "browserHash": "5110bfc2",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "33fe8f0e",
+      "fileHash": "16dd9ca4",
       "needsInterop": false
     },
     "@angular/common/http": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-      "fileHash": "3a023d96",
+      "fileHash": "8b5080d1",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "9f79d03f",
+      "fileHash": "b3d2bbd2",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "e105fb81",
+      "fileHash": "fa36a78a",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "f5119985",
+      "fileHash": "a056c4a8",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "1daa8df2",
+      "fileHash": "1bdf9bc2",
       "needsInterop": false
     },
     "axios": {
       "src": "../../../../../node_modules/axios/index.js",
       "file": "axios.js",
-      "fileHash": "907c05b3",
+      "fileHash": "d7160479",
       "needsInterop": false
     },
     "ngx-pagination": {
       "src": "../../../../../node_modules/ngx-pagination/fesm2020/ngx-pagination.mjs",
       "file": "ngx-pagination.js",
-      "fileHash": "7995a163",
+      "fileHash": "cf074df0",
       "needsInterop": false
     }
   },
