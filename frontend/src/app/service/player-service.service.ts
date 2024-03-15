@@ -77,4 +77,15 @@ async deletePlayer(playerId: string): Promise<boolean> {
     return false; // Retorna false si hubo algún error en la eliminación
   }
 }
+
+async updatePlayer(playerId: string, updatedPlayerData: any): Promise<boolean> {
+  try {
+    const response = await axios.put(`http://localhost:3001/player/${playerId}`, updatedPlayerData);
+    console.log('Datos del jugador actualizados:', response.data); // Agrega este console.log para verificar
+    return true; // Retorna true si la actualización fue exitosa
+  } catch (error) {
+    console.error(error);
+    return false; // Retorna false si hubo algún error en la actualización
+  }
+}
 }  
