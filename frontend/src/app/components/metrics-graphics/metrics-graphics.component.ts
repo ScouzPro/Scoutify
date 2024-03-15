@@ -3,10 +3,12 @@ import { PlayerServiceService } from '../../service/player-service.service';
 import { MetricsService } from '../../service/metrics.service';
 import { CommonModule } from '@angular/common';
 import { Chart} from 'chart.js/auto';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { FooterComponent } from '../footer/footer.component';
 @Component({
   selector: 'app-metrics-graphics',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent,FooterComponent],
   templateUrl: './metrics-graphics.component.html',
   styleUrl: './metrics-graphics.component.css',  
 })
