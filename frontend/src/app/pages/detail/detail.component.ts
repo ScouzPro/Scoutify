@@ -4,13 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { PlayerServiceService } from '../../service/player-service.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
+import { SeasonPlayerComponent } from "../../components/season-player/season-player.component";
 
 @Component({
   selector: 'app-detail',
   standalone: true,
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
-  imports: [NavbarComponent,  CommonModule, FormsModule]
+  imports: [NavbarComponent,  CommonModule, FormsModule,SeasonPlayerComponent]
 })
 export class DetailComponent implements OnInit {
   player: any;

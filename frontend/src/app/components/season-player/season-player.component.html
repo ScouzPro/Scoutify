@@ -1,0 +1,53 @@
+<div class="container">
+    <!-- Título -->
+    <h2>Season Details</h2>
+    
+    <!-- Primer div con los valores de games, goals y valorationMedia -->
+    <div *ngIf="seasonData" >
+        <div>            
+            <table>
+                <tr>
+                  <th style="padding-right: 60px;">Partidos</th>
+                  <th style="padding-right: 60px;">Goles</th>
+                  <th>Valoracion Media</th>
+                </tr>
+                <tr>
+                  <td style="font-size: 30px;">{{ seasonData.games }}</td>
+                  <td  style="font-size: 30px;">{{ seasonData.goals }}</td>
+                  <td>
+                    <div *ngIf="seasonData.valorationMedia">
+                      <ul>
+                        <li  style="font-size: 30px;" *ngFor="let valoration of seasonData.valorationMedia">{{ valoration }}</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+        </div>
+    </div>
+
+    <!-- Segundo div con los campos playerGame, playerJourney, yellowCards, redCards -->
+    <div *ngIf="seasonData">
+      <table>
+        <tr>
+          <td>Jugador del partido:</td>
+          <td>{{ seasonData.playerGame }}</td>
+        </tr>
+        <tr>
+          <td>Jugador de la jornada:</td>
+          <td>{{ seasonData.playerJourney }}</td>
+        </tr>
+        <tr>
+          <td>Tarjetas amarillas:</td>
+          <td>{{ seasonData.yellowCards }}</td>
+        </tr>
+        <tr>
+          <td>Tarjetas rojas:</td>
+          <td>{{ seasonData.redCards }}</td>
+        </tr>
+      </table>
+      
+    </div>
+</div>
+
+

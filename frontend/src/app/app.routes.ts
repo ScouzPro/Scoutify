@@ -9,6 +9,7 @@ import { AuthRegComponent } from './pages/auth-reg/auth-reg.component';
 import { DetailComponent } from './pages/detail/detail.component';
 import { NewReportComponent } from './pages/new-report/new-report.component';
 import { MetricsGraphicsComponent } from './components/metrics-graphics/metrics-graphics.component';
+import { SeasonPlayerComponent } from './components/season-player/season-player.component';
 
 
 
@@ -48,7 +49,11 @@ export const routes: Routes = [
     {
         path:'metricGraph',
         component: MetricsGraphicsComponent
-    }
+    },
+    // {
+    //     path: 'season/:id',
+    //     component: SeasonPlayerComponent
+    // }
 
 
 ];
