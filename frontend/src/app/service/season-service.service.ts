@@ -37,15 +37,18 @@ export class SeasonService {
     }
   }
 
-  async updateSeasonPlayer(playerId:string, updateSeason:any){
+  async updateSeasonPlayer(playerId:string, updateSeason:any):Promise<boolean>{
     try {
       const response = await axios.put(`${this.url}${playerId}`, updateSeason);
-      return response.data;
+      console.log('Datos de la season actualizados:', response.data);
+      return true;
     }  catch (error) {
       console.error(error);
-      return null;
+      return false;
       
     }
   }
+
+  
 
 }

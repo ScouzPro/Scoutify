@@ -51,6 +51,7 @@ export class DetailComponent implements OnInit {
         };
         this.editedPlayer = { ...this.player }; // Inicializa editedPlayer con los datos del jugador actual
         console.log('Datos del jugador cargados:', this.player);
+       
       } else {
         console.error('No se encontraron datos para el jugador con ID:', playerId);
       }
@@ -64,9 +65,9 @@ export class DetailComponent implements OnInit {
       const playerId = this.player.id;
       const success = await this.playerService.updatePlayer(playerId, this.editedPlayer);
       if (success) {
-        console.log('¡Los datos del jugador se actualizaron correctamente!');
+        console.log('¡Los datos del jugador se actualizaron correctamente!', this.editedPlayer);
         
-        this.closeModal();
+        this.closeModal()
       } else {
         console.error('¡Error al actualizar los datos del jugador!');
       }

@@ -5,6 +5,6 @@ const seasonRouter = express.Router();
 
 seasonRouter.post('/', saveSeasonGame)
 seasonRouter.get('/:id', getSeasonById)
-seasonRouter.put('/:', updateSeason);
+seasonRouter.put('/:id', updateSeason);
 
 export default seasonRouter;
