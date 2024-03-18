@@ -2,13 +2,14 @@ import { Component, OnInit } from "@angular/core";
 import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { FooterComponent } from "../../components/footer/footer.component";
 import { RouterLink } from "@angular/router";
+import { VideosComponent } from "../../components/videos/videos.component";
 
 @Component({
   selector: "app-home",
   standalone: true,
   templateUrl: "./home.component.html",
   styleUrl: "./home.component.css",
-  imports: [NavbarComponent, FooterComponent, RouterLink],
+  imports: [NavbarComponent, FooterComponent, RouterLink, VideosComponent ],
 })
 export class HomeComponent implements OnInit {
     constructor() {}
