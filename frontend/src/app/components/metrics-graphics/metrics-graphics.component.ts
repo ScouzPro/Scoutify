@@ -40,7 +40,7 @@ export class MetricsGraphicsComponent implements OnInit {
 
   generateChart(): void {
     // Obtener datos para el gráfico
-    const labels = ['Shot', 'Heading', 'Association', 'Right Foot', 'Left Foot', 'Long Pass', ];
+    const labels = ['Shot', 'Heading', 'Association', 'Right Foot', 'Left Foot', 'Long Passes', 'dribbling', 'reflexes', 'crosses' ];
     const datasets: any[] = [];
   
     // Obtener la lista de jugadores
@@ -58,6 +58,9 @@ export class MetricsGraphicsComponent implements OnInit {
           const rightFoot = metrics.map((metric: any) => metric.principalSkills[0].rightFoot)
           const leftFoot = metrics.map((metric: any) => metric.principalSkills[0].leftFoot)
           const longPasses = metrics.map((metric: any) => metric.principalSkills[0].longPasses)
+          const dribbling = metrics.map((metric: any) => metric.principalSkills[0].dribbling)
+          const reflexes = metrics.map((metric: any) => metric.principalSkills[0].reflexes)
+          const crosses = metrics.map((metric: any) => metric.principalSkills[0].crosses)
 
         const data = {
           shot: shot,
@@ -65,15 +68,17 @@ export class MetricsGraphicsComponent implements OnInit {
           association: association,
           rightFoot: rightFoot,
           leftFoot: leftFoot,
-          longPasses: longPasses
-
+          longPasses: longPasses,
+          dribbling: dribbling,
+          reflexes : reflexes,
+          crosses : crosses
         };
         
         console.log(data);
   
         datasets.push({
           label: playerName,
-          data: [Math.max(...data.shot), Math.max(...data.heading), Math.max(...data.association),Math.max(...data.rightFoot),Math.max(...data.leftFoot),Math.max(...data.longPasses)],
+          data: [Math.max(...data.shot), Math.max(...data.heading), Math.max(...data.association),Math.max(...data.rightFoot),Math.max(...data.leftFoot),Math.max(...data.longPasses),Math.max(...data.dribbling),Math.max(...data.reflexes),Math.max(...data.crosses)],
           fill: true,
           pointBackgroundColor: this.getRandomColor(),
           pointBorderColor: '#fff',
