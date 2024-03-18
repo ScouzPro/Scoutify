@@ -42,7 +42,7 @@ export const Register = async (req, res) => {
 
 //CONTROLADOR LOGIN
 export const Login = async (req, res) => {
-    const {username, email, password} = req.body
+    const {username, password} = req.body
     try {
         const user = await User.findOne({email:email}) //buscamos si el email existe
         if (!user) { //el ! lo pone al significado contrario, es decir, si el mail no esta en nuestra base
@@ -56,7 +56,6 @@ export const Login = async (req, res) => {
         //Tras el loginse genera un token
         const tokenLog = jwt.sign({ //firmo y elijo la info que quiero enviar con el token
             username: username,
-            email: email,
             role: user.role,
         }, "codesecret" ) //clave secreta, firma el token, se usa luego con el middleware para verificar, esta en sucio
 

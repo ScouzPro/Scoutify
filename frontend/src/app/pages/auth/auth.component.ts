@@ -22,9 +22,7 @@ export class AuthComponent {
     get name(){
         return this.formUser.get('name') as FormControl; //acceso al grupo, luego a la propiedad get y luego al valor
     }
-    get email(){
-        return this.formUser.get('email') as FormControl; //acceso al grupo, luego a la propiedad get y luego al valor
-    }
+   
     get password(){
         return this.formUser.get('password') as FormControl; //acceso al grupo, luego a la propiedad get y luego al valor
     }
@@ -33,7 +31,6 @@ export class AuthComponent {
     //GRUPO DE CONTROLADORES 
     formUser = new FormGroup({ //esto a la cabeda del form
         'name': new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z]/)]),
-        'email': new FormControl('', [Validators.required, Validators.email]),
         'password': new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)]),
     })
 
