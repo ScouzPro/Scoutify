@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, ChartType } from  'chart.js/auto'
-import { ButtonPlayer1Component } from '../../components/button-player1/button-player1.component';
-import { DetailsButton1Component } from '../../components/details-button1/details-button1.component';
 
 @Component({
   selector: 'app-graph',
   standalone: true,
-  imports: [ ButtonPlayer1Component, DetailsButton1Component ],
+  imports: [],
   templateUrl: './graph.component.html',
   styleUrl: './graph.component.css'
 })
