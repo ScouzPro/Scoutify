@@ -4,13 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { PlayerServiceService } from '../../service/player-service.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
+import { SeasonPlayerComponent } from "../../components/season-player/season-player.component";
+import { TotalGraphicsComponent } from "../../components/total-graphics/total-graphics.component";
 
 @Component({
   selector: 'app-detail',
   standalone: true,
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
-  imports: [NavbarComponent,  CommonModule, FormsModule]
+  imports: [NavbarComponent,  CommonModule, FormsModule,SeasonPlayerComponent, TotalGraphicsComponent]
 })
 export class DetailComponent implements OnInit {
   player: any;
@@ -49,6 +51,7 @@ export class DetailComponent implements OnInit {
         };
         this.editedPlayer = { ...this.player }; // Inicializa editedPlayer con los datos del jugador actual
         console.log('Datos del jugador cargados:', this.player);
+       
       } else {
         console.error('No se encontraron datos para el jugador con ID:', playerId);
       }
@@ -62,9 +65,9 @@ export class DetailComponent implements OnInit {
       const playerId = this.player.id;
       const success = await this.playerService.updatePlayer(playerId, this.editedPlayer);
       if (success) {
-        console.log('¡Los datos del jugador se actualizaron correctamente!');
+        console.log('¡Los datos del jugador se actualizaron correctamente!', this.editedPlayer);
         
-        this.closeModal();
+        this.closeModal()
       } else {
         console.error('¡Error al actualizar los datos del jugador!');
       }
