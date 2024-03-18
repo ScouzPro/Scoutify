@@ -30,7 +30,7 @@ export class MetricsGraphicsComponent implements OnInit {
       for (const player of players) {
         const metrics = await this.playerMetricService.getPlayerMetrics(player.id);
         this.playerMetricsMap.set(player.id, metrics);
-        console.log('a ver que me trae',metrics);
+        // console.log('a ver que me trae',metrics);
         
       }
     } catch (error) {
@@ -40,7 +40,7 @@ export class MetricsGraphicsComponent implements OnInit {
 
   generateChart(): void {
     // Obtener datos para el gráfico
-    const labels = ['1ºSemana', '2ºSemana', '3ºSemana'];
+    const labels = ['Shot', 'Heading', 'Association', 'Right Foot', 'Left Foot', 'Long Pase', ];
     const datasets: any[] = [];
   
     // Obtener la lista de jugadores
@@ -52,15 +52,27 @@ export class MetricsGraphicsComponent implements OnInit {
         const playerName = player ? player.name : 'Nombre Desconocido';
   
         // Obtener los valores de averageTotalSkills
-        const data = metrics.map((metric: any) => metric.averageTotalSkills);
+          const shot = metrics.map((metric: any) => metric.principalSkills[0].shot);
+          const heading = metrics.map((metric: any) => metric.principalSkills[0].heading)
+          const association = metrics.map((metric: any) => metric.principalSkills[0].association)
+
+
+        const data = {
+          shot: shot,
+          heading: heading,
+          association: association
+        };
+        
         console.log(data);
   
         datasets.push({
           label: playerName,
-          data: data,
-          fill: false,
-          borderColor: this.getRandomColor(),
-          tension: 0.5
+          data: [data.shot, data.heading],
+          fill: true,
+          pointBackgroundColor: this.getRandomColor(),
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: this.getRandomColor()
         });
       });
   
@@ -72,9 +84,15 @@ export class MetricsGraphicsComponent implements OnInit {
   
       // Crear el gráfico
       this.chart = new Chart("myChart", {
-        type: 'line',
+        type: 'radar',
         data: data,
-        options: {} // Puedes agregar opciones personalizadas aquí si es necesario
+        options: {
+          elements: {
+            line: {
+              borderWidth: 3
+            }
+          }
+        },
       });
     }).catch(error => {
       console.error('Error al obtener la lista de jugadores:', error);
