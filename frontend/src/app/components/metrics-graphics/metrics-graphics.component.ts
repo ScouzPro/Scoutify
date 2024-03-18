@@ -30,6 +30,7 @@ export class MetricsGraphicsComponent implements OnInit {
       for (const player of players) {
         const metrics = await this.playerMetricService.getPlayerMetrics(player.id);
         this.playerMetricsMap.set(player.id, metrics);
+        console.log('a ver que me trae',metrics);
         
       }
     } catch (error) {
@@ -52,6 +53,7 @@ export class MetricsGraphicsComponent implements OnInit {
   
         // Obtener los valores de averageTotalSkills
         const data = metrics.map((metric: any) => metric.averageTotalSkills);
+        console.log(data);
   
         datasets.push({
           label: playerName,

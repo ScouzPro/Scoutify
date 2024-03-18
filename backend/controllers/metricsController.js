@@ -43,7 +43,7 @@ export const savePlayerMetrics = async(req, res) =>{
     try {
         // Busca la métrica de jugador por el ID proporcionado
         // const playerMetric = await playerMetricModel.findById(id);
-        const playerMetric = await playerMetricModel.find({ player_id: id });
+        const playerMetric = await playerMetricModel.find({ player_id: id });   
 
         // Si no se encuentra la métrica de jugador, responde con un mensaje de error
         if (!playerMetric) {

@@ -5,6 +5,7 @@ import { db } from "./database/database.js";
 import playerRouter from "./routes/playersRouter.js"
 import reportRoutes from "./routes/reportRoutes.js";
 import playerMetricsRouter from './routes/metricRoutes.js'
+import seasonRoutes from './routes/seasonRoutes.js'
 
 dotenv.config();
 
@@ -15,7 +16,8 @@ db();
 app.use(cors());
 app.use('/api', reportRoutes);
 app.use('/', playerMetricsRouter);
-app.use("/player", playerRouter)
+app.use("/player", playerRouter);
+app.use("/season", seasonRoutes)
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
