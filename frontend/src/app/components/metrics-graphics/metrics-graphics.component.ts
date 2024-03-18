@@ -131,7 +131,7 @@ export class MetricsGraphicsComponent implements OnInit {
 
   generateChart(): void {
     // Obtener datos para el gráfico
-    const labels = ['Shot', 'Heading', 'Association', 'Right Foot', 'Left Foot', 'Long Pase', ];
+    const labels = ['Shot', 'Heading', 'Association', 'Right Foot', 'Left Foot', 'Long Pass', ];
     const datasets: any[] = [];
   
     // Obtener la lista de jugadores
@@ -208,6 +208,4 @@ export class MetricsGraphicsComponent implements OnInit {
 
   // Método para generar un color aleatorio para los bordes del gráfico
   getRandomColor(): string {
-    return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
-  }
-}
+    return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;}}
