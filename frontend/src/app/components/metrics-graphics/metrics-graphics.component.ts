@@ -40,7 +40,7 @@ export class MetricsGraphicsComponent implements OnInit {
 
   generateChart(): void {
     // Obtener datos para el gráfico
-    const labels = ['Shot', 'Heading', 'Association', 'Right Foot', 'Left Foot', 'Long Pase', ];
+    const labels = ['Shot', 'Heading', 'Association', 'Right Foot', 'Left Foot', 'Long Pass', ];
     const datasets: any[] = [];
   
     // Obtener la lista de jugadores
@@ -55,25 +55,32 @@ export class MetricsGraphicsComponent implements OnInit {
           const shot = metrics.map((metric: any) => metric.principalSkills[0].shot);
           const heading = metrics.map((metric: any) => metric.principalSkills[0].heading)
           const association = metrics.map((metric: any) => metric.principalSkills[0].association)
-
+          const rightFoot = metrics.map((metric: any) => metric.principalSkills[0].rightFoot)
+          const leftFoot = metrics.map((metric: any) => metric.principalSkills[0].leftFoot)
+          const longPasses = metrics.map((metric: any) => metric.principalSkills[0].longPasses)
 
         const data = {
           shot: shot,
           heading: heading,
-          association: association
+          association: association,
+          rightFoot: rightFoot,
+          leftFoot: leftFoot,
+          longPasses: longPasses
+
         };
         
         console.log(data);
   
         datasets.push({
           label: playerName,
-          data: [data.shot, data.heading],
+          data: [Math.max(...data.shot), Math.max(...data.heading), Math.max(...data.association),Math.max(...data.rightFoot),Math.max(...data.leftFoot),Math.max(...data.longPasses)],
           fill: true,
           pointBackgroundColor: this.getRandomColor(),
           pointBorderColor: '#fff',
           pointHoverBackgroundColor: '#fff',
           pointHoverBorderColor: this.getRandomColor()
         });
+        
       });
   
       // Configurar el objeto de datos del gráfico
@@ -81,18 +88,27 @@ export class MetricsGraphicsComponent implements OnInit {
         labels: labels,
         datasets: datasets
       };
+
+      const options = {
+        scale: {
+          min: 0,
+          max: 10,
+          ticks: {
+            stepSize: 1
+          }
+        },
+        elements: {
+          line: {
+            borderWidth: 3
+          }
+        }
+      };
   
       // Crear el gráfico
       this.chart = new Chart("myChart", {
         type: 'radar',
         data: data,
-        options: {
-          elements: {
-            line: {
-              borderWidth: 3
-            }
-          }
-        },
+        options: options
       });
     }).catch(error => {
       console.error('Error al obtener la lista de jugadores:', error);
@@ -101,6 +117,4 @@ export class MetricsGraphicsComponent implements OnInit {
 
   // Método para generar un color aleatorio para los bordes del gráfico
   getRandomColor(): string {
-    return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
-  }
-}
+    return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;}}
