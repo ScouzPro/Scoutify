@@ -7,6 +7,7 @@ import { HeroLandingComponent } from './components/hero-landing/hero-landing.com
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { VideosComponent } from './components/videos/videos.component';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, ReactiveFormsModule, NavbarComponent , FooterComponent, LandingComponent, HeroLandingComponent, LoginFormComponent, RegisterFormComponent]
+    imports: [RouterOutlet, ReactiveFormsModule, NavbarComponent , FooterComponent, LandingComponent, HeroLandingComponent, LoginFormComponent, RegisterFormComponent, VideosComponent]
 })
 export class AppComponent {
   title = 'Scoutify';
