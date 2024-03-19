@@ -39,7 +39,7 @@ export class GraphTacticalComponent implements OnInit {
 
   generateChart(): void {
     // Obtener datos para el gráfico
-    const labels = ['Shot', 'Heading', 'Association', 'Right Foot', 'Left Foot', 'Long Passes', 'dribbling', 'reflexes', 'crosses' ];
+    const labels = ['Anticipation', 'Placement', 'concentration', 'Forcefulness', 'Overlap', 'Off The Ball', 'Positioning', 'Game Vision'];
     const datasets: any[] = [];
   
     // Obtener la lista de jugadores
@@ -51,33 +51,31 @@ export class GraphTacticalComponent implements OnInit {
         const playerName = player ? player.name : 'Nombre Desconocido';
   
         // Obtener los valores de averageTotalSkills
-          const shot = metrics.map((metric: any) => metric.principalSkills[0].shot);
-          const heading = metrics.map((metric: any) => metric.principalSkills[0].heading)
-          const association = metrics.map((metric: any) => metric.principalSkills[0].association)
-          const rightFoot = metrics.map((metric: any) => metric.principalSkills[0].rightFoot)
-          const leftFoot = metrics.map((metric: any) => metric.principalSkills[0].leftFoot)
-          const longPasses = metrics.map((metric: any) => metric.principalSkills[0].longPasses)
-          const dribbling = metrics.map((metric: any) => metric.principalSkills[0].dribbling)
-          const reflexes = metrics.map((metric: any) => metric.principalSkills[0].reflexes)
-          const crosses = metrics.map((metric: any) => metric.principalSkills[0].crosses)
+          const anticipation = metrics.map((metric: any) => metric.tacticalSkills[0].anticipation);
+          const placement = metrics.map((metric: any) => metric.tacticalSkills[0].placement)
+          const concentration = metrics.map((metric: any) => metric.tacticalSkills[0].concentration)
+          const forcefulness = metrics.map((metric: any) => metric.tacticalSkills[0].forcefulness)
+          const overlap = metrics.map((metric: any) => metric.tacticalSkills[0].overlap)
+          const offTheBall = metrics.map((metric: any) => metric.tacticalSkills[0].offTheBall)
+          const positioning = metrics.map((metric: any) => metric.tacticalSkills[0].positioning)
+          const gameVision = metrics.map((metric: any) => metric.tacticalSkills[0].gameVision)
 
         const data = {
-          shot: shot,
-          heading: heading,
-          association: association,
-          rightFoot: rightFoot,
-          leftFoot: leftFoot,
-          longPasses: longPasses,
-          dribbling: dribbling,
-          reflexes : reflexes,
-          crosses : crosses
+          anticipation: anticipation,
+          placement: placement,
+          concentration: concentration,
+          forcefulness: forcefulness,
+          overlap: overlap,
+          offTheBall: offTheBall,
+          positioning: positioning,
+          gameVision : gameVision
         };
         
         console.log(data);
   
         datasets.push({
           label: playerName,
-          data: [Math.max(...data.shot), Math.max(...data.heading), Math.max(...data.association),Math.max(...data.rightFoot),Math.max(...data.leftFoot),Math.max(...data.longPasses),Math.max(...data.dribbling),Math.max(...data.reflexes),Math.max(...data.crosses)],
+          data: [Math.max(...data.anticipation), Math.max(...data.placement), Math.max(...data.concentration),Math.max(...data.forcefulness),Math.max(...data.overlap),Math.max(...data.offTheBall),Math.max(...data.positioning),Math.max(...data.gameVision)],
           fill: true,
           pointBackgroundColor: this.getRandomColor(),
           pointBorderColor: '#fff',

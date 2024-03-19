@@ -39,7 +39,7 @@ export class GraphPhisicalComponent implements OnInit {
 
   generateChart(): void {
     // Obtener datos para el gráfico
-    const labels = ['Shot', 'Heading', 'Association', 'Right Foot', 'Left Foot', 'Long Passes', 'dribbling', 'reflexes', 'crosses' ];
+    const labels = ['Agility', 'Flexibility', 'Strength', 'Power', 'Endurance', 'Jumping', 'Speed' ];
     const datasets: any[] = [];
   
     // Obtener la lista de jugadores
@@ -51,33 +51,29 @@ export class GraphPhisicalComponent implements OnInit {
         const playerName = player ? player.name : 'Nombre Desconocido';
   
         // Obtener los valores de averageTotalSkills
-          const shot = metrics.map((metric: any) => metric.principalSkills[0].shot);
-          const heading = metrics.map((metric: any) => metric.principalSkills[0].heading)
-          const association = metrics.map((metric: any) => metric.principalSkills[0].association)
-          const rightFoot = metrics.map((metric: any) => metric.principalSkills[0].rightFoot)
-          const leftFoot = metrics.map((metric: any) => metric.principalSkills[0].leftFoot)
-          const longPasses = metrics.map((metric: any) => metric.principalSkills[0].longPasses)
-          const dribbling = metrics.map((metric: any) => metric.principalSkills[0].dribbling)
-          const reflexes = metrics.map((metric: any) => metric.principalSkills[0].reflexes)
-          const crosses = metrics.map((metric: any) => metric.principalSkills[0].crosses)
+          const agility = metrics.map((metric: any) => metric.physicalSkills[0].agility);
+          const flexibility = metrics.map((metric: any) => metric.physicalSkills[0].flexibility)
+          const strength = metrics.map((metric: any) => metric.physicalSkills[0].strength)
+          const power = metrics.map((metric: any) => metric.physicalSkills[0].power)
+          const endurance = metrics.map((metric: any) => metric.physicalSkills[0].endurance)
+          const jumping = metrics.map((metric: any) => metric.physicalSkills[0].jumping)
+          const speed = metrics.map((metric: any) => metric.physicalSkills[0].speed)
 
         const data = {
-          shot: shot,
-          heading: heading,
-          association: association,
-          rightFoot: rightFoot,
-          leftFoot: leftFoot,
-          longPasses: longPasses,
-          dribbling: dribbling,
-          reflexes : reflexes,
-          crosses : crosses
+          agility: agility,
+          flexibility: flexibility,
+          strength: strength,
+          power: power,
+          endurance: endurance,
+          jumping: jumping,
+          speed: speed
         };
         
         console.log(data);
   
         datasets.push({
           label: playerName,
-          data: [Math.max(...data.shot), Math.max(...data.heading), Math.max(...data.association),Math.max(...data.rightFoot),Math.max(...data.leftFoot),Math.max(...data.longPasses),Math.max(...data.dribbling),Math.max(...data.reflexes),Math.max(...data.crosses)],
+          data: [Math.max(...data.agility), Math.max(...data.flexibility), Math.max(...data.strength),Math.max(...data.power),Math.max(...data.endurance),Math.max(...data.jumping),Math.max(...data.speed)],
           fill: true,
           pointBackgroundColor: this.getRandomColor(),
           pointBorderColor: '#fff',
