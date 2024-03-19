@@ -23,7 +23,7 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        component: AuthComponent //autentificaciondel login
+        component: AuthComponent //autentificacion del login
     },
     {
         path: 'register',
