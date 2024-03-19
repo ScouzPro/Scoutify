@@ -1,61 +1,61 @@
 {
-  "hash": "807a963f",
-  "configHash": "a6e4cf72",
-  "lockfileHash": "d7832a1d",
-  "browserHash": "814f3f82",
+  "hash": "074e9cae",
+  "configHash": "46ddf568",
+  "lockfileHash": "41d8a54a",
+  "browserHash": "3db47047",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "3f940226",
+      "fileHash": "495aed84",
       "needsInterop": false
     },
     "@angular/common/http": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-      "fileHash": "c81b7ad6",
+      "fileHash": "f4b2522e",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "c6b0ae24",
+      "fileHash": "1432d661",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "0156513b",
+      "fileHash": "351f9cda",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "635af714",
+      "fileHash": "f1a4057d",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "d3057c88",
+      "fileHash": "02aa26cf",
       "needsInterop": false
     },
     "axios": {
       "src": "../../../../../node_modules/axios/index.js",
       "file": "axios.js",
-      "fileHash": "efb5aa2f",
+      "fileHash": "6b4534f0",
       "needsInterop": false
     },
     "chart.js/auto": {
       "src": "../../../../../node_modules/chart.js/auto/auto.js",
       "file": "chart__js_auto.js",
-      "fileHash": "1d878298",
+      "fileHash": "34c2c763",
       "needsInterop": false
     },
     "ngx-pagination": {
       "src": "../../../../../node_modules/ngx-pagination/fesm2020/ngx-pagination.mjs",
       "file": "ngx-pagination.js",
-      "fileHash": "e6385576",
+      "fileHash": "9937f066",
       "needsInterop": false
     }
   },
