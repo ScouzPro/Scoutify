@@ -4,13 +4,15 @@ import { MetricsService } from '../../service/metrics.service';
 import { CommonModule } from '@angular/common';
 import { Chart} from 'chart.js/auto';
 import { GraphTacticalComponent } from '../../components/graph-tactical/graph-tactical.component';
-import { GraphPhisicalComponent } from '../../components/graph-phisical/graph-phisical.component';
+import { GraphPhisicalComponent } from '../../components/graph-physical/graph-phisical.component';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 
 @Component({
   selector: 'app-graph',
   standalone: true,
-  imports: [CommonModule, GraphTacticalComponent, GraphPhisicalComponent],
+  imports: [CommonModule, GraphTacticalComponent, GraphPhisicalComponent, NavbarComponent, FooterComponent],
   templateUrl: './graph.component.html',
   styleUrl: './graph.component.css'
 })
