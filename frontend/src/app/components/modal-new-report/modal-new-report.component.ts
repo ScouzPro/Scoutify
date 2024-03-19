@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlayerServiceService } from '../../service/player-service.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-modal-new-report',
   standalone: true,
