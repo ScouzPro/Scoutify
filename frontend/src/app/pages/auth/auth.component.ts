@@ -15,6 +15,7 @@ import { NgIf } from '@angular/common';
     //NgIf es una directiva de condicionales propia de Angular, que evalua el estado de algo y lo utiliza en base a las instrucciones dadas
 })
 export class AuthComponent {
+    newMethod: any;
     //VALIDACIONES
     //Las reglas de las validaciones van aqui, en este export vamos a colocar los campos que queremos que tengan validaciones, y que van a funcionar a modo de estados, con las propiedades de Angular.
 
@@ -56,5 +57,19 @@ export class AuthComponent {
 
     navigateToHome() { //Ruta que navega a home al pulsar btn
         this.router.navigate(["/home"])
+    }
+
+    // Función para verificar si todos los campos tienen algún valor
+    areAllFieldsFilled(): boolean {
+        const formValues = this.formUser.value as { [key: string]: string | null };
+        for (const key in formValues) {
+            if (formValues.hasOwnProperty(key)) {
+                const value: string | null = formValues[key]; // Definir el tipo de 'value'
+                if (!value) {
+                    return false; // Si algún campo está vacío, retorna false
+                }
+            }
+        }
+        return true; // Si todos los campos tienen algún valor, retorna true
     }
 }
