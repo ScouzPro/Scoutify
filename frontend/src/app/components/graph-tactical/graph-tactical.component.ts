@@ -3,18 +3,15 @@ import { PlayerServiceService } from '../../service/player-service.service';
 import { MetricsService } from '../../service/metrics.service';
 import { CommonModule } from '@angular/common';
 import { Chart} from 'chart.js/auto';
-import { GraphTacticalComponent } from '../../components/graph-tactical/graph-tactical.component';
-import { GraphPhisicalComponent } from '../../components/graph-phisical/graph-phisical.component';
-
 
 @Component({
-  selector: 'app-graph',
+  selector: 'app-graph-tactical',
   standalone: true,
-  imports: [CommonModule, GraphTacticalComponent, GraphPhisicalComponent],
-  templateUrl: './graph.component.html',
-  styleUrl: './graph.component.css'
+  imports: [CommonModule],
+  templateUrl: './graph-tactical.component.html',
+  styleUrl: './graph-tactical.component.css'
 })
-export class GraphComponent implements OnInit {
+export class GraphTacticalComponent implements OnInit {
 
   public chart: Chart={} as Chart;
   public playerMetricsMap: Map<string, any> = new Map<string, any>(); // Mapa para almacenar las métricas de los jugadores
@@ -112,7 +109,7 @@ export class GraphComponent implements OnInit {
       };
   
       // Crear el gráfico
-      this.chart = new Chart("myChart", {
+      this.chart = new Chart("myChart2", {
         type: 'radar',
         data: data,
         options: options

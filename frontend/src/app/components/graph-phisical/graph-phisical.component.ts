@@ -3,18 +3,15 @@ import { PlayerServiceService } from '../../service/player-service.service';
 import { MetricsService } from '../../service/metrics.service';
 import { CommonModule } from '@angular/common';
 import { Chart} from 'chart.js/auto';
-import { GraphTacticalComponent } from '../../components/graph-tactical/graph-tactical.component';
-import { GraphPhisicalComponent } from '../../components/graph-phisical/graph-phisical.component';
-
 
 @Component({
-  selector: 'app-graph',
+  selector: 'app-graph-phisical',
   standalone: true,
-  imports: [CommonModule, GraphTacticalComponent, GraphPhisicalComponent],
-  templateUrl: './graph.component.html',
-  styleUrl: './graph.component.css'
+  imports: [CommonModule],
+  templateUrl: './graph-phisical.component.html',
+  styleUrl: './graph-phisical.component.css'
 })
-export class GraphComponent implements OnInit {
+export class GraphPhisicalComponent implements OnInit {
 
   public chart: Chart={} as Chart;
   public playerMetricsMap: Map<string, any> = new Map<string, any>(); // Mapa para almacenar las métricas de los jugadores
@@ -112,7 +109,7 @@ export class GraphComponent implements OnInit {
       };
   
       // Crear el gráfico
-      this.chart = new Chart("myChart", {
+      this.chart = new Chart("myChart3", {
         type: 'radar',
         data: data,
         options: options
@@ -125,3 +122,4 @@ export class GraphComponent implements OnInit {
   // Método para generar un color aleatorio para los bordes del gráfico
   getRandomColor(): string {
     return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;}}
+
