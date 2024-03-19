@@ -1,75 +1,62 @@
 import { Component } from '@angular/core';
-// import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { FooterComponent } from "../../components/footer/footer.component";
-import { NgIf } from '@angular/common';
+import { UsersService } from '../../service/users.service';
+import { CommonModule } from '@angular/common';
+import { FooterComponent } from '../../components/footer/footer.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-auth',
     standalone: true,
+    imports: [CommonModule, FooterComponent, ReactiveFormsModule],
     templateUrl: './auth.component.html',
-    styleUrl: './auth.component.css',
-    imports: [NgIf, ReactiveFormsModule, FooterComponent]
-    //NgIf es una directiva de condicionales propia de Angular, que evalua el estado de algo y lo utiliza en base a las instrucciones dadas
+    styleUrls: ['./auth.component.css']
 })
 export class AuthComponent {
-    newMethod: any;
-    //VALIDACIONES
-    //Las reglas de las validaciones van aqui, en este export vamos a colocar los campos que queremos que tengan validaciones, y que van a funcionar a modo de estados, con las propiedades de Angular.
+[x: string]: any;
+    formUser = new FormGroup({
+        'userName': new FormControl('', [Validators.required]),
+        'password': new FormControl('', [Validators.required])
+    });
+password: any;
+name: any;
 
-    //GETTERS
-    get name(){
-        return this.formUser.get('name') as FormControl; //acceso al grupo, luego a la propiedad get y luego al valor
-    }
-   
-    get password(){
-        return this.formUser.get('password') as FormControl; //acceso al grupo, luego a la propiedad get y luego al valor
-    }
-    
-    //Para asegurarnos que todas las validaciones paran en el formulario antes de enviar:Ç
-    //GRUPO DE CONTROLADORES 
-    formUser = new FormGroup({ //esto a la cabeda del form
-        'name': new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z]/)]),
-        'password': new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)]),
-    })
+    constructor(private router: Router, private userService: UsersService) {}
 
-
-    //A modo de estados, llamamos a los inputs que tenemos en el html, que tinen una propiedad de FormControl, y les pasamos la funcionalidad validators, indicando que son requeridos (las '' vacias para que no muestre nada dentro de los campos)
-    //CONTROLADORES DE FORMULARIO
-    // name = new FormControl('', Validators.required);
-    //Cuando tengamos más de una forma de validación, deben ser en un array
-    // email = new FormControl('', [Validators.required, Validators.email]);
-    // password = new FormControl('', [Validators.required, Validators.minLength(8)]);
-
-
-
-    //Constructor para las rutas de navegación de la pagina
-    constructor (private router: Router) {}
-    navigateToHeroLanding() { //Ruta que vueve a landing al pulsar btn
+    navigateToHeroLanding() {
         this.router.navigate([""]);
     }
-    
-    navigateToAuthRegister() { //Ruta que navega a registro al pulsar btn
+
+    navigateToAuthRegister() {
         this.router.navigate(["/register"])
     }
 
-    navigateToHome() { //Ruta que navega a home al pulsar btn
+    navigateToHome() {
         this.router.navigate(["/home"])
     }
 
-    // Función para verificar si todos los campos tienen algún valor
-    areAllFieldsFilled(): boolean {
-        const formValues = this.formUser.value as { [key: string]: string | null };
-        for (const key in formValues) {
-            if (formValues.hasOwnProperty(key)) {
-                const value: string | null = formValues[key]; // Definir el tipo de 'value'
-                if (!value) {
-                    return false; // Si algún campo está vacío, retorna false
+    loginUser() {
+        if (this.formUser.valid) {
+            const credentials = {
+                userName: this.formUser.value.userName,
+                password: this.formUser.value.password // Aquí está el acceso al valor del campo de contraseña del formulario
+            };
+            
+            this.userService.loginUser(credentials).subscribe(
+                (response) => {
+                    // Aquí puedes manejar la respuesta del backend, como guardar el token de autenticación en el almacenamiento local y redirigir al usuario a la página de inicio.
+                    console.log(response); // Solo para fines de demostración, puedes implementar una lógica específica aquí
+                    // Redirigir al usuario a la página de inicio, por ejemplo:
+                    // this.router.navigate(["/home"]);
+                },
+                (error) => {
+                    console.log(error); // Manejar el error de autenticación, por ejemplo, mostrar un mensaje de error al usuario
                 }
-            }
+            );
+        } else {
+            // Si el formulario no es válido, puedes mostrar un mensaje de error o realizar alguna acción adecuada.
+            console.log("Formulario no válido");
         }
-        return true; // Si todos los campos tienen algún valor, retorna true
     }
 }

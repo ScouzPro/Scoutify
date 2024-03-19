@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { FooterComponent } from "../../components/footer/footer.component";
-import { NgIf } from '@angular/common';
+import { UsersService } from '../../service/users.service';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-auth-reg',
-    standalone: true,
     templateUrl: './auth-reg.component.html',
-    styleUrl: './auth-reg.component.css',
-    imports: [NgIf, ReactiveFormsModule, FooterComponent]
+    standalone: true,
+    imports :[CommonModule, ReactiveFormsModule],
+    styleUrls: ['./auth-reg.component.css']
 })
 export class AuthRegComponent {
     //VALIDACIONES
@@ -48,8 +48,9 @@ export class AuthRegComponent {
         'terms': new FormControl(false) // Add a FormControl for the checkbox
     }, { validators: this.passwordMatchValidator }); // Add custom validator for matching passwords)
 
-       //Constructor para las rutas de navegación de la pagina
-    constructor (private router: Router) {}
+    //Constructor para las rutas de navegación de la pagina
+    constructor (private userService: UsersService, private router: Router) {}
+
     navigateToHeroLanding() { //Ruta que vueve a landing al pulsar btn
         this.router.navigate([""]);
     }
@@ -92,10 +93,20 @@ export class AuthRegComponent {
         if (this.formNewUser.valid && !this.formNewUser.errors && !this.formNewUser.errors?.['mismatch'] && this.formNewUser.get('terms')?.value) {
             // Hide the error message if there's no error
             this.showTermsError = false;
-            // Proceed with submission after a delay of 5 seconds
-            setTimeout(() => {
-                this.navigateToHome();
-            }, 5000); // 5000 milisegundos = 5 segundos
+            // Llama al servicio para crear el nuevo usuario
+            this.userService.createUser(this.formNewUser.value).subscribe(
+                response => {
+                    // Aquí puedes manejar la respuesta del servidor si es necesario
+                    console.log('Usuario creado con éxito:', response);
+                    // Navega a la página de inicio u otra página después de crear el usuario
+                    this.navigateToHome();
+                },
+                error => {
+                    // Maneja el error si ocurre alguno durante la solicitud HTTP
+                    console.error('Error al crear el usuario:', error);
+                    // Puedes mostrar un mensaje de error al usuario si lo deseas
+                }
+            );
         } else {
             // Show the error message if terms are not accepted or if there's a mismatch error
             this.showTermsError = true;
