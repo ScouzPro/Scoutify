@@ -44,9 +44,9 @@ export const Register = async (req, res) => {
 export const Login = async (req, res) => {
     const {username, password} = req.body
     try {
-        const user = await User.findOne({email:email}) //buscamos si el email existe
+        const user = await User.findOne({userName:userName}) //buscamos si el usuario existe
         if (!user) { //el ! lo pone al significado contrario, es decir, si el mail no esta en nuestra base
-            return res.status(400).json({message: "Email invalido"})
+            return res.status(400).json({message: "Usuario invalido"})
         } else{
             const validPassword = await bcrypt.compare(password, user.password) //verificamos si la password coincide
             if (!validPassword) { //si las claves no coinciden ...

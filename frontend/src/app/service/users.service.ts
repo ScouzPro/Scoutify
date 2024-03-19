@@ -20,4 +20,14 @@ export class UsersService {
 
     return this.http.post('http://localhost:3001/auth/register', userData);
   }
+
+  loginUser(credentials: any): Observable<any> {
+    const loginData = {
+      userName: credentials.userName,
+      password: credentials.password
+    };
+
+    return this.http.post('http://localhost:3001/auth/login', loginData);
+  }
+
 }

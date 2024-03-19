@@ -1,6 +1,6 @@
 <!-- Autentificación y formulario del login
 
-<!-- Cabeza Login -->
+<!- Cabeza Login -->
 <div class="pt-4 pl-6">
     <!-- navega a hero -->
     <button class="btn btn-xs btn-ghost btn-outline" (click)="navigateToHeroLanding()">Back</button>
@@ -15,10 +15,10 @@
 <section class="mx-auto max-w-md">
     <label class="input input-bordered flex items-center gap-4 mb-2">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" /></svg>
-        <input type="text" formControlName="name" class="form-control" placeholder="Nombre de usuario" />
+        <input type="text" formControlName="UserName" class="form-control" placeholder="Nombre de usuario" />
     </label>
     <!--NgIf es una directiva de condicionales propia de Angular, que evalua el estado de algo y lo utiliza en base a las instrucciones dadas, en este caso, cuando el estado del input pase a valid o touched (que son estados propios de angular), se oculta-->
-        <div *ngIf="!name.valid && name.touched" role="alert" class="alert alert-warning p-2 m-2 text-s">
+        <div *ngIf="['!userName.valid'] && ['userName.touched']" role="alert" class="alert alert-warning p-2 m-2 text-s">
             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
             <span>El nombre de usuario es obligatorio</span>
         </div>
