@@ -1,104 +1,61 @@
 {
-<<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/_metadata.json
   "hash": "8c8573c1",
   "configHash": "847a3a57",
   "lockfileHash": "33f34d43",
   "browserHash": "18430757",
-=======
-  "hash": "b9d3fba0",
-  "configHash": "6941793e",
-  "lockfileHash": "3916d6fc",
-  "browserHash": "81b4f9f7",
->>>>>>> origin/graph:frontend/.angular/cache/17.2.2/vite/deps/_metadata.json
   "optimized": {
     "@angular/common": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-<<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/_metadata.json
-      "fileHash": "ca0aeb98",
-=======
-      "fileHash": "2dc5e7d5",
->>>>>>> origin/graph:frontend/.angular/cache/17.2.2/vite/deps/_metadata.json
+      "fileHash": "86ce575d",
       "needsInterop": false
     },
     "@angular/common/http": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-<<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/_metadata.json
-      "fileHash": "4be57246",
-=======
-      "fileHash": "a6597a76",
->>>>>>> origin/graph:frontend/.angular/cache/17.2.2/vite/deps/_metadata.json
+      "fileHash": "aa53281f",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-<<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/_metadata.json
-      "fileHash": "d29ab344",
-=======
-      "fileHash": "2e96a51d",
->>>>>>> origin/graph:frontend/.angular/cache/17.2.2/vite/deps/_metadata.json
+      "fileHash": "5e038797",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-<<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/_metadata.json
-      "fileHash": "18397bb3",
-=======
-      "fileHash": "3c3bb9df",
->>>>>>> origin/graph:frontend/.angular/cache/17.2.2/vite/deps/_metadata.json
+      "fileHash": "776df444",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-<<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/_metadata.json
-      "fileHash": "232eb7bb",
-=======
-      "fileHash": "907a115e",
->>>>>>> origin/graph:frontend/.angular/cache/17.2.2/vite/deps/_metadata.json
+      "fileHash": "6bccf47b",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-<<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/_metadata.json
-      "fileHash": "b68b4fe3",
-=======
-      "fileHash": "76c03ff5",
->>>>>>> origin/graph:frontend/.angular/cache/17.2.2/vite/deps/_metadata.json
+      "fileHash": "f15c2dfc",
       "needsInterop": false
     },
     "axios": {
       "src": "../../../../../node_modules/axios/index.js",
       "file": "axios.js",
-<<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/_metadata.json
-      "fileHash": "3a5f2613",
-=======
-      "fileHash": "a2dc21d0",
->>>>>>> origin/graph:frontend/.angular/cache/17.2.2/vite/deps/_metadata.json
+      "fileHash": "9472b69e",
       "needsInterop": false
     },
     "chart.js/auto": {
       "src": "../../../../../node_modules/chart.js/auto/auto.js",
       "file": "chart__js_auto.js",
-<<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/_metadata.json
-      "fileHash": "201c8c58",
-=======
-      "fileHash": "4ac84fc6",
->>>>>>> origin/graph:frontend/.angular/cache/17.2.2/vite/deps/_metadata.json
+      "fileHash": "82758d5b",
       "needsInterop": false
     },
     "ngx-pagination": {
       "src": "../../../../../node_modules/ngx-pagination/fesm2020/ngx-pagination.mjs",
       "file": "ngx-pagination.js",
-<<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/_metadata.json
-      "fileHash": "ddbfae01",
-=======
-      "fileHash": "f77c60f7",
->>>>>>> origin/graph:frontend/.angular/cache/17.2.2/vite/deps/_metadata.json
+      "fileHash": "eeb8253e",
       "needsInterop": false
     }
   },
