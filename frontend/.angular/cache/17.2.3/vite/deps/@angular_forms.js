@@ -1,6 +1,6 @@
 import {
   getDOM
-} from "./chunk-4DASUF6Q.js";
+} from "./chunk-QODWSEAU.js";
 import {
   ChangeDetectorRef,
   Directive,
@@ -22,10 +22,13 @@ import {
   SkipSelf,
   Version,
   booleanAttribute,
+  forkJoin,
   forwardRef,
+  from,
   inject,
   isPromise,
   isSubscribable,
+  map,
   setClassMetadata,
   ɵɵInheritDefinitionFeature,
   ɵɵNgOnChangesFeature,
@@ -39,12 +42,7 @@ import {
   ɵɵdirectiveInject,
   ɵɵgetInheritedFactory,
   ɵɵlistener
-} from "./chunk-5FWYPJKT.js";
-import {
-  forkJoin,
-  from,
-  map
-} from "./chunk-WSA2QMXP.js";
+} from "./chunk-K6PN74MK.js";
 import {
   __spreadProps,
   __spreadValues
