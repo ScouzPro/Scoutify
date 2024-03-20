@@ -14,7 +14,7 @@ export class HeaderSecondary2Component {
   constructor(private router: Router) {}
 
   navigateToMetricGraph() {
-    this.router.navigate(['/metricGraph']);
+    this.router.navigate(['/graph']);
   }
 
 }
