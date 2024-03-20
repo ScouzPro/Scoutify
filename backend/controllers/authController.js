@@ -2,10 +2,8 @@ import {User} from "../models/authModel.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 
-
 //codifcar: los enviamos de un luar a otro sin exponerlo, perono estan seguros
 //encriptar o llave publica/privada: generqa un hash a traves de algoritmos pero se itera cada cierto tiempo con un algoritmo
-
 
 //CONTROLADOR REGISTROS
 export const Register = async (req, res) => {
@@ -44,20 +42,20 @@ export const Register = async (req, res) => {
 export const Login = async (req, res) => {
     const {username, password} = req.body
     try {
-        const user = await User.findOne({userName:userName}) //buscamos si el usuario existe
-        if (!user) { //el ! lo pone al significado contrario, es decir, si el mail no esta en nuestra base
+        const user = await User.findOne ({username: username}) 
+        if (!user) { 
             return res.status(400).json({message: "Usuario invalido"})
         } else{
-            const validPassword = await bcrypt.compare(password, user.password) //verificamos si la password coincide
-            if (!validPassword) { //si las claves no coinciden ...
-                return res.status(400).json({message: "Contraseña o email incorrectos"}) //...enviamos error
+            const validPassword = await bcrypt.compare(password, user.password) 
+            if (!validPassword) { 
+                return res.status(400).json({message: "Contraseña o user incorrectos"}) 
             };
         }
-        //Tras el loginse genera un token
+        //Tras el login se genera un token
         const tokenLog = jwt.sign({ //firmo y elijo la info que quiero enviar con el token
             username: username,
-            role: user.role,
-        }, "codesecret" ) //clave secreta, firma el token, se usa luego con el middleware para verificar, esta en sucio
+            password: user.password,
+        }, process.env.JWT_SECRET) 
 
         //Guardo la clave en un header que llamo tokenAuth y le paso la constante del token (tokenLog)
         res.header ({ "tokenAuth": tokenLog})
