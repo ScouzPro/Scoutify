@@ -53,27 +53,27 @@ export class AuthComponent {
 showTermsError = false; 
 
 
-  onSubmit() {
-      if (this.formUser.valid) {
-        const credentials = {
+onSubmit() {
+  if (this.formUser.valid) {
+      const credentials = {
           userName: this.formUser.value.userName,
           password: this.formUser.value.password
-        };
-        console.log(credentials);
+      };
 
-        this.userService.loginUser(credentials).subscribe(
+      this.userService.loginUser(credentials).subscribe(
           (response) => {
-            console.log('Login con éxito:', response);
-            setTimeout(() => {
-              this.navigateToHome();
-            }, 2000); 
+              console.log('Login con éxito:', response);
+              setTimeout(() => {
+                  this.navigateToHome();
+              }, 2000); 
           },
           (error) => {
-            console.error('Error al logear:', error);
+              console.error('Error al logear:', error);
           }
-        );
-      } else {
-        console.log("Formulario no válido");
-      }
-    }
+      );
+  } else {
+      this.alertMessage = 'Por favor, complete todos los campos correctamente.';
+  }
+}
+
   }
