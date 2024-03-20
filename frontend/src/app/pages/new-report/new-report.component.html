@@ -1,3 +1,4 @@
+<app-navbar/>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
   <div *ngFor="let player of player" class="bg-white overflow-hidden shadow-md rounded-lg">
     <img src="{{player.photo}}" alt="{{player.name}}" class="w-90 h-90"/>
@@ -10,7 +11,7 @@
   </div>
 </div>
 
-<form (submit)="submitForm()" class="max-w-md mx-auto">
+<form (submit)="submitForm()" class="max-w-md mx-auto mt-10">
   <ul>
     <li class="mb-4">
       <label for="averageTotalSkills"  class="block text-center">Average Total Skills:</label>
@@ -145,9 +146,23 @@
     </li>
   </ul>
   <!-- Submit Button -->
-  <button type="submit" class="w-full px-4 py-2 mt-4 text-white bg-blue-500 rounded-md focus:outline-none focus:ring focus:ring-blue-500">Submit</button>
+  <button type="submit" class="w-full px-4 py-2 mt-4 text-white bg-blue-500 rounded-md focus:outline-none focus:ring focus:ring-blue-500 mb-20">Submit</button>
 </form>
-
+<div *ngIf="modalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+    <span class="absolute top-0 right-0 mt-3 mr-3 text-gray-700 cursor-pointer" (click)="closeModal()">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </span>
+    <svg class="w-12 h-12 mx-auto mb-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+    </svg>
+    <p class="text-lg text-gray-800 mb-4">Informe Creado correctamente</p>
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline inline-block" (click)="closeModal()">Aceptar</button>
+  </div>
+</div>
+<app-footer/>
 
 
 
