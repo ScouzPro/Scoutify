@@ -15,7 +15,6 @@
             <input type="text" formControlName="name" class="form-control" placeholder="Nombre" />
         </label>
         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-red-500"> <!-- Mostrar mensaje de error si el nombre es inválido y se ha tocado o modificado -->
-            <span *ngIf="name.errors?.['required']">El nombre es obligatorio</span>
         </div>
     </section>
 
@@ -26,7 +25,6 @@
             <input type="text" formControlName="lastName" class="form-control" placeholder="Apellidos" />
         </label>
         <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="text-red-500">
-            <span *ngIf="lastName.errors?.['required']">Los apellidos son obligatorios</span>
         </div>
     </section>
 
@@ -83,10 +81,13 @@
             <div class="flex items-center justify-center">
                 <label class="label cursor-pointer ml-2 flex items-center justify-center"> 
                     <input type="checkbox" formControlName="terms" class="checkbox checkbox-xs" />
-                    <span class="label-text pl-2 pt-2"> Acepto los Términos y Condiciones de Uso </span> <!-- Agregamos pl-2 para añadir espacio a la izquierda -->
+                    <span class="label-text pl-2 pt-2"> Acepto los Términos y Condiciones de Uso </span> 
                 </label>
                 <div *ngIf="showTermsError" class="text-red-500" role="alert">
                     <span *ngIf="terms.errors?.['required']">Debes aceptar los términos y condiciones</span>
+                </div>
+                <div>
+                    <button class="btn btn-ghost btn-xs" (click)="navigateToAuth()">¿Ya tienes cuenta?</button>
                 </div>
             </div>
         </div>
@@ -97,6 +98,7 @@
         <button class="btn btn-s btn-wide btn-outline btn-primary mb-4 text-center" 
         [disabled]="!areAllFieldsFilled()"
         (click)="onSubmit()">
+        <span>Te has registrado con exito</span>
             Enviar</button>
     </div>
 

@@ -98,8 +98,9 @@ export class AuthRegComponent {
                 response => {
                     // Aquí puedes manejar la respuesta del servidor si es necesario
                     console.log('Usuario creado con éxito:', response);
-                    // Navega a la página de inicio u otra página después de crear el usuario
-                    this.navigateToHome();
+                    setTimeout(() => {
+                        this.navigateToHome();
+                      }, 2000); 
                 },
                 error => {
                     // Maneja el error si ocurre alguno durante la solicitud HTTP
