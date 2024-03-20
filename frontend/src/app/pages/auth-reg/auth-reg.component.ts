@@ -69,15 +69,28 @@ export class AuthRegComponent {
         const repeatPassword = control.get('repeatPassword')?.value;
         
         if (password === repeatPassword) {
-            return null; // Passwords match, return null (no error)
+            return null; 
         } else {
             return { mismatch: true }; // Passwords don't match, return an error object
         }
     }
-
+// Custom function to check all fields have a value, correct or not
+    areAllFieldsFilled(): boolean {
+        const formValues = this.formNewUser.value as { [key: string]: string | null };
+        for (const key in formValues) {
+            if (formValues.hasOwnProperty(key)) {
+                const value: string | null = formValues[key]; 
+                if (!value) {
+                    return false; 
+                }
+            }
+        }
+        return true; 
+    }
     showTermsError = false; // Variable to track the error message for terms acceptance
+
     onSubmit() {
-        if (this.formNewUser.valid && this.formNewUser.get('terms')?.value) {
+        if (this.formNewUser.valid && !this.formNewUser.errors && !this.formNewUser.errors?.['mismatch'] && this.formNewUser.get('terms')?.value) {
             // Hide the error message if there's no error
             this.showTermsError = false;
             // Llama al servicio para crear el nuevo usuario
@@ -85,8 +98,9 @@ export class AuthRegComponent {
                 response => {
                     // Aquí puedes manejar la respuesta del servidor si es necesario
                     console.log('Usuario creado con éxito:', response);
-                    // Navega a la página de inicio u otra página después de crear el usuario
-                    this.navigateToHome();
+                    setTimeout(() => {
+                        this.navigateToHome();
+                      }, 2000); 
                 },
                 error => {
                     // Maneja el error si ocurre alguno durante la solicitud HTTP
@@ -95,8 +109,12 @@ export class AuthRegComponent {
                 }
             );
         } else {
-            // Show the error message if terms are not accepted
+            // Show the error message if terms are not accepted or if there's a mismatch error
             this.showTermsError = true;
+            if (this.repeatPassword.dirty && !this.repeatPassword.value) {
+                this.repeatPassword.setErrors({ 'required' : true});
+            }
         }
     }
+    
 }

@@ -50,7 +50,7 @@ export const Login = async (req, res) => {
         } else{
             const validPassword = await bcrypt.compare(password, user.password) //verificamos si la password coincide
             if (!validPassword) { //si las claves no coinciden ...
-                return res.status(400).json({message: "Contraseña o user invalido"}) //...enviamos error
+                return res.status(400).json({message: "Contraseña o email incorrectos"}) //...enviamos error
             };
         }
         //Tras el loginse genera un token
@@ -60,7 +60,7 @@ export const Login = async (req, res) => {
         }, process.env.JWT_SECRET ) //clave secreta, firma el token, se usa luego con el middleware para verificar, esta en sucio
 
         //Guardo la clave en un header que llamo tokenAuth y le paso la constante del token (tokenLog)
-        await res.header ({ "tokenAuth": tokenLog})
+        res.header ({ "tokenAuth": tokenLog})
         res.status(200).json({message: "Login successfull", tokenLog})
         
     } catch (error) {

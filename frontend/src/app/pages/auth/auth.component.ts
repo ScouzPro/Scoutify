@@ -36,6 +36,8 @@ name: any;
         this.router.navigate(["/home"])
     }
 
+
+    
     loginUser() {
         if (this.formUser.valid) {
             const credentials = {
