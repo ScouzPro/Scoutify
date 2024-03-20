@@ -1,61 +1,104 @@
 {
+<<<<<<< HEAD
   "hash": "33f07d4e",
   "configHash": "847a3a57",
   "lockfileHash": "d7832a1d",
   "browserHash": "3e350bd6",
+=======
+  "hash": "83cf3a7f",
+  "configHash": "46ddf568",
+  "lockfileHash": "cf200cf9",
+  "browserHash": "594889b2",
+>>>>>>> 438f900600130c7cd9f913b00a875b5465c9682b
   "optimized": {
     "@angular/common": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
+<<<<<<< HEAD
       "fileHash": "23e45573",
+=======
+      "fileHash": "6ee594b0",
+>>>>>>> 438f900600130c7cd9f913b00a875b5465c9682b
       "needsInterop": false
     },
     "@angular/common/http": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
+<<<<<<< HEAD
       "fileHash": "3d213cdb",
+=======
+      "fileHash": "97812e01",
+>>>>>>> 438f900600130c7cd9f913b00a875b5465c9682b
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
+<<<<<<< HEAD
       "fileHash": "43a9bc31",
+=======
+      "fileHash": "77fd768e",
+>>>>>>> 438f900600130c7cd9f913b00a875b5465c9682b
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
+<<<<<<< HEAD
       "fileHash": "caaaec47",
+=======
+      "fileHash": "3957cf8c",
+>>>>>>> 438f900600130c7cd9f913b00a875b5465c9682b
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
+<<<<<<< HEAD
       "fileHash": "ad38868d",
+=======
+      "fileHash": "ee2b1485",
+>>>>>>> 438f900600130c7cd9f913b00a875b5465c9682b
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
+<<<<<<< HEAD
       "fileHash": "83ef4f30",
+=======
+      "fileHash": "c83ddb67",
+>>>>>>> 438f900600130c7cd9f913b00a875b5465c9682b
       "needsInterop": false
     },
     "axios": {
       "src": "../../../../../node_modules/axios/index.js",
       "file": "axios.js",
+<<<<<<< HEAD
       "fileHash": "7060b283",
+=======
+      "fileHash": "5de5009e",
+>>>>>>> 438f900600130c7cd9f913b00a875b5465c9682b
       "needsInterop": false
     },
     "chart.js/auto": {
       "src": "../../../../../node_modules/chart.js/auto/auto.js",
       "file": "chart__js_auto.js",
+<<<<<<< HEAD
       "fileHash": "9ab3c22e",
+=======
+      "fileHash": "d887782c",
+>>>>>>> 438f900600130c7cd9f913b00a875b5465c9682b
       "needsInterop": false
     },
     "ngx-pagination": {
       "src": "../../../../../node_modules/ngx-pagination/fesm2020/ngx-pagination.mjs",
       "file": "ngx-pagination.js",
+<<<<<<< HEAD
       "fileHash": "e3fcc5e8",
+=======
+      "fileHash": "d3f929a0",
+>>>>>>> 438f900600130c7cd9f913b00a875b5465c9682b
       "needsInterop": false
     }
   },

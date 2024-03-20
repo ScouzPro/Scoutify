@@ -11,6 +11,8 @@ import { GraphComponent } from './pages/graph/graph.component';
 
 
 
+
+
 export const routes: Routes = [
     {
         path: '',
@@ -22,7 +24,7 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        component: AuthComponent //autentificaciondel login
+        component: AuthComponent //autentificacion del login
     },
     {
         path: 'register',
