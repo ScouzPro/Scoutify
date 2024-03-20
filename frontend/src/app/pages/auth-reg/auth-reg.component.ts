@@ -5,6 +5,7 @@ import { UsersService } from '../../service/users.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 @Component({
     selector: 'app-auth-reg',
     templateUrl: './auth-reg.component.html',
@@ -13,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     styleUrls: ['./auth-reg.component.css']
 })
 export class AuthRegComponent {
+    showSuccessMessage = false;
     //VALIDACIONES
     //GETTERS
     get name(){
@@ -90,31 +92,28 @@ export class AuthRegComponent {
     showTermsError = false; // Variable to track the error message for terms acceptance
 
     onSubmit() {
-        if (this.formNewUser.valid && !this.formNewUser.errors && !this.formNewUser.errors?.['mismatch'] && this.formNewUser.get('terms')?.value) {
+        if (this.formNewUser.valid && !this.formNewUser.hasError('mismatch') && this.formNewUser.get('terms')?.value) {
             // Hide the error message if there's no error
             this.showTermsError = false;
             // Llama al servicio para crear el nuevo usuario
             this.userService.createUser(this.formNewUser.value).subscribe(
                 response => {
-                    // Aquí puedes manejar la respuesta del servidor si es necesario
                     console.log('Usuario creado con éxito:', response);
                     setTimeout(() => {
                         this.navigateToHome();
-                      }, 2000); 
+                        this.showSuccessMessage = true; // Show success message
+                    }, 2000);
                 },
                 error => {
-                    // Maneja el error si ocurre alguno durante la solicitud HTTP
                     console.error('Error al crear el usuario:', error);
-                    // Puedes mostrar un mensaje de error al usuario si lo deseas
                 }
             );
         } else {
-            // Show the error message if terms are not accepted or if there's a mismatch error
             this.showTermsError = true;
-            if (this.repeatPassword.dirty && !this.repeatPassword.value) {
-                this.repeatPassword.setErrors({ 'required' : true});
+            if (this.formNewUser.hasError('mismatch')) {
+                // Handle mismatch error
             }
         }
+        
     }
-    
-}
+    }
