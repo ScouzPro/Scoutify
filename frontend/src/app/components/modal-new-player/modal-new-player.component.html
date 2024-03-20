@@ -1,4 +1,4 @@
-<button class="btn" (click)="showModal()">+ Create Player</button>
+<button class="btn" (click)="showModal()"> Crear Jugador</button>
 <dialog id="my_modal_4" class="modal">
     <div class="modal-box w-11/12 max-w-5xl mx-auto flex flex-col">
         <h3 class="font-bold text-lg mb-3">Create Player</h3>
@@ -22,12 +22,12 @@
             <input type="text" placeholder="Height" class="input input-bordered w-full max-w-xs mb-3" name="height" ngModel required />
             <select class="select select-bordered w-full max-w-xs mb-3" name="strongFoot" ngModel required>
                 <option value="" disabled selected>Strong Foot</option>
-                <option>Derecha</option>
-                <option>Zurda</option>
-                <option>Ambas</option>
+                <option>Derecho</option>
+                <option>Izquierdo</option>
+                <option>Ambos</option>
             </select>
             <input type="text" placeholder="Url of Player image" class="input input-bordered w-full max-w-xs mb-3" name="photo" ngModel required />  
-            <button type="submit" class="btn">Submit</button>
+            <button type="submit" class="btn">Crear</button>
         </form>
     </div>
     
