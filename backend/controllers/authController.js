@@ -44,7 +44,7 @@ export const Register = async (req, res) => {
 export const Login = async (req, res) => {
     const {username, password} = req.body
     try {
-        const user = await User.findOne({userName:userName}) //buscamos si el usuario existe
+        const user = await User.findOne({userName:username}) //buscamos si el usuario existe
         if (!user) { //el ! lo pone al significado contrario, es decir, si el mail no esta en nuestra base
             return res.status(400).json({message: "Usuario invalido"})
         } else{
