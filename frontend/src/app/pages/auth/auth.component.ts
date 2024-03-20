@@ -36,12 +36,12 @@ name: any;
         this.router.navigate(["/home"])
     }
 
-
+  
     
     loginUser() {
         if (this.formUser.valid) {
             const credentials = {
-                userName: this.formUser.value.userName,
+                username: this.formUser.value.userName,
                 password: this.formUser.value.password // Aquí está el acceso al valor del campo de contraseña del formulario
             };
             
@@ -59,6 +59,29 @@ name: any;
         } else {
             // Si el formulario no es válido, puedes mostrar un mensaje de error o realizar alguna acción adecuada.
             console.log("Formulario no válido");
+        }
+    }
+    onSubmit() {
+        if (this.formUser.valid && !this.formUser.errors) {
+            // Hide the error message if there's no error
+                     // Llama al servicio para crear el nuevo usuario
+            this.userService.loginUser(this.formUser.value).subscribe(
+                response => {
+                    // Aquí puedes manejar la respuesta del servidor si es necesario
+                    console.log('Login con éxito:', response);
+                    setTimeout(() => {
+                        this.navigateToHome();
+                      }, 2000); 
+                },
+                error => {
+                    // Maneja el error si ocurre alguno durante la solicitud HTTP
+                    console.error('Error al logear:', error);
+                    // Puedes mostrar un mensaje de error al usuario si lo deseas
+                }
+            );
+        } else {
+            // Show the error message if terms are not accepted or if there's a mismatch error
+            console.log("Ha fallado el login")
         }
     }
 }
