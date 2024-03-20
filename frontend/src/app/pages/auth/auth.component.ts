@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
+
 @Component({
     selector: 'app-auth',
     standalone: true,
@@ -14,13 +16,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     styleUrls: ['./auth.component.css']
 })
 export class AuthComponent {
-[x: string]: any;
     formUser = new FormGroup({
         'userName': new FormControl('', [Validators.required]),
         'password': new FormControl('', [Validators.required])
     });
-password: any;
-name: any;
+
+    alertMessage: string ='';
 
     constructor(private router: Router, private userService: UsersService) {}
 
@@ -36,27 +37,30 @@ name: any;
         this.router.navigate(["/home"])
     }
 
-    loginUser() {
+  
+    onSubmit() {
         if (this.formUser.valid) {
-            const credentials = {
-                userName: this.formUser.value.userName,
-                password: this.formUser.value.password // Aquí está el acceso al valor del campo de contraseña del formulario
-            };
-            
-            this.userService.loginUser(credentials).subscribe(
-                (response) => {
-                    // Aquí puedes manejar la respuesta del backend, como guardar el token de autenticación en el almacenamiento local y redirigir al usuario a la página de inicio.
-                    console.log(response); // Solo para fines de demostración, puedes implementar una lógica específica aquí
-                    // Redirigir al usuario a la página de inicio, por ejemplo:
-                    // this.router.navigate(["/home"]);
-                },
-                (error) => {
-                    console.log(error); // Manejar el error de autenticación, por ejemplo, mostrar un mensaje de error al usuario
-                }
-            );
+          const credentials = {
+            userName: this.formUser.value.userName,
+            password: this.formUser.value.password
+          };
+          console.log(credentials);
+          
+          this.userService.loginUser(credentials).subscribe(
+            (response) => {
+              console.log('Login con éxito:', response);
+              this.alertMessage = '¡Bienvenido, ' + credentials.userName + '!';
+              setTimeout(() => {
+                this.navigateToHome();
+              }, 2000); 
+            },
+            (error) => {
+              console.error('Error en el usuario/contraseña:', error);
+              this.alertMessage = 'Error en usuario/contraseña';
+            }
+          );
         } else {
-            // Si el formulario no es válido, puedes mostrar un mensaje de error o realizar alguna acción adecuada.
-            console.log("Formulario no válido");
+          console.log("Formulario no válido");
         }
+      }
     }
-}

@@ -23,7 +23,7 @@ export class UsersService {
 
   loginUser(credentials: any): Observable<any> {
     const loginData = {
-      userName: credentials.userName,
+      username: credentials.userName,
       password: credentials.password
     };
 
