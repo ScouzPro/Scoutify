@@ -60,7 +60,7 @@ export const Login = async (req, res) => {
         }, "codesecret" ) //clave secreta, firma el token, se usa luego con el middleware para verificar, esta en sucio
 
         //Guardo la clave en un header que llamo tokenAuth y le paso la constante del token (tokenLog)
-        await res.header ({ "tokenAuth": tokenLog})
+        res.header ({ "tokenAuth": tokenLog})
         res.status(200).json({message: "Login successfull", tokenLog})
         
     } catch (error) {
