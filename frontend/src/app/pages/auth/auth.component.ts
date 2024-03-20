@@ -18,6 +18,8 @@ export class AuthComponent {
         'userName': new FormControl('', [Validators.required]),
         'password': new FormControl('', [Validators.required])
     });
+username: any;
+password: any;
 
     constructor(private router: Router, private userService: UsersService) {}
 
