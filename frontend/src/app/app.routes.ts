@@ -1,16 +1,15 @@
 import { Routes } from '@angular/router';
 import { PlayersComponent } from './pages/players/players.component';
 import { ReportsComponent } from './pages/reports/reports.component';
-import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { HeroLandingComponent } from './components/hero-landing/hero-landing.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthRegComponent } from './pages/auth-reg/auth-reg.component';
 import { DetailComponent } from './pages/detail/detail.component';
 import { NewReportComponent } from './pages/new-report/new-report.component';
-import { MetricsGraphicsComponent } from './components/metrics-graphics/metrics-graphics.component';
-import { SeasonPlayerComponent } from './components/season-player/season-player.component';
-import { TotalGraphicsComponent } from './components/total-graphics/total-graphics.component';
+import { GraphComponent } from './pages/graph/graph.component';
+
+
 
 
 
@@ -25,7 +24,7 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        component: AuthComponent //autentificaciondel login
+        component: AuthComponent //autentificacion del login
     },
     {
         path: 'register',
@@ -48,9 +47,9 @@ export const routes: Routes = [
     component: NewReportComponent
     },
     {
-        path:'metricGraph',
-        component: MetricsGraphicsComponent
+     path: 'graph',
+     component: GraphComponent
     },
-    
+
 ];
 

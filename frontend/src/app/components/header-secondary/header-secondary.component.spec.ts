@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HeaderSecondaryComponent } from './header-secondary.component';
 
 describe('HeaderSecondaryComponent', () => {
