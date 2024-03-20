@@ -42,13 +42,8 @@ export const Register = async (req, res) => {
 export const Login = async (req, res) => {
     const {username, password} = req.body
     try {
-<<<<<<< HEAD
-        const user = await User.findOne ({username: username}) 
-        if (!user) { 
-=======
         const user = await User.findOne({username:username}) //buscamos si el usuario existe
         if (!user) { //el ! lo pone al significado contrario, es decir, si el usuario no esta en nuestra base
->>>>>>> header
             return res.status(400).json({message: "Usuario invalido"})
         } else{
             const validPassword = await bcrypt.compare(password, user.password) 
@@ -60,11 +55,7 @@ export const Login = async (req, res) => {
         const tokenLog = jwt.sign({ //firmo y elijo la info que quiero enviar con el token
             username: username,
             password: user.password,
-<<<<<<< HEAD
         }, process.env.JWT_SECRET) 
-=======
-        }, process.env.JWT_SECRET ) //clave secreta, firma el token, se usa luego con el middleware para verificar, esta en sucio
->>>>>>> header
 
         //Guardo la clave en un header que llamo tokenAuth y le paso la constante del token (tokenLog)
         res.header ({ "tokenAuth": tokenLog})
