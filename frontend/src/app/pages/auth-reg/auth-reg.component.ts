@@ -4,13 +4,13 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 import { UsersService } from '../../service/users.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
     selector: 'app-auth-reg',
     templateUrl: './auth-reg.component.html',
     standalone: true,
-    imports :[CommonModule, ReactiveFormsModule],
+    imports :[FooterComponent, CommonModule, ReactiveFormsModule],
     styleUrls: ['./auth-reg.component.css']
 })
 export class AuthRegComponent {
@@ -90,19 +90,20 @@ export class AuthRegComponent {
         return true; 
     }
     showTermsError = false; // Variable to track the error message for terms acceptance
+    showSuccessMessage = false;
 
     onSubmit() {
-        if (this.formNewUser.valid && !this.formNewUser.hasError('mismatch') && this.formNewUser.get('terms')?.value) {
+        if (this.formNewUser.valid && !this.formNewUser.errors?.['mismatch'] && this.formNewUser.get('terms')?.value) {
             // Hide the error message if there's no error
             this.showTermsError = false;
             // Llama al servicio para crear el nuevo usuario
             this.userService.createUser(this.formNewUser.value).subscribe(
                 response => {
                     console.log('Usuario creado con éxito:', response);
+                    this.showSuccessMessage = true;
                     setTimeout(() => {
                         this.navigateToHome();
-                        this.showSuccessMessage = true; // Show success message
-                    }, 2000);
+                      }, 3000); 
                 },
                 error => {
                     console.error('Error al crear el usuario:', error);
@@ -116,4 +117,6 @@ export class AuthRegComponent {
         }
         
     }
-    }
+
+    
+}
