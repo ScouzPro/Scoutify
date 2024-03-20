@@ -20,6 +20,7 @@ export class ReportsComponent implements OnInit {
     players: any[] = [];
     playerMetricsMap: Map<string, any[]> = new Map<string, any[]>(); // Mapa para almacenar las métricas de cada jugador
     nuevasMetricas: any;
+    confirmModal: boolean = false ;
     constructor(private playerService: PlayerServiceService, private playerMetricService: MetricsService) { }
   
     ngOnInit(): void {
@@ -43,6 +44,9 @@ export class ReportsComponent implements OnInit {
       return this.playerMetricsMap.get(playerId) || [];
     }
 
+    openConfirmModal() {
+      this.confirmModal = true ;
+    }
     
     formatCreatedAt(dateString: string): string {
         const date = new Date(dateString);
@@ -65,6 +69,7 @@ export class ReportsComponent implements OnInit {
               console.log('Id para borrar:', metricId);
               // Vuelve a cargar los jugadores sin las métricas eliminadas
               await this.loadPlayers();
+              this.confirmModal = false;
             } else {
               console.log('No se encontró la métrica correspondiente al informe.');
             }
