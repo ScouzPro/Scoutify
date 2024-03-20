@@ -119,13 +119,13 @@
 
     <!-- TÉRMINOS Y REDIRECCIÓN -->
     <section class="mx-auto max-w-md">
-        <div class="form-control flex items-center justify-center mb-4">
-            <div class="flex items-center justify-center">
+        <div class="form-control flex items-center justify-center mb-2">
+            <div class="flex flex-col items-center justify-center">
                 <label
                     class="label cursor-pointer ml-2 flex items-center justify-center">
                     <input type="checkbox" formControlName="terms"
                         class="checkbox checkbox-xs" />
-                    <span class="label-text pl-2 pt-2"> Acepto los Términos y
+                    <span class="label-text p-1 mb-0"> Acepto los Términos y
                         Condiciones de Uso </span>
                 </label>
                 <div *ngIf="showTermsError" class="text-red-500" role="alert">
@@ -141,13 +141,15 @@
     </section>
 
     <!-- ENVIAR -->
-    <div class="flex justify-center">
+    <div class="flex flex-col items-center relative">
+        <div *ngIf="showSuccessMessage" class="text-green-500 input-bordered bg-green-100 border border-green-400 px-4 py-2 mb-4 rounded-md absolute z-10" role="alert alert-success">
+            Te has registrado con éxito</div>
         <button
-            class="btn btn-s btn-wide btn-outline btn-primary mb-4 text-center"
+            class="btn btn-s btn-wide btn-outline btn-secondary mb-20 mt-10 text-center"
             [disabled]="!areAllFieldsFilled()"
             (click)="onSubmit()">
-            Enviar</button>
-        <span>Te has registrado con exito</span>
+            Enviar
+        </button>
     </div>
-
 </form>
+<app-footer></app-footer>
