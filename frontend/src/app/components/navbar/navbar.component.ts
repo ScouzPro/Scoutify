@@ -27,6 +27,9 @@ throw new Error('Method not implemented.');
   navigateToReports() {
     this.router.navigate(['/reports']);
   }
+  navigateToGraph() {
+    this.router.navigate(['/graph']);
+  }
 }
 
 
