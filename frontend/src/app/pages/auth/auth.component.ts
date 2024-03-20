@@ -6,8 +6,6 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
-
 @Component({
     selector: 'app-auth',
     standalone: true,
@@ -20,10 +18,6 @@ export class AuthComponent {
         'userName': new FormControl('', [Validators.required]),
         'password': new FormControl('', [Validators.required])
     });
-username: any;
-password: any;
-
-    alertMessage: string ='';
 
     constructor(private router: Router, private userService: UsersService) {}
 
@@ -39,22 +33,7 @@ password: any;
         this.router.navigate(["/home"])
     }
 
-    // Custom function to check all fields have a value, correct or not
-    areAllFieldsFilled(): boolean {
-        const formValues = this.formUser.value as { [key: string]: string | null };
-        for (const key in formValues) {
-            if (formValues.hasOwnProperty(key)) {
-                const value: string | null = formValues[key]; 
-                if (!value) {
-                    return false; 
-                }
-            }
-        }
-        return true; 
-    }
-showTermsError = false; 
-
-
+  
     onSubmit() {
         if (this.formUser.valid) {
           const credentials = {
@@ -66,14 +45,12 @@ showTermsError = false;
           this.userService.loginUser(credentials).subscribe(
             (response) => {
               console.log('Login con éxito:', response);
-              this.alertMessage = '¡Bienvenido, ' + credentials.userName + '!';
               setTimeout(() => {
                 this.navigateToHome();
               }, 2000); 
             },
             (error) => {
-              console.error('Error en el usuario/contraseña:', error);
-              this.alertMessage = 'Error en usuario/contraseña';
+              console.error('Error al logear:', error);
             }
           );
         } else {
