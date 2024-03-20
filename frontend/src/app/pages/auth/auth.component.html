@@ -58,6 +58,14 @@
         (click)="onSubmit()">
             Entrar </button>
     </div>
+    <!-- Agrega esto donde quieras que aparezca la alerta -->
+    <div *ngIf="alertMessage" class="fixed inset-0 flex items-center justify-center">
+        <div class="bg-gray-800 text-white py-2 px-4 rounded-md">
+            {{ alertMessage }}
+        </div>
+    </div>
+    
+
 
 </form>
 <app-footer></app-footer> 
