@@ -90,7 +90,7 @@ export class AuthRegComponent {
         return true; 
     }
     showTermsError = false; // Variable to track the error message for terms acceptance
- 
+   
     onSubmit() {
         if (this.formNewUser.valid && !this.formNewUser.errors?.['mismatch'] && this.formNewUser.get('terms')?.value) {
             // Hide the error message if there's no error
