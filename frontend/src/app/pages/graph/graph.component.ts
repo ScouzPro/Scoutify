@@ -44,7 +44,7 @@ export class GraphComponent implements OnInit {
 
   generateChart(): void {
     // Obtener datos para el gráfico
-    const labels = ['Shot', 'Heading', 'Association', 'Right Foot', 'Left Foot', 'Long Passes', 'dribbling', 'reflexes', 'crosses' ];
+    const labels = ['Disparo', 'Cabezazo', 'Asociación', 'Pie Derecho', 'Pie Izquierdo', 'Pase Largo', 'Regate', 'Reflejos', 'Centros' ];
     const datasets: any[] = [];
   
     // Obtener la lista de jugadores

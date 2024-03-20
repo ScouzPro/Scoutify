@@ -14,24 +14,23 @@
           <p>{{player.dorsal}}</p>
         </div>
       </div>
-      <h2>Last Match</h2>
+      <h2>Ultimo Partido</h2>
       <div>
-        <label>Match Summary:</label>
+        <label>Resumen del Partido:</label>
         <p>{{ metric.matchSummary }}</p>
       </div>
       <div class="metricClass">
         <div>
-          <label>Date:</label>
+          <label>Fecha:</label>
           <p>{{ formatCreatedAt(metric.Created_At) }}</p>
         </div>
         <div>
-          <label>Evaluation:</label>
+          <label>Evaluación:</label>
           <p>{{ metric.averageTotalSkills }}</p>
         </div>
       </div>
       <!-- Botones de Editar y Eliminar -->
       <div class="buttonMetrics">
-        <button>Edit</button>
         <button (click)="eliminarMetricas(player.id)">Eliminar</button>
       </div>
     </div>
