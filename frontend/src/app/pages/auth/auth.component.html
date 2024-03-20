@@ -20,7 +20,7 @@
     <!--NgIf es una directiva de condicionales propia de Angular, que evalua el estado de algo y lo utiliza en base a las instrucciones dadas, en este caso, cuando el estado del input pase a valid o touched (que son estados propios de angular), se oculta-->
         <div *ngIf="['!userName.valid'] && ['userName.touched']" role="alert" class="alert alert-warning p-2 m-2 text-s">
             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-            <span>El nombre de usuario es obligatorio</span>
+            <span >El nombre de usuario es obligatorio</span>
         </div>
     </section>
 
@@ -32,8 +32,7 @@
     </label>
     <div *ngIf="['!password.valid'] && ['password.touched']" role="alert" class="alert alert-warning p-2 m-2 text-s">
         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-        <span> La contraseña es obligatoria</span>
-
+        <span>La contraseña es obligatoria</span>
     </div>
     </section>
 
@@ -55,6 +54,7 @@
     <!-- ENVIAR -->
     <div class="flex justify-center">
         <button class="btn btn-s btn-wide btn-outline btn-primary mb-4 text-center" 
+        [disabled]="!areAllFieldsFilled()"
         (click)="onSubmit()">
             Entrar </button>
     </div>
