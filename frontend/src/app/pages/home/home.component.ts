@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   allPlayersHome: any[] = [];
   filteredPlayers: any[] = [];
   pagedPlayers: any[] = [];
-  fechaSeguimiento: string = "";
+  fechaSeguimiento: string = "2024-03-20";
   p: number = 1;
   pageSize: number = 4;
 
@@ -63,11 +63,16 @@ export class HomeComponent implements OnInit {
     this.pagedPlayers = this.filteredPlayers.slice(startIndex, endIndex);
   }
 
+  // onPageChange(pageNumber: number): void {
+  //   if (pageNumber >= 1 && pageNumber <= this.getMaxPageNumber()) {
+  //     this.p = pageNumber;
+  //     this.setPagedPlayers();
+  //   }
+  // }
+
   onPageChange(pageNumber: number): void {
-    if (pageNumber >= 1 && pageNumber <= this.getMaxPageNumber()) {
-      this.p = pageNumber;
-      this.setPagedPlayers();
-    }
+    this.p = pageNumber;
+    this.setPagedPlayers(); // Actualizar las tarjetas de jugador
   }
   
   getMaxPageNumber(): number {
@@ -79,23 +84,32 @@ export class HomeComponent implements OnInit {
   }
 
   moveCarousel(direction: number): void {
+    console.log('Direction:', direction);
     const carouselItems = document.querySelectorAll(".carousel-item");
     let currentIndex = -1;
-
+  
     carouselItems.forEach((item, index) => {
       if (!item.classList.contains("hidden")) {
         currentIndex = index;
       }
     });
-
+  
+    console.log('Current Index:', currentIndex);
+  
     if (currentIndex !== -1) {
       carouselItems[currentIndex].classList.add("hidden");
       let nextIndex = currentIndex + direction;
+  
+      console.log('Next Index:', nextIndex);
+  
       if (nextIndex < 0) {
         nextIndex = carouselItems.length - 1;
       } else if (nextIndex >= carouselItems.length) {
         nextIndex = 0;
       }
+  
+      console.log('Updated Next Index:', nextIndex);
+  
       carouselItems[nextIndex].classList.remove("hidden");
     }
   }

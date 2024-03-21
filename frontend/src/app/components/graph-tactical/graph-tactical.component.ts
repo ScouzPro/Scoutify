@@ -39,7 +39,7 @@ export class GraphTacticalComponent implements OnInit {
 
   generateChart(): void {
     // Obtener datos para el gráfico
-    const labels = ['Anticipation', 'Placement', 'concentration', 'Forcefulness', 'Overlap', 'Off The Ball', 'Positioning', 'Game Vision'];
+    const labels = ['Anticipación', 'Colocación', 'Concentración', 'Fuerza Fisica', 'Superposición', 'Sin Balon', 'Posicionamiento', 'Visión De Juego'];
     const datasets: any[] = [];
   
     // Obtener la lista de jugadores

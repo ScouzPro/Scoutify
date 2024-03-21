@@ -18,6 +18,7 @@ export class DetailComponent implements OnInit {
   player: any;
   editedPlayer: any = {}; // Variable para almacenar los datos del jugador que se editarán
   modalOpened: boolean = false;
+  successModalOpen: boolean  = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,14 +60,16 @@ export class DetailComponent implements OnInit {
       console.error('Error al cargar los detalles del jugador:', error);
     }
   }
-
+  openSuccesModal() {
+    this.successModalOpen = true ;
+  }
   async updatePlayerData() {
     try {
       const playerId = this.player.id;
       const success = await this.playerService.updatePlayer(playerId, this.editedPlayer);
       if (success) {
         console.log('¡Los datos del jugador se actualizaron correctamente!', this.editedPlayer);
-        
+        this.openSuccesModal()
         this.closeModal()
       } else {
         console.error('¡Error al actualizar los datos del jugador!');

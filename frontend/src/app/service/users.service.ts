@@ -12,7 +12,7 @@ export class UsersService {
     const userData = {
       name: newUser.name,
       lastName: newUser.lastName,
-      userName: newUser.userName,
+      username: newUser.username,
       password: newUser.password,
       repeatPassword: newUser.repeatPassword,
       email: newUser.email
@@ -23,7 +23,7 @@ export class UsersService {
 
   loginUser(credentials: any): Observable<any> {
     const loginData = {
-      username: credentials.userName,
+      username: credentials.username,
       password: credentials.password
     };
 

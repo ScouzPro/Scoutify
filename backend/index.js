@@ -6,6 +6,7 @@ import playerRouter from "./routes/playersRouter.js"
 import reportRoutes from "./routes/reportRoutes.js";
 import playerMetricsRouter from './routes/metricRoutes.js'
 import authRoutes from './routes/authRoutes.js'
+import seasonRoutes from './routes/seasonRoutes.js'
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ app.use(cors());
 app.use('/', playerMetricsRouter);
 app.use('/api', reportRoutes);
 app.use("/player", playerRouter)
-
+app.use("/season", seasonRoutes)
 app.use("/auth", authRoutes);
 
 //PUERTO Y DB
