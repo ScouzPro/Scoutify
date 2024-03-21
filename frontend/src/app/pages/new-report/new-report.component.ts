@@ -50,6 +50,7 @@ export class NewReportComponent implements OnInit {
   totalPhysicalSkills: number;
   matchSummary: string;
   modalOpen: boolean = false;
+  
 
   constructor(private route: ActivatedRoute, private playerService: PlayerServiceService, private metricsService: MetricsService, private router: Router) {
     this.playerId = '';
@@ -148,6 +149,8 @@ export class NewReportComponent implements OnInit {
       if (response) {
         console.log('Formulario enviado correctamente:');
         this.openModal();
+        console.log('Formulario enviado correctamente:');
+        this.openModal();
       } else {
         console.error('Error al enviar el formulario');
       }
@@ -155,6 +158,7 @@ export class NewReportComponent implements OnInit {
       console.error('Error al enviar el formulario:', error);
     }
   }
+
 
   openModal() { 
           this.modalOpen = true;
