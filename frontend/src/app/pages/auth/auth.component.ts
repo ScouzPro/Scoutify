@@ -20,8 +20,9 @@ export class AuthComponent {
       'username': new FormControl('', [Validators.required]),
       'password': new FormControl('', [Validators.required])
   });
-
+  showAlert= false;
   alertMessage: string = '';
+  AlertMessage = false
 
   constructor(private router: Router, private userService: UsersService) {}
 
@@ -54,26 +55,42 @@ showTermsError = false;
 
 
 onSubmit() {
-  if (this.formUser.valid) {
-      const credentials = {
-          username: this.formUser.value.username,
-          password: this.formUser.value.password
-      };
+    if (this.formUser.valid) {
+        const credentials = {
+            username: this.formUser.value.username,
+            password: this.formUser.value.password
+        };
 
-      this.userService.loginUser(credentials).subscribe(
-          (response) => {
-              console.log('Login con éxito:', response);
-              setTimeout(() => {
-                  this.navigateToHome();
-              }, 2000); 
-          },
-          (error) => {
-              console.error('Error al logear:', error);
-          }
-      );
-  } else {
-      this.alertMessage = 'Por favor, complete todos los campos correctamente.';
-  }
+        this.userService.loginUser(credentials).subscribe(
+            (response) => {
+                console.log('Login con éxito:', response);
+                this.alertMessage = '¡Bienvenido, ' + credentials.username + '!';
+                this.AlertMessage = true;
+                setTimeout(() => {
+                    this.navigateToHome();
+                }, 2000);
+            },
+            (error) => {
+                console.error('Error al logear:', error);
+                this.alertMessage = 'Error en usuario/contraseña';
+                this.AlertMessage = true; // Mostrar la alerta
+                this.showAlert = true;
+
+                // Ocultar la alerta después de 3 segundos
+                setTimeout(() => {
+                    this.AlertMessage = false;
+                }, 2000);
+            }
+        );
+    } else {
+        this.alertMessage = 'Por favor, complete todos los campos correctamente.';
+        this.AlertMessage = true; // Mostrar la alerta
+        this.showAlert = true;
+        setTimeout(() => {
+            this.AlertMessage = false;
+        }, 2000);
+    }
 }
+
 
   }
