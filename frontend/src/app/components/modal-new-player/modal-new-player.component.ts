@@ -1,16 +1,19 @@
 import { Component} from '@angular/core';
 import { PlayerServiceService } from '../../service/player-service.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-modal-new-player',
   templateUrl: './modal-new-player.component.html',
   standalone: true,
-  imports :[FormsModule],
+  imports :[FormsModule, CommonModule],
   styleUrls: ['./modal-new-player.component.css']
 })
 export class ModalNewPlayerComponent{
-
+  
+  modalPlayerCreated: boolean = false;
   constructor(private playerService: PlayerServiceService) { }
 
   showModal() {
@@ -19,19 +22,23 @@ export class ModalNewPlayerComponent{
       modal.showModal();
     }
   }
-
+ openCreatePlayer() {
+    this.modalPlayerCreated = true;
+  }
   async submitForm(form: any) {
     if (form.valid) {
       const newPlayer = form.value;
       await this.playerService.CreatePlayer(newPlayer);
-      this.closeModal();
+      this.openCreatePlayer();    
+      
+      
     }
   }
-
   closeModal() {
     const modal = document.getElementById('my_modal_4') as HTMLDialogElement;
     if (modal) {
       modal.close();
+      
     }
   }
 }

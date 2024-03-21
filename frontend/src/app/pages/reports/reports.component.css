@@ -1,0 +1,46 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Definir columnas automáticas con un ancho mínimo de 300px */
+    gap: 20px; /* Espacio entre las tarjetas */
+    font-size: 12px;
+    margin-bottom: 60px;
+   
+  }
+  
+  /* Estilos para las tarjetas */
+
+  
+  .card1 {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: auto;
+  }
+
+  .card1 h2 {
+    font-weight: bold;
+    color: black;
+    padding-left: 80px;
+    margin-bottom: 10px;
+  }
+   
+  .card1 label {
+    font-weight: bold;
+  }
+  
+  .metricClass {
+    display: flex;
+    gap: 60px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  /* Estilos para los botones */
+  .buttonMetrics {
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+  .buttonMetrics button {
+    margin-right: 60px; /* Agrega espacio entre los botones */
+  }
+  .principalCard {
+    display: flex !important;
+  }

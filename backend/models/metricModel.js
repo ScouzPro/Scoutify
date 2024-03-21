@@ -34,7 +34,7 @@ const playerMetricSchema = new Schema (
             offTheBall: Number,
             positioning: Number,
             gameVision: Number,
-            globalAverage: Number,
+            // globalAverage: Number,
             totalTacticalSkills: Number
         }],
 
@@ -46,9 +46,10 @@ const playerMetricSchema = new Schema (
             endurance: Number,
             jumping: Number,
             speed: Number,
-            globalAverage: Number,
+            // globalAverage: Number,
             totalPhysicalSkills: Number,
         }],
+        matchSummary:{type:String},
         Created_At: { type: Date, default: Date.now }
     },
     { collection: 'playermetrics', versionKey: false }
