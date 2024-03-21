@@ -30,8 +30,8 @@ export class PlayersComponent implements OnInit {
     nacionalidadesUnicas: string[] = ['España', 'Venezuela', 'Ecuador', 'Perú', 'México','Colombia', 'Portugal', 'Francia','Alemania', 'Italia']; // Lista de nacionalidades
     rangosEdad: string[] = ['18-25', '26-30', '31-35', '36-40', '41+']; // Lista de rangos de edad
     rangosPeso: string[] = ['45-60', '61-80', '81-100', '101-130']; // Lista de rangos de peso
-    rangosEstatura: string[] = ['140-160', '161-180', '181-200']; // Lista de rangos de estatura
-    piesDominantes: string[] = ['Derecho', 'Izquierdo', 'Ambos']; // Lista de pies dominantes
+    rangosEstatura: string[] = ['1.40-1.60', '1.61-1.80', '1.81-2.00']; // Lista de rangos de estatura
+    piesDominantes: string[] = ['Derecha', 'Zurda', 'Ambas']; // Lista de pies dominantes
     resumenFiltros: string = '';
     confirmModal: boolean = false;
 
@@ -132,21 +132,12 @@ export class PlayersComponent implements OnInit {
                 }
             }
 
-            if (this.pieDominanteFilter && player.strongFoot) {
-                const pieDominante = player.strongFoot.toLowerCase();
-                const filtroPieDominante = this.pieDominanteFilter.toLowerCase();
-
-                if (
-                    !(filtroPieDominante === 'derecho' && (pieDominante === 'derecho' || pieDominante === 'Derecho')) &&
-                    !(filtroPieDominante === 'izquierdo' && (pieDominante === 'izquierdo' || pieDominante === 'Izquierdo')) &&
-                    !(filtroPieDominante === 'ambos' && (pieDominante === 'ambos' || pieDominante === 'Ambos'))
-                ) {
-                    pasaFiltro = false;
-                }
-            } else if (this.pieDominanteFilter !== null) {
-                // Si hay un filtro seleccionado pero el jugador no tiene strongFoot definido, no pasa el filtro
+            if (this.pieDominanteFilter && this.pieDominanteFilter.toLowerCase() !== 'ambos' && player.strongFoot.toLowerCase() !== this.pieDominanteFilter.toLowerCase()) {
                 pasaFiltro = false;
             }
+            console.log(this.pieDominanteFilter)
+            
+                      
             return pasaFiltro;
 
         });
