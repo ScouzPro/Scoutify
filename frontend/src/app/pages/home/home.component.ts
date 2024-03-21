@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   allPlayersHome: any[] = [];
   filteredPlayers: any[] = [];
   pagedPlayers: any[] = [];
-  fechaSeguimiento: string = "";
+  fechaSeguimiento: string = "2024-03-20";
   p: number = 1;
   pageSize: number = 4;
 
