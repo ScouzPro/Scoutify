@@ -93,18 +93,28 @@ export class GraphTacticalComponent implements OnInit {
 
       const options = {
         scale: {
-          min: 0,
-          max: 10,
-          ticks: {
-            stepSize: 1
-          }
+            min: 0,
+            max: 10,
+            ticks: {
+                stepSize: 1
+            }
         },
         elements: {
-          line: {
-            borderWidth: 3
-          }
+            line: {
+                borderWidth: 3
+            }
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    // Configura el tamaño de la fuente de las etiquetas de la leyenda
+                    font: {
+                        size: 7 // Ajusta este valor según tus necesidades
+                    }
+                }
+            }
         }
-      };
+    };
   
       // Crear el gráfico
       this.chart = new Chart("myChart2", {
