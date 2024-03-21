@@ -17,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class AuthComponent {
   formUser = new FormGroup({
-      'userName': new FormControl('', [Validators.required]),
+      'username': new FormControl('', [Validators.required]),
       'password': new FormControl('', [Validators.required])
   });
 
@@ -56,7 +56,7 @@ showTermsError = false;
 onSubmit() {
   if (this.formUser.valid) {
       const credentials = {
-          userName: this.formUser.value.userName,
+          username: this.formUser.value.username,
           password: this.formUser.value.password
       };
 
