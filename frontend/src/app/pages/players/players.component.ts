@@ -33,11 +33,16 @@ export class PlayersComponent implements OnInit {
     rangosEstatura: string[] = ['140-160', '161-180', '181-200']; // Lista de rangos de estatura
     piesDominantes: string[] = ['Derecho', 'Izquierdo', 'Ambos']; // Lista de pies dominantes
     resumenFiltros: string = '';
+    confirmModal: boolean = false;
 
     constructor(private playerService: PlayerServiceService) { }
 
     ngOnInit() {
         this.loadPlayersFollowed();
+    }
+
+    openConfirmModal() {
+        this.confirmModal = true ;
     }
 
     async eliminarJugador(playerId: string) {
@@ -46,6 +51,7 @@ export class PlayersComponent implements OnInit {
           if (success) {
             // Actualizar la lista de jugadores después de eliminar uno
             this.loadPlayersFollowed();
+            this.confirmModal = false;
           } else {
             console.error('Error al eliminar el jugador.');
           }
