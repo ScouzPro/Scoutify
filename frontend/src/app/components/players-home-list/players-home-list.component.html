@@ -1,0 +1,10 @@
+<div *ngFor="let player of players">
+    <div class="card">
+        <img [src]="player.photo" alt="{{ player.name }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ player.name }}</h5>
+            <p class="card-text">{{ player.actualTeam }}</p>
+            <!-- Agrega aquí los demás campos que deseas mostrar -->
+        </div>
+    </div>
+</div>
