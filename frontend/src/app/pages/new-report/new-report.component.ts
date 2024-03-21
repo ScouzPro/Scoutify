@@ -5,12 +5,14 @@ import { MetricsService } from '../../service/metrics.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 
 @Component({
   selector: 'app-new-report',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, NavbarComponent, FooterComponent],
   templateUrl: './new-report.component.html',
   styleUrls: ['./new-report.component.css']
 })
@@ -216,12 +218,3 @@ export class NewReportComponent implements OnInit {
 }
 
 }
-
-
-
-
-
-
-
-
-

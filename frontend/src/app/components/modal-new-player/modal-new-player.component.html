@@ -1,33 +1,33 @@
-<button class="btn" (click)="showModal()"> Crear Jugador</button>
+<button class="btn" (click)="showModal()">+ Crear Jugador</button>
 <dialog id="my_modal_4" class="modal">
     <div class="modal-box w-11/12 max-w-5xl mx-auto flex flex-col">
-        <h3 class="font-bold text-lg mb-3">Create Player</h3>
+        <h3 class="font-bold text-lg mb-3">Crear Jugador</h3>
         <form method="dialog">
             <button (click)="closeModal()" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           </form>
         <form #playerForm="ngForm" (ngSubmit)="submitForm(playerForm)" class="flex flex-col items-center">
-            <input type="text" placeholder="Full Name" class="input input-bordered w-full max-w-xs mb-3" name="name" ngModel required />
-            <input type="number" placeholder="Age" class="input input-bordered w-full max-w-xs mb-3" name="age" ngModel required />
-            <input type="text" placeholder="Actual Team" class="input input-bordered w-full max-w-xs mb-3" name="actualTeam" ngModel required />
+            <input type="text" placeholder="Nombre y Apellidos" class="input input-bordered w-full max-w-xs mb-3" name="name" ngModel required />
+            <input type="number" placeholder="Edad" class="input input-bordered w-full max-w-xs mb-3" name="age" ngModel required />
+            <input type="text" placeholder="Equipo Actual" class="input input-bordered w-full max-w-xs mb-3" name="actualTeam" ngModel required />
             <input type="number" placeholder="Dorsal" class="input input-bordered w-full max-w-xs mb-3" name="dorsal" ngModel required />
-            <input type="text" placeholder="Nationality" class="input input-bordered w-full max-w-xs mb-3" name="nationality" ngModel required />
+            <input type="text" placeholder="Nacionalidad" class="input input-bordered w-full max-w-xs mb-3" name="nationality" ngModel required />
             <select class="select select-bordered w-full max-w-xs mb-3" name="position" ngModel required>
-                <option value="" disabled selected>Position</option>
+                <option value="" disabled selected>Posición</option>
                 <option>Delantero</option>
                 <option>Medio Campo</option>
                 <option>Defensa</option>
                 <option>Portero</option>
             </select>
-            <input type="text" placeholder="Weight" class="input input-bordered w-full max-w-xs mb-3" name="weight" ngModel required />
-            <input type="text" placeholder="Height" class="input input-bordered w-full max-w-xs mb-3" name="height" ngModel required />
+            <input type="text" placeholder="Peso" class="input input-bordered w-full max-w-xs mb-3" name="weight" ngModel required />
+            <input type="text" placeholder="Tamaño" class="input input-bordered w-full max-w-xs mb-3" name="height" ngModel required />
             <select class="select select-bordered w-full max-w-xs mb-3" name="strongFoot" ngModel required>
-                <option value="" disabled selected>Strong Foot</option>
-                <option>Derecho</option>
-                <option>Izquierdo</option>
-                <option>Ambos</option>
+                <option value="" disabled selected>Pie Dominante</option>
+                <option>Derecha</option>
+                <option>Zurda</option>
+                <option>Ambas</option>
             </select>
-            <input type="text" placeholder="Url of Player image" class="input input-bordered w-full max-w-xs mb-3" name="photo" ngModel required />  
-            <button type="submit" class="btn">Crear</button>
+            <input type="text" placeholder="URL Foto del Jugador" class="input input-bordered w-full max-w-xs mb-3" name="photo" ngModel required />  
+            <button type="submit" class="btn">Enviar</button>
         </form>
     </div>
     <div>

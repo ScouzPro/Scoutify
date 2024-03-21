@@ -39,7 +39,7 @@ export class GraphPhisicalComponent implements OnInit {
 
   generateChart(): void {
     // Obtener datos para el gráfico
-    const labels = ['Agility', 'Flexibility', 'Strength', 'Power', 'Endurance', 'Jumping', 'Speed' ];
+    const labels = ['Agilidad', 'Flexibilidad', 'Fuerza', 'Poder', 'Resistencia', 'Salto', 'Velocidad' ];
     const datasets: any[] = [];
   
     // Obtener la lista de jugadores
