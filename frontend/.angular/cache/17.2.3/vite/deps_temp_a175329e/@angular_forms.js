@@ -1,10 +1,6 @@
 import {
   getDOM
-<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_forms.js
-} from "./chunk-TI6YBJNW.js";
-=======
-} from "./chunk-QODWSEAU.js";
->>>>>>> 840312c57c952ca96040c2624d4383b00ac76814:frontend/.angular/cache/17.2.3/vite/deps/@angular_forms.js
+} from "./chunk-3OUS5LHJ.js";
 import {
   ChangeDetectorRef,
   Directive,
@@ -46,15 +42,11 @@ import {
   ɵɵdirectiveInject,
   ɵɵgetInheritedFactory,
   ɵɵlistener
-<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_forms.js
-} from "./chunk-IFULXOSD.js";
-=======
-} from "./chunk-K6PN74MK.js";
->>>>>>> 840312c57c952ca96040c2624d4383b00ac76814:frontend/.angular/cache/17.2.3/vite/deps/@angular_forms.js
+} from "./chunk-DTTFSVPX.js";
 import {
   __spreadProps,
   __spreadValues
-} from "./chunk-GLLL6ZVE.js";
+} from "./chunk-3XDEHMPW.js";
 
 // node_modules/@angular/forms/fesm2022/forms.mjs
 var _BaseControlValueAccessor = class _BaseControlValueAccessor {
@@ -667,7 +659,7 @@ function isPresent(o) {
 function toObservable(value) {
   const obs = isPromise(value) ? from(value) : value;
   if ((typeof ngDevMode === "undefined" || ngDevMode) && !isSubscribable(obs)) {
-    let errorMessage = `Expected async validator to return Promise or Observable.`;
+    let errorMessage = "Expected async validator to return Promise or Observable.";
     if (typeof value === "object") {
       errorMessage += " Are you using a synchronous validator where an async validator is expected?";
     }
@@ -1031,28 +1023,36 @@ var AbstractControlStatus = class {
     this._cd = cd;
   }
   get isTouched() {
-    return !!this._cd?.control?.touched;
+    var _a, _b;
+    return !!((_b = (_a = this._cd) == null ? void 0 : _a.control) == null ? void 0 : _b.touched);
   }
   get isUntouched() {
-    return !!this._cd?.control?.untouched;
+    var _a, _b;
+    return !!((_b = (_a = this._cd) == null ? void 0 : _a.control) == null ? void 0 : _b.untouched);
   }
   get isPristine() {
-    return !!this._cd?.control?.pristine;
+    var _a, _b;
+    return !!((_b = (_a = this._cd) == null ? void 0 : _a.control) == null ? void 0 : _b.pristine);
   }
   get isDirty() {
-    return !!this._cd?.control?.dirty;
+    var _a, _b;
+    return !!((_b = (_a = this._cd) == null ? void 0 : _a.control) == null ? void 0 : _b.dirty);
   }
   get isValid() {
-    return !!this._cd?.control?.valid;
+    var _a, _b;
+    return !!((_b = (_a = this._cd) == null ? void 0 : _a.control) == null ? void 0 : _b.valid);
   }
   get isInvalid() {
-    return !!this._cd?.control?.invalid;
+    var _a, _b;
+    return !!((_b = (_a = this._cd) == null ? void 0 : _a.control) == null ? void 0 : _b.invalid);
   }
   get isPending() {
-    return !!this._cd?.control?.pending;
+    var _a, _b;
+    return !!((_b = (_a = this._cd) == null ? void 0 : _a.control) == null ? void 0 : _b.pending);
   }
   get isSubmitted() {
-    return !!this._cd?.submitted;
+    var _a;
+    return !!((_a = this._cd) == null ? void 0 : _a.submitted);
   }
 };
 var ngControlStatusHost = {
@@ -1137,154 +1137,42 @@ var NgControlStatusGroup = _NgControlStatusGroup;
     }]
   }], null);
 })();
-var formControlNameExample = `
-  <div [formGroup]="myGroup">
-    <input formControlName="firstName">
-  </div>
-
-  In your class:
-
-  this.myGroup = new FormGroup({
-      firstName: new FormControl()
-  });`;
-var formGroupNameExample = `
-  <div [formGroup]="myGroup">
-      <div formGroupName="person">
-        <input formControlName="firstName">
-      </div>
-  </div>
-
-  In your class:
-
-  this.myGroup = new FormGroup({
-      person: new FormGroup({ firstName: new FormControl() })
-  });`;
-var formArrayNameExample = `
-  <div [formGroup]="myGroup">
-    <div formArrayName="cities">
-      <div *ngFor="let city of cityArray.controls; index as i">
-        <input [formControlName]="i">
-      </div>
-    </div>
-  </div>
-
-  In your class:
-
-  this.cityArray = new FormArray([new FormControl('SF')]);
-  this.myGroup = new FormGroup({
-    cities: this.cityArray
-  });`;
-var ngModelGroupExample = `
-  <form>
-      <div ngModelGroup="person">
-        <input [(ngModel)]="person.name" name="firstName">
-      </div>
-  </form>`;
-var ngModelWithFormGroupExample = `
-  <div [formGroup]="myGroup">
-      <input formControlName="firstName">
-      <input [(ngModel)]="showMoreControls" [ngModelOptions]="{standalone: true}">
-  </div>
-`;
+var formControlNameExample = '\n  <div [formGroup]="myGroup">\n    <input formControlName="firstName">\n  </div>\n\n  In your class:\n\n  this.myGroup = new FormGroup({\n      firstName: new FormControl()\n  });';
+var formGroupNameExample = '\n  <div [formGroup]="myGroup">\n      <div formGroupName="person">\n        <input formControlName="firstName">\n      </div>\n  </div>\n\n  In your class:\n\n  this.myGroup = new FormGroup({\n      person: new FormGroup({ firstName: new FormControl() })\n  });';
+var formArrayNameExample = '\n  <div [formGroup]="myGroup">\n    <div formArrayName="cities">\n      <div *ngFor="let city of cityArray.controls; index as i">\n        <input [formControlName]="i">\n      </div>\n    </div>\n  </div>\n\n  In your class:\n\n  this.cityArray = new FormArray([new FormControl(\'SF\')]);\n  this.myGroup = new FormGroup({\n    cities: this.cityArray\n  });';
+var ngModelGroupExample = '\n  <form>\n      <div ngModelGroup="person">\n        <input [(ngModel)]="person.name" name="firstName">\n      </div>\n  </form>';
+var ngModelWithFormGroupExample = '\n  <div [formGroup]="myGroup">\n      <input formControlName="firstName">\n      <input [(ngModel)]="showMoreControls" [ngModelOptions]="{standalone: true}">\n  </div>\n';
 function controlParentException() {
-  return new RuntimeError(1050, `formControlName must be used with a parent formGroup directive.  You'll want to add a formGroup
-      directive and pass it an existing FormGroup instance (you can create one in your class).
-
-    Example:
-
-    ${formControlNameExample}`);
+  return new RuntimeError(1050, "formControlName must be used with a parent formGroup directive.  You'll want to add a formGroup\n      directive and pass it an existing FormGroup instance (you can create one in your class).\n\n    Example:\n\n    ".concat(formControlNameExample));
 }
 function ngModelGroupException() {
-  return new RuntimeError(1051, `formControlName cannot be used with an ngModelGroup parent. It is only compatible with parents
-      that also have a "form" prefix: formGroupName, formArrayName, or formGroup.
-
-      Option 1:  Update the parent to be formGroupName (reactive form strategy)
-
-      ${formGroupNameExample}
-
-      Option 2: Use ngModel instead of formControlName (template-driven strategy)
-
-      ${ngModelGroupExample}`);
+  return new RuntimeError(1051, 'formControlName cannot be used with an ngModelGroup parent. It is only compatible with parents\n      that also have a "form" prefix: formGroupName, formArrayName, or formGroup.\n\n      Option 1:  Update the parent to be formGroupName (reactive form strategy)\n\n      '.concat(formGroupNameExample, "\n\n      Option 2: Use ngModel instead of formControlName (template-driven strategy)\n\n      ").concat(ngModelGroupExample));
 }
 function missingFormException() {
-  return new RuntimeError(1052, `formGroup expects a FormGroup instance. Please pass one in.
-
-      Example:
-
-      ${formControlNameExample}`);
+  return new RuntimeError(1052, "formGroup expects a FormGroup instance. Please pass one in.\n\n      Example:\n\n      ".concat(formControlNameExample));
 }
 function groupParentException() {
-  return new RuntimeError(1053, `formGroupName must be used with a parent formGroup directive.  You'll want to add a formGroup
-    directive and pass it an existing FormGroup instance (you can create one in your class).
-
-    Example:
-
-    ${formGroupNameExample}`);
+  return new RuntimeError(1053, "formGroupName must be used with a parent formGroup directive.  You'll want to add a formGroup\n    directive and pass it an existing FormGroup instance (you can create one in your class).\n\n    Example:\n\n    ".concat(formGroupNameExample));
 }
 function arrayParentException() {
-  return new RuntimeError(1054, `formArrayName must be used with a parent formGroup directive.  You'll want to add a formGroup
-      directive and pass it an existing FormGroup instance (you can create one in your class).
-
-      Example:
-
-      ${formArrayNameExample}`);
+  return new RuntimeError(1054, "formArrayName must be used with a parent formGroup directive.  You'll want to add a formGroup\n      directive and pass it an existing FormGroup instance (you can create one in your class).\n\n      Example:\n\n      ".concat(formArrayNameExample));
 }
-var disabledAttrWarning = `
-  It looks like you're using the disabled attribute with a reactive form directive. If you set disabled to true
-  when you set up this control in your component class, the disabled attribute will actually be set in the DOM for
-  you. We recommend using this approach to avoid 'changed after checked' errors.
-
-  Example:
-  // Specify the \`disabled\` property at control creation time:
-  form = new FormGroup({
-    first: new FormControl({value: 'Nancy', disabled: true}, Validators.required),
-    last: new FormControl('Drew', Validators.required)
-  });
-
-  // Controls can also be enabled/disabled after creation:
-  form.get('first')?.enable();
-  form.get('last')?.disable();
-`;
-var asyncValidatorsDroppedWithOptsWarning = `
-  It looks like you're constructing using a FormControl with both an options argument and an
-  async validators argument. Mixing these arguments will cause your async validators to be dropped.
-  You should either put all your validators in the options object, or in separate validators
-  arguments. For example:
-
-  // Using validators arguments
-  fc = new FormControl(42, Validators.required, myAsyncValidator);
-
-  // Using AbstractControlOptions
-  fc = new FormControl(42, {validators: Validators.required, asyncValidators: myAV});
-
-  // Do NOT mix them: async validators will be dropped!
-  fc = new FormControl(42, {validators: Validators.required}, /* Oops! */ myAsyncValidator);
-`;
+var disabledAttrWarning = "\n  It looks like you're using the disabled attribute with a reactive form directive. If you set disabled to true\n  when you set up this control in your component class, the disabled attribute will actually be set in the DOM for\n  you. We recommend using this approach to avoid 'changed after checked' errors.\n\n  Example:\n  // Specify the `disabled` property at control creation time:\n  form = new FormGroup({\n    first: new FormControl({value: 'Nancy', disabled: true}, Validators.required),\n    last: new FormControl('Drew', Validators.required)\n  });\n\n  // Controls can also be enabled/disabled after creation:\n  form.get('first')?.enable();\n  form.get('last')?.disable();\n";
+var asyncValidatorsDroppedWithOptsWarning = "\n  It looks like you're constructing using a FormControl with both an options argument and an\n  async validators argument. Mixing these arguments will cause your async validators to be dropped.\n  You should either put all your validators in the options object, or in separate validators\n  arguments. For example:\n\n  // Using validators arguments\n  fc = new FormControl(42, Validators.required, myAsyncValidator);\n\n  // Using AbstractControlOptions\n  fc = new FormControl(42, {validators: Validators.required, asyncValidators: myAV});\n\n  // Do NOT mix them: async validators will be dropped!\n  fc = new FormControl(42, {validators: Validators.required}, /* Oops! */ myAsyncValidator);\n";
 function ngModelWarning(directiveName) {
-  return `
-  It looks like you're using ngModel on the same form field as ${directiveName}.
-  Support for using the ngModel input property and ngModelChange event with
-  reactive form directives has been deprecated in Angular v6 and will be removed
-  in a future version of Angular.
-
-  For more information on this, see our API docs here:
-  https://angular.io/api/forms/${directiveName === "formControl" ? "FormControlDirective" : "FormControlName"}#use-with-ngmodel
-  `;
+  return "\n  It looks like you're using ngModel on the same form field as ".concat(directiveName, ".\n  Support for using the ngModel input property and ngModelChange event with\n  reactive form directives has been deprecated in Angular v6 and will be removed\n  in a future version of Angular.\n\n  For more information on this, see our API docs here:\n  https://angular.io/api/forms/").concat(directiveName === "formControl" ? "FormControlDirective" : "FormControlName", "#use-with-ngmodel\n  ");
 }
 function describeKey(isFormGroup2, key) {
-  return isFormGroup2 ? `with name: '${key}'` : `at index: ${key}`;
+  return isFormGroup2 ? "with name: '".concat(key, "'") : "at index: ".concat(key);
 }
 function noControlsError(isFormGroup2) {
-  return `
-    There are no form controls registered with this ${isFormGroup2 ? "group" : "array"} yet. If you're using ngModel,
-    you may want to check next tick (e.g. use setTimeout).
-  `;
+  return "\n    There are no form controls registered with this ".concat(isFormGroup2 ? "group" : "array", " yet. If you're using ngModel,\n    you may want to check next tick (e.g. use setTimeout).\n  ");
 }
 function missingControlError(isFormGroup2, key) {
-  return `Cannot find form control ${describeKey(isFormGroup2, key)}`;
+  return "Cannot find form control ".concat(describeKey(isFormGroup2, key));
 }
 function missingControlValueError(isFormGroup2, key) {
-  return `Must supply a value for form control ${describeKey(isFormGroup2, key)}`;
+  return "Must supply a value for form control ".concat(describeKey(isFormGroup2, key));
 }
 var VALID = "VALID";
 var INVALID = "INVALID";
@@ -2482,7 +2370,7 @@ var FormGroup = class extends AbstractControl {
 function validateFormGroupControls(controls) {
   const invalidKeys = Object.keys(controls).filter((key) => key.includes("."));
   if (invalidKeys.length > 0) {
-    console.warn(`FormGroup keys cannot include \`.\`, please replace the keys for: ${invalidKeys.join(",")}.`);
+    console.warn("FormGroup keys cannot include `.`, please replace the keys for: ".concat(invalidKeys.join(","), "."));
   }
 }
 var UntypedFormGroup = FormGroup;
@@ -2499,6 +2387,7 @@ function controlPath(name, parent) {
   return [...parent.path, name];
 }
 function setUpControl(control, dir, callSetDisabledState = setDisabledStateDefault) {
+  var _a, _b;
   if (typeof ngDevMode === "undefined" || ngDevMode) {
     if (!control)
       _throwError(dir, "Cannot find control with");
@@ -2508,7 +2397,7 @@ function setUpControl(control, dir, callSetDisabledState = setDisabledStateDefau
   setUpValidators(control, dir);
   dir.valueAccessor.writeValue(control.value);
   if (control.disabled || callSetDisabledState === "always") {
-    dir.valueAccessor.setDisabledState?.(control.disabled);
+    (_b = (_a = dir.valueAccessor).setDisabledState) == null ? void 0 : _b.call(_a, control.disabled);
   }
   setUpViewChangePipeline(control, dir);
   setUpModelChangePipeline(control, dir);
@@ -2647,23 +2536,23 @@ function _noControlError(dir) {
 }
 function _throwError(dir, message) {
   const messageEnd = _describeControlLocation(dir);
-  throw new Error(`${message} ${messageEnd}`);
+  throw new Error("".concat(message, " ").concat(messageEnd));
 }
 function _describeControlLocation(dir) {
   const path = dir.path;
   if (path && path.length > 1)
-    return `path: '${path.join(" -> ")}'`;
-  if (path?.[0])
-    return `name: '${path}'`;
+    return "path: '".concat(path.join(" -> "), "'");
+  if (path == null ? void 0 : path[0])
+    return "name: '".concat(path, "'");
   return "unspecified name attribute";
 }
 function _throwMissingValueAccessorError(dir) {
   const loc = _describeControlLocation(dir);
-  throw new RuntimeError(-1203, `No value accessor for form control ${loc}.`);
+  throw new RuntimeError(-1203, "No value accessor for form control ".concat(loc, "."));
 }
 function _throwInvalidValueAccessorError(dir) {
   const loc = _describeControlLocation(dir);
-  throw new RuntimeError(1200, `Value accessor was not provided as an array for form control with ${loc}. Check that the \`NG_VALUE_ACCESSOR\` token is configured as a \`multi: true\` provider.`);
+  throw new RuntimeError(1200, "Value accessor was not provided as an array for form control with ".concat(loc, ". ") + "Check that the `NG_VALUE_ACCESSOR` token is configured as a `multi: true` provider.");
 }
 function isPropertyUpdated(changes, viewModel) {
   if (!changes.hasOwnProperty("model"))
@@ -2890,10 +2779,11 @@ var _NgForm = class _NgForm extends ControlContainer {
    * @param $event The "submit" event object
    */
   onSubmit($event) {
+    var _a;
     this.submitted = true;
     syncPendingControls(this.form, this._directives);
     this.ngSubmit.emit($event);
-    return $event?.target?.method === "dialog";
+    return ((_a = $event == null ? void 0 : $event.target) == null ? void 0 : _a.method) === "dialog";
   }
   /**
    * @description
@@ -3161,48 +3051,16 @@ var AbstractFormGroupDirective = _AbstractFormGroupDirective;
   }], null, null);
 })();
 function modelParentException() {
-  return new RuntimeError(1350, `
-    ngModel cannot be used to register form controls with a parent formGroup directive.  Try using
-    formGroup's partner directive "formControlName" instead.  Example:
-
-    ${formControlNameExample}
-
-    Or, if you'd like to avoid registering this form control, indicate that it's standalone in ngModelOptions:
-
-    Example:
-
-    ${ngModelWithFormGroupExample}`);
+  return new RuntimeError(1350, '\n    ngModel cannot be used to register form controls with a parent formGroup directive.  Try using\n    formGroup\'s partner directive "formControlName" instead.  Example:\n\n    '.concat(formControlNameExample, "\n\n    Or, if you'd like to avoid registering this form control, indicate that it's standalone in ngModelOptions:\n\n    Example:\n\n    ").concat(ngModelWithFormGroupExample));
 }
 function formGroupNameException() {
-  return new RuntimeError(1351, `
-    ngModel cannot be used to register form controls with a parent formGroupName or formArrayName directive.
-
-    Option 1: Use formControlName instead of ngModel (reactive strategy):
-
-    ${formGroupNameExample}
-
-    Option 2:  Update ngModel's parent be ngModelGroup (template-driven strategy):
-
-    ${ngModelGroupExample}`);
+  return new RuntimeError(1351, "\n    ngModel cannot be used to register form controls with a parent formGroupName or formArrayName directive.\n\n    Option 1: Use formControlName instead of ngModel (reactive strategy):\n\n    ".concat(formGroupNameExample, "\n\n    Option 2:  Update ngModel's parent be ngModelGroup (template-driven strategy):\n\n    ").concat(ngModelGroupExample));
 }
 function missingNameException() {
-  return new RuntimeError(1352, `If ngModel is used within a form tag, either the name attribute must be set or the form
-    control must be defined as 'standalone' in ngModelOptions.
-
-    Example 1: <input [(ngModel)]="person.firstName" name="first">
-    Example 2: <input [(ngModel)]="person.firstName" [ngModelOptions]="{standalone: true}">`);
+  return new RuntimeError(1352, 'If ngModel is used within a form tag, either the name attribute must be set or the form\n    control must be defined as \'standalone\' in ngModelOptions.\n\n    Example 1: <input [(ngModel)]="person.firstName" name="first">\n    Example 2: <input [(ngModel)]="person.firstName" [ngModelOptions]="{standalone: true}">');
 }
 function modelGroupParentException() {
-  return new RuntimeError(1353, `
-    ngModelGroup cannot be used with a parent formGroup directive.
-
-    Option 1: Use formGroupName instead of ngModelGroup (reactive strategy):
-
-    ${formGroupNameExample}
-
-    Option 2:  Use a regular form tag instead of the formGroup directive (template-driven strategy):
-
-    ${ngModelGroupExample}`);
+  return new RuntimeError(1353, "\n    ngModelGroup cannot be used with a parent formGroup directive.\n\n    Option 1: Use formGroupName instead of ngModelGroup (reactive strategy):\n\n    ".concat(formGroupNameExample, "\n\n    Option 2:  Use a regular form tag instead of the formGroup directive (template-driven strategy):\n\n    ").concat(ngModelGroupExample));
 }
 var modelGroupProvider = {
   provide: ControlContainer,
@@ -3393,22 +3251,24 @@ var _NgModel = class _NgModel extends NgControl {
   }
   _updateValue(value) {
     resolvedPromise.then(() => {
+      var _a;
       this.control.setValue(value, {
         emitViewToModelChange: false
       });
-      this._changeDetectorRef?.markForCheck();
+      (_a = this._changeDetectorRef) == null ? void 0 : _a.markForCheck();
     });
   }
   _updateDisabled(changes) {
     const disabledValue = changes["isDisabled"].currentValue;
     const isDisabled = disabledValue !== 0 && booleanAttribute(disabledValue);
     resolvedPromise.then(() => {
+      var _a;
       if (isDisabled && !this.control.disabled) {
         this.control.disable();
       } else if (!isDisabled && this.control.disabled) {
         this.control.enable();
       }
-      this._changeDetectorRef?.markForCheck();
+      (_a = this._changeDetectorRef) == null ? void 0 : _a.markForCheck();
     });
   }
   _getPath(controlName) {
@@ -3603,10 +3463,7 @@ var RADIO_VALUE_ACCESSOR = {
   multi: true
 };
 function throwNameError() {
-  throw new RuntimeError(1202, `
-      If you define both a name and a formControlName attribute on your radio button, their values
-      must match. Ex: <input type="radio" formControlName="food" name="food">
-    `);
+  throw new RuntimeError(1202, '\n      If you define both a name and a formControlName attribute on your radio button, their values\n      must match. Ex: <input type="radio" formControlName="food" name="food">\n    ');
 }
 var _RadioControlRegistry = class _RadioControlRegistry {
   constructor() {
@@ -3667,15 +3524,16 @@ var RadioControlRegistry = _RadioControlRegistry;
 })();
 var _RadioControlValueAccessor = class _RadioControlValueAccessor extends BuiltInControlValueAccessor {
   constructor(renderer, elementRef, _registry, _injector) {
+    var _a;
     super(renderer, elementRef);
     this._registry = _registry;
     this._injector = _injector;
     this.setDisabledStateFired = false;
     this.onChange = () => {
     };
-    this.callSetDisabledState = inject(CALL_SET_DISABLED_STATE, {
+    this.callSetDisabledState = (_a = inject(CALL_SET_DISABLED_STATE, {
       optional: true
-    }) ?? setDisabledStateDefault;
+    })) != null ? _a : setDisabledStateDefault;
   }
   /** @nodoc */
   ngOnInit() {
@@ -4193,10 +4051,11 @@ var _FormGroupDirective = class _FormGroupDirective extends ControlContainer {
    * @param $event The "submit" event object
    */
   onSubmit($event) {
+    var _a;
     this.submitted = true;
     syncPendingControls(this.form, this.directives);
     this.ngSubmit.emit($event);
-    return $event?.target?.method === "dialog";
+    return ((_a = $event == null ? void 0 : $event.target) == null ? void 0 : _a.method) === "dialog";
   }
   /**
    * @description
@@ -4718,10 +4577,10 @@ var SELECT_VALUE_ACCESSOR = {
 };
 function _buildValueString$1(id, value) {
   if (id == null)
-    return `${value}`;
+    return "".concat(value);
   if (value && typeof value === "object")
     value = "Object";
-  return `${id}: ${value}`.slice(0, 50);
+  return "".concat(id, ": ").concat(value).slice(0, 50);
 }
 function _extractId$1(valueString) {
   return valueString.split(":")[0];
@@ -4740,7 +4599,7 @@ var _SelectControlValueAccessor = class _SelectControlValueAccessor extends Buil
    */
   set compareWith(fn) {
     if (typeof fn !== "function" && (typeof ngDevMode === "undefined" || ngDevMode)) {
-      throw new RuntimeError(1201, `compareWith must be a function, but received ${JSON.stringify(fn)}`);
+      throw new RuntimeError(1201, "compareWith must be a function, but received ".concat(JSON.stringify(fn)));
     }
     this._compareWith = fn;
   }
@@ -4912,12 +4771,12 @@ var SELECT_MULTIPLE_VALUE_ACCESSOR = {
 };
 function _buildValueString(id, value) {
   if (id == null)
-    return `${value}`;
+    return "".concat(value);
   if (typeof value === "string")
-    value = `'${value}'`;
+    value = "'".concat(value, "'");
   if (value && typeof value === "object")
     value = "Object";
-  return `${id}: ${value}`.slice(0, 50);
+  return "".concat(id, ": ").concat(value).slice(0, 50);
 }
 function _extractId(valueString) {
   return valueString.split(":")[0];
@@ -4936,7 +4795,7 @@ var _SelectMultipleControlValueAccessor = class _SelectMultipleControlValueAcces
    */
   set compareWith(fn) {
     if (typeof fn !== "function" && (typeof ngDevMode === "undefined" || ngDevMode)) {
-      throw new RuntimeError(1201, `compareWith must be a function, but received ${JSON.stringify(fn)}`);
+      throw new RuntimeError(1201, "compareWith must be a function, but received ".concat(JSON.stringify(fn)));
     }
     this._compareWith = fn;
   }
@@ -5998,7 +5857,8 @@ var FormArray = class extends AbstractControl {
   }
   /** @internal */
   _find(name) {
-    return this.at(name) ?? null;
+    var _a;
+    return (_a = this.at(name)) != null ? _a : null;
   }
 };
 var UntypedFormArray = FormArray;
@@ -6244,7 +6104,7 @@ var UntypedFormBuilder = _UntypedFormBuilder;
     }]
   }], null, null);
 })();
-var VERSION = new Version("17.2.3");
+var VERSION = new Version("17.2.4");
 var _FormsModule = class _FormsModule {
   /**
    * @description
@@ -6255,11 +6115,12 @@ var _FormsModule = class _FormsModule {
    * correct, or to only call it `whenDisabled`, which is the legacy behavior.
    */
   static withConfig(opts) {
+    var _a;
     return {
       ngModule: _FormsModule,
       providers: [{
         provide: CALL_SET_DISABLED_STATE,
-        useValue: opts.callSetDisabledState ?? setDisabledStateDefault
+        useValue: (_a = opts.callSetDisabledState) != null ? _a : setDisabledStateDefault
       }]
     };
   }
@@ -6297,14 +6158,15 @@ var _ReactiveFormsModule = class _ReactiveFormsModule {
    * correct, or to only call it `whenDisabled`, which is the legacy behavior.
    */
   static withConfig(opts) {
+    var _a, _b;
     return {
       ngModule: _ReactiveFormsModule,
       providers: [{
         provide: NG_MODEL_WITH_FORM_CONTROL_WARNING,
-        useValue: opts.warnOnNgModelWithFormControl ?? "always"
+        useValue: (_a = opts.warnOnNgModelWithFormControl) != null ? _a : "always"
       }, {
         provide: CALL_SET_DISABLED_STATE,
-        useValue: opts.callSetDisabledState ?? setDisabledStateDefault
+        useValue: (_b = opts.callSetDisabledState) != null ? _b : setDisabledStateDefault
       }]
     };
   }
@@ -6392,7 +6254,7 @@ export {
 
 @angular/forms/fesm2022/forms.mjs:
   (**
-   * @license Angular v17.2.3
+   * @license Angular v17.2.4
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
