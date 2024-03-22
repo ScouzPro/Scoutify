@@ -49,7 +49,8 @@
         </label>
         <div *ngIf="username.invalid && (username.dirty || username.touched)"
             class="text-red-500">
-            <span *ngIf="username.errors?.['required']">El nombre de usuario es obligatorio</span>
+            <span *ngIf="username.errors?.['required']">El nombre de usuario es
+                obligatorio</span>
         </div>
     </section>
 
@@ -86,9 +87,13 @@
         </label>
         <div *ngIf="password.invalid && (password.dirty || password.touched)"
             class="text-red-500">
-            <span *ngIf="password.errors?.['required']">La contraseña es obligatoria</span>
-            <span *ngIf="password.errors?.['minlength']">La contraseña debe tener un mínimo de 8 caracteres</span>
-            <span *ngIf="password.errors?.['pattern']">La contraseña debe incluir mayúsculas, minúsculas, números y caracteres especiales</span>
+            <span *ngIf="password.errors?.['required']">La contraseña es
+                obligatoria</span>
+            <span *ngIf="password.errors?.['minlength']">La contraseña debe
+                tener un mínimo de 8 caracteres</span>
+            <span *ngIf="password.errors?.['pattern']">La contraseña debe
+                incluir mayúsculas, minúsculas, números y caracteres
+                especiales</span>
         </div>
     </section>
 

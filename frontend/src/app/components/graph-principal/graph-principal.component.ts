@@ -4,14 +4,15 @@ import { MetricsService } from '../../service/metrics.service';
 import { CommonModule } from '@angular/common';
 import { Chart} from 'chart.js/auto';
 
+
 @Component({
-  selector: 'app-graph-phisical',
+  selector: 'app-graph-principal',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './graph-phisical.component.html',
-  styleUrl: './graph-phisical.component.css'
+  templateUrl: './graph-principal.component.html',
+  styleUrl: './graph-principal.component.css'
 })
-export class GraphPhisicalComponent implements OnInit {
+export class GraphPrincipalComponent implements OnInit {
 
   public chart: Chart={} as Chart;
   public playerMetricsMap: Map<string, any> = new Map<string, any>(); // Mapa para almacenar las métricas de los jugadores
@@ -39,7 +40,7 @@ export class GraphPhisicalComponent implements OnInit {
 
   generateChart(): void {
     // Obtener datos para el gráfico
-    const labels = ['Agilidad', 'Flexibilidad', 'Fuerza', 'Poder', 'Resistencia', 'Salto', 'Velocidad' ];
+    const labels = ['Disparo', 'Cabezazo', 'Asociación', 'Pie Derecho', 'Pie Izquierdo', 'Pase Largo', 'Regate', 'Reflejos', 'Centros' ];
     const datasets: any[] = [];
   
     // Obtener la lista de jugadores
@@ -51,29 +52,33 @@ export class GraphPhisicalComponent implements OnInit {
         const playerName = player ? player.name : 'Nombre Desconocido';
   
         // Obtener los valores de averageTotalSkills
-          const agility = metrics.map((metric: any) => metric.physicalSkills[0].agility);
-          const flexibility = metrics.map((metric: any) => metric.physicalSkills[0].flexibility)
-          const strength = metrics.map((metric: any) => metric.physicalSkills[0].strength)
-          const power = metrics.map((metric: any) => metric.physicalSkills[0].power)
-          const endurance = metrics.map((metric: any) => metric.physicalSkills[0].endurance)
-          const jumping = metrics.map((metric: any) => metric.physicalSkills[0].jumping)
-          const speed = metrics.map((metric: any) => metric.physicalSkills[0].speed)
+          const shot = metrics.map((metric: any) => metric.principalSkills[0].shot);
+          const heading = metrics.map((metric: any) => metric.principalSkills[0].heading)
+          const association = metrics.map((metric: any) => metric.principalSkills[0].association)
+          const rightFoot = metrics.map((metric: any) => metric.principalSkills[0].rightFoot)
+          const leftFoot = metrics.map((metric: any) => metric.principalSkills[0].leftFoot)
+          const longPasses = metrics.map((metric: any) => metric.principalSkills[0].longPasses)
+          const dribbling = metrics.map((metric: any) => metric.principalSkills[0].dribbling)
+          const reflexes = metrics.map((metric: any) => metric.principalSkills[0].reflexes)
+          const crosses = metrics.map((metric: any) => metric.principalSkills[0].crosses)
 
         const data = {
-          agility: agility,
-          flexibility: flexibility,
-          strength: strength,
-          power: power,
-          endurance: endurance,
-          jumping: jumping,
-          speed: speed
+          shot: shot,
+          heading: heading,
+          association: association,
+          rightFoot: rightFoot,
+          leftFoot: leftFoot,
+          longPasses: longPasses,
+          dribbling: dribbling,
+          reflexes : reflexes,
+          crosses : crosses
         };
         
         console.log(data);
   
         datasets.push({
           label: playerName,
-          data: [Math.max(...data.agility), Math.max(...data.flexibility), Math.max(...data.strength),Math.max(...data.power),Math.max(...data.endurance),Math.max(...data.jumping),Math.max(...data.speed)],
+          data: [Math.max(...data.shot), Math.max(...data.heading), Math.max(...data.association),Math.max(...data.rightFoot),Math.max(...data.leftFoot),Math.max(...data.longPasses),Math.max(...data.dribbling),Math.max(...data.reflexes),Math.max(...data.crosses)],
           fill: true,
           pointBackgroundColor: this.getRandomColor(),
           pointBorderColor: '#fff',
@@ -115,7 +120,7 @@ export class GraphPhisicalComponent implements OnInit {
     };
   
       // Crear el gráfico
-      this.chart = new Chart("myChart3", {
+      this.chart = new Chart("myChart", {
         type: 'radar',
         data: data,
         options: options
@@ -128,4 +133,3 @@ export class GraphPhisicalComponent implements OnInit {
   // Método para generar un color aleatorio para los bordes del gráfico
   getRandomColor(): string {
     return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;}}
-

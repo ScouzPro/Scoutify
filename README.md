@@ -1,5 +1,9 @@
 
+<<<<<<< HEAD
 ![Logo](logo.png)¡Bienvenido a Scoutify! Esta aplicación está diseñada específicamente para reclutadores y cazatalentos en el mundo del fútbol. Scoutify simplifica el seguimiento de jugadores en diversas ligas, te permite crear informes detallados de cada partido y jugador para que lo tengas todo bajo control ¿Te parece poco? Nuestra aplicación tambien cuenta con un comparador de estadisticas de todos los jugadores disponibles.
+=======
+![Logo](https://trello.com/1/cards/65e9a64304138403f7c0ef7d/attachments/65fc40ddbedde3a8ef9b835d/download/logo.png)¡Bienvenido a Scoutify! Esta aplicación está diseñada específicamente para reclutadores y cazatalentos en el mundo del fútbol. Scoutify simplifica el seguimiento de jugadores en diversas ligas, te permite crear informes detallados de cada partido y jugador para que lo tengas todo bajo control ¿Te parece poco? Nuestra aplicación tambien cuenta con un comparador de estadisticas de todos los jugadores disponibles.
+>>>>>>> develop
 
 ## Asi se ve nuestra web :soccer:
 
@@ -45,6 +49,13 @@ ng serve
 
 Finalmente, abre tu navegador web y visita [http://localhost:4200](http://localhost:4200)
 
+<<<<<<< HEAD
+=======
+## Deployment :stars:
+
+También puedes simplemente visitar nuestro despliegue de la aplicación: [enlace al despliegue](aquí_va_el_enlace)
+
+>>>>>>> develop
 ## Features
 Nuestra aplicación ofrece las siguientes funcionalidades principales:
 
@@ -83,8 +94,13 @@ Nuestra aplicación utiliza el siguiente stack tecnológico:
 - :woman_technologist: [@DANIELAZAPATA0724](https://github.com/DANIELAZAPATA0724)
 
 - :woman_technologist: [@angarce25](https://github.com/angarce25)
+<<<<<<< HEAD
 ## Documentación
 
 :art:[Figma](https://www.figma.com/file/vLIheYKJB9lvBT8WcwNyfL/ScouzPro?type=design&node-id=0%3A1&mode=design&t=aOTNPTg4N8qUA3tE-1):card_index_dividers:[Trello](https://trello.com/b/0XztzvWY/scouz-pro):desktop_computer:[Repo](https://github.com/ScouzPro/ScouzPro)
 ## ¡Gracias!
 ¡Gracias por usar Scoutify! Si tienes alguna pregunta o sugerencia, no dudes en ponerte en contacto con nosotros. ¡Que disfrutes reclutando talentos futbolísticos! :soccer:
+=======
+## ¡Gracias!
+¡Gracias por usar Scoutify! Si tienes alguna pregunta o sugerencia, no dudes en ponerte en contacto con nosotros. ¡Que disfrutes reclutando talentos futbolísticos! :soccer:
+>>>>>>> develop

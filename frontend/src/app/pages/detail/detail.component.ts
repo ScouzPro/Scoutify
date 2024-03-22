@@ -6,18 +6,20 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
 import { SeasonPlayerComponent } from "../../components/season-player/season-player.component";
 import { TotalGraphicsComponent } from "../../components/total-graphics/total-graphics.component";
+import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-detail',
   standalone: true,
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
-  imports: [NavbarComponent,  CommonModule, FormsModule,SeasonPlayerComponent, TotalGraphicsComponent]
+  imports: [NavbarComponent,  CommonModule, FormsModule,SeasonPlayerComponent, TotalGraphicsComponent, FooterComponent]
 })
 export class DetailComponent implements OnInit {
   player: any;
   editedPlayer: any = {}; // Variable para almacenar los datos del jugador que se editarán
   modalOpened: boolean = false;
+  successModalOpen: boolean  = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,14 +61,16 @@ export class DetailComponent implements OnInit {
       console.error('Error al cargar los detalles del jugador:', error);
     }
   }
-
+  openSuccesModal() {
+    this.successModalOpen = true ;
+  }
   async updatePlayerData() {
     try {
       const playerId = this.player.id;
       const success = await this.playerService.updatePlayer(playerId, this.editedPlayer);
       if (success) {
         console.log('¡Los datos del jugador se actualizaron correctamente!', this.editedPlayer);
-        
+        this.openSuccesModal()
         this.closeModal()
       } else {
         console.error('¡Error al actualizar los datos del jugador!');

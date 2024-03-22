@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, } from '@angular/router';
 import { PlayerServiceService } from '../../service/player-service.service';
 import { MetricsService } from '../../service/metrics.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 
 @Component({
   selector: 'app-new-report',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, NavbarComponent, FooterComponent],
   templateUrl: './new-report.component.html',
   styleUrls: ['./new-report.component.css']
 })
@@ -46,8 +49,10 @@ export class NewReportComponent implements OnInit {
   totalTacticalSkills: number;
   totalPhysicalSkills: number;
   matchSummary: string;
+  modalOpen: boolean = false;
+  
 
-  constructor(private route: ActivatedRoute, private playerService: PlayerServiceService, private metricsService: MetricsService) {
+  constructor(private route: ActivatedRoute, private playerService: PlayerServiceService, private metricsService: MetricsService, private router: Router) {
     this.playerId = '';
     this.metrics = [];
     this.averageTotalSkills=0;
@@ -142,13 +147,31 @@ export class NewReportComponent implements OnInit {
     try {
       const response = await this.metricsService.submitMetrics(formData);
       if (response) {
-        console.log('Formulario enviado correctamente:', response);
+        console.log('Formulario enviado correctamente:');
+        this.openModal();
+        console.log('Formulario enviado correctamente:');
+        this.openModal();
       } else {
         console.error('Error al enviar el formulario');
       }
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
     }
+  }
+
+
+  openModal() { 
+          this.modalOpen = true;
+      console.log('esto abre ?')
+      
+    
+  }
+
+  closeModal() {
+      this.modalOpen= false;
+      this.router.navigateByUrl('/reports');
+    
+
   }
 
   calculateTotal() {
@@ -199,12 +222,3 @@ export class NewReportComponent implements OnInit {
 }
 
 }
-
-
-
-
-
-
-
-
-

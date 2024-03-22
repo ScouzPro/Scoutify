@@ -39,7 +39,7 @@ export class GraphTacticalComponent implements OnInit {
 
   generateChart(): void {
     // Obtener datos para el gráfico
-    const labels = ['Anticipation', 'Placement', 'concentration', 'Forcefulness', 'Overlap', 'Off The Ball', 'Positioning', 'Game Vision'];
+    const labels = ['Anticipación', 'Colocación', 'Concentración', 'Fuerza Fisica', 'Superposición', 'Sin Balon', 'Posicionamiento', 'Visión De Juego'];
     const datasets: any[] = [];
   
     // Obtener la lista de jugadores
@@ -93,18 +93,28 @@ export class GraphTacticalComponent implements OnInit {
 
       const options = {
         scale: {
-          min: 0,
-          max: 10,
-          ticks: {
-            stepSize: 1
-          }
+            min: 0,
+            max: 10,
+            ticks: {
+                stepSize: 1
+            }
         },
         elements: {
-          line: {
-            borderWidth: 3
-          }
+            line: {
+                borderWidth: 3
+            }
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    // Configura el tamaño de la fuente de las etiquetas de la leyenda
+                    font: {
+                        size: 7 // Ajusta este valor según tus necesidades
+                    }
+                }
+            }
         }
-      };
+    };
   
       // Crear el gráfico
       this.chart = new Chart("myChart2", {

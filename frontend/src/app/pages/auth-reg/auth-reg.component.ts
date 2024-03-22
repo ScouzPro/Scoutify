@@ -14,6 +14,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
     styleUrls: ['./auth-reg.component.css']
 })
 export class AuthRegComponent {
+    showSuccessMessage = false;
     //VALIDACIONES
     //GETTERS
     get name(){
@@ -89,8 +90,7 @@ export class AuthRegComponent {
         return true; 
     }
     showTermsError = false; // Variable to track the error message for terms acceptance
-    showSuccessMessage = false;
-
+   
     onSubmit() {
         if (this.formNewUser.valid && !this.formNewUser.errors?.['mismatch'] && this.formNewUser.get('terms')?.value) {
             // Hide the error message if there's no error
@@ -98,7 +98,6 @@ export class AuthRegComponent {
             // Llama al servicio para crear el nuevo usuario
             this.userService.createUser(this.formNewUser.value).subscribe(
                 response => {
-                    // Aquí puedes manejar la respuesta del servidor si es necesario
                     console.log('Usuario creado con éxito:', response);
                     this.showSuccessMessage = true;
                     setTimeout(() => {
@@ -106,18 +105,16 @@ export class AuthRegComponent {
                       }, 3000); 
                 },
                 error => {
-                    // Maneja el error si ocurre alguno durante la solicitud HTTP
                     console.error('Error al crear el usuario:', error);
-                    // Puedes mostrar un mensaje de error al usuario si lo deseas
                 }
             );
         } else {
-            // Show the error message if terms are not accepted or if there's a mismatch error
             this.showTermsError = true;
-            if (this.repeatPassword.dirty && !this.repeatPassword.value) {
-                this.repeatPassword.setErrors({ 'required' : true});
+            if (this.formNewUser.hasError('mismatch')) {
+                // Handle mismatch error
             }
         }
+        
     }
 
     
