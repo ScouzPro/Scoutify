@@ -1,7 +1,7 @@
 import {
   Title
-} from "./chunk-EW52W6JU.js";
-import "./chunk-FEWOYF6M.js";
+} from "./chunk-SYGTHEYQ.js";
+import "./chunk-KQAXTARW.js";
 import {
   DOCUMENT,
   HashLocationStrategy,
@@ -10,7 +10,7 @@ import {
   LocationStrategy,
   PathLocationStrategy,
   ViewportScroller
-} from "./chunk-3OUS5LHJ.js";
+} from "./chunk-QODWSEAU.js";
 import {
   APP_BOOTSTRAP_LISTENER,
   APP_INITIALIZER,
@@ -111,11 +111,11 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵsanitizeUrlOrResourceUrl
-} from "./chunk-DTTFSVPX.js";
+} from "./chunk-K6PN74MK.js";
 import {
   __spreadProps,
   __spreadValues
-} from "./chunk-3XDEHMPW.js";
+} from "./chunk-GLLL6ZVE.js";
 
 // node_modules/@angular/router/fesm2022/router.mjs
 var PRIMARY_OUTLET = "primary";
@@ -311,8 +311,7 @@ var UrlTree = class {
     }
   }
   get queryParamMap() {
-    var _a;
-    (_a = this._queryParamMap) != null ? _a : this._queryParamMap = convertToParamMap(this.queryParams);
+    this._queryParamMap ??= convertToParamMap(this.queryParams);
     return this._queryParamMap;
   }
   /** @docsNotRequired */
@@ -346,8 +345,7 @@ var UrlSegment = class {
     this.parameters = parameters;
   }
   get parameterMap() {
-    var _a;
-    (_a = this._parameterMap) != null ? _a : this._parameterMap = convertToParamMap(this.parameters);
+    this._parameterMap ??= convertToParamMap(this.parameters);
     return this._parameterMap;
   }
   /** @docsNotRequired */
@@ -405,10 +403,10 @@ var DefaultUrlSerializer = class {
   }
   /** Converts a `UrlTree` into a url */
   serialize(tree2) {
-    const segment = "/".concat(serializeSegment(tree2.root, true));
+    const segment = `/${serializeSegment(tree2.root, true)}`;
     const query = serializeQueryParams(tree2.queryParams);
-    const fragment = typeof tree2.fragment === "string" ? "#".concat(encodeUriFragment(tree2.fragment)) : "";
-    return "".concat(segment).concat(query).concat(fragment);
+    const fragment = typeof tree2.fragment === `string` ? `#${encodeUriFragment(tree2.fragment)}` : "";
+    return `${segment}${query}${fragment}`;
   }
 };
 var DEFAULT_SERIALIZER = new DefaultUrlSerializer();
@@ -424,21 +422,21 @@ function serializeSegment(segment, root) {
     const children = [];
     Object.entries(segment.children).forEach(([k, v]) => {
       if (k !== PRIMARY_OUTLET) {
-        children.push("".concat(k, ":").concat(serializeSegment(v, false)));
+        children.push(`${k}:${serializeSegment(v, false)}`);
       }
     });
-    return children.length > 0 ? "".concat(primary, "(").concat(children.join("//"), ")") : primary;
+    return children.length > 0 ? `${primary}(${children.join("//")})` : primary;
   } else {
     const children = mapChildrenIntoArray(segment, (v, k) => {
       if (k === PRIMARY_OUTLET) {
         return [serializeSegment(segment.children[PRIMARY_OUTLET], false)];
       }
-      return ["".concat(k, ":").concat(serializeSegment(v, false))];
+      return [`${k}:${serializeSegment(v, false)}`];
     });
     if (Object.keys(segment.children).length === 1 && segment.children[PRIMARY_OUTLET] != null) {
-      return "".concat(serializePaths(segment), "/").concat(children[0]);
+      return `${serializePaths(segment)}/${children[0]}`;
     }
-    return "".concat(serializePaths(segment), "/(").concat(children.join("//"), ")");
+    return `${serializePaths(segment)}/(${children.join("//")})`;
   }
 }
 function encodeUriString(s) {
@@ -460,16 +458,16 @@ function decodeQuery(s) {
   return decode(s.replace(/\+/g, "%20"));
 }
 function serializePath(path) {
-  return "".concat(encodeUriSegment(path.path)).concat(serializeMatrixParams(path.parameters));
+  return `${encodeUriSegment(path.path)}${serializeMatrixParams(path.parameters)}`;
 }
 function serializeMatrixParams(params) {
-  return Object.entries(params).map(([key, value]) => ";".concat(encodeUriSegment(key), "=").concat(encodeUriSegment(value))).join("");
+  return Object.entries(params).map(([key, value]) => `;${encodeUriSegment(key)}=${encodeUriSegment(value)}`).join("");
 }
 function serializeQueryParams(params) {
   const strParams = Object.entries(params).map(([name, value]) => {
-    return Array.isArray(value) ? value.map((v) => "".concat(encodeUriQuery(name), "=").concat(encodeUriQuery(v))).join("&") : "".concat(encodeUriQuery(name), "=").concat(encodeUriQuery(value));
+    return Array.isArray(value) ? value.map((v) => `${encodeUriQuery(name)}=${encodeUriQuery(v)}`).join("&") : `${encodeUriQuery(name)}=${encodeUriQuery(value)}`;
   }).filter((s) => s);
-  return strParams.length ? "?".concat(strParams.join("&")) : "";
+  return strParams.length ? `?${strParams.join("&")}` : "";
 }
 var SEGMENT_RE = /^[^\/()?;#]+/;
 function matchSegments(str) {
@@ -547,7 +545,7 @@ var UrlParser = class {
   parseSegment() {
     const path = matchSegments(this.remaining);
     if (path === "" && this.peekStartsWith(";")) {
-      throw new RuntimeError(4009, (typeof ngDevMode === "undefined" || ngDevMode) && "Empty path url segment cannot have parameters: '".concat(this.remaining, "'."));
+      throw new RuntimeError(4009, (typeof ngDevMode === "undefined" || ngDevMode) && `Empty path url segment cannot have parameters: '${this.remaining}'.`);
     }
     this.capture(path);
     return new UrlSegment(decode(path), this.parseMatrixParams());
@@ -611,7 +609,7 @@ var UrlParser = class {
       const path = matchSegments(this.remaining);
       const next = this.remaining[path.length];
       if (next !== "/" && next !== ")" && next !== ";") {
-        throw new RuntimeError(4010, (typeof ngDevMode === "undefined" || ngDevMode) && "Cannot parse url '".concat(this.url, "'"));
+        throw new RuntimeError(4010, (typeof ngDevMode === "undefined" || ngDevMode) && `Cannot parse url '${this.url}'`);
       }
       let outletName = void 0;
       if (path.indexOf(":") > -1) {
@@ -640,7 +638,7 @@ var UrlParser = class {
   }
   capture(str) {
     if (!this.consumeOptional(str)) {
-      throw new RuntimeError(4011, (typeof ngDevMode === "undefined" || ngDevMode) && 'Expected "'.concat(str, '".'));
+      throw new RuntimeError(4011, (typeof ngDevMode === "undefined" || ngDevMode) && `Expected "${str}".`);
     }
   }
 };
@@ -694,7 +692,7 @@ function createSegmentGroupFromRoute(route) {
   }
   const rootCandidate = createSegmentGroupFromRouteRecursive(route.root);
   const rootSegmentGroup = createRoot(rootCandidate);
-  return targetGroup != null ? targetGroup : rootSegmentGroup;
+  return targetGroup ?? rootSegmentGroup;
 }
 function createUrlTreeFromSegmentGroup(relativeTo, commands, queryParams, fragment) {
   let root = relativeTo;
@@ -722,7 +720,7 @@ function tree(oldRoot, oldSegmentGroup, newSegmentGroup, queryParams, fragment) 
   let qp = {};
   if (queryParams) {
     Object.entries(queryParams).forEach(([name, value]) => {
-      qp[name] = Array.isArray(value) ? value.map((v) => "".concat(v)) : "".concat(value);
+      qp[name] = Array.isArray(value) ? value.map((v) => `${v}`) : `${value}`;
     });
   }
   let rootCandidate;
@@ -847,7 +845,7 @@ function getOutlets(commands) {
   };
 }
 function updateSegmentGroup(segmentGroup, startIndex, commands) {
-  segmentGroup != null ? segmentGroup : segmentGroup = new UrlSegmentGroup([], {});
+  segmentGroup ??= new UrlSegmentGroup([], {});
   if (segmentGroup.segments.length === 0 && segmentGroup.hasChildren()) {
     return updateSegmentGroupChildren(segmentGroup, startIndex, commands);
   }
@@ -909,7 +907,7 @@ function prefixedWith(segmentGroup, startIndex, commands) {
     if (isCommandWithOutlets(command)) {
       break;
     }
-    const curr = "".concat(command);
+    const curr = `${command}`;
     const next = currentCommandIndex < commands.length - 1 ? commands[currentCommandIndex + 1] : null;
     if (currentPathIndex > 0 && curr === void 0)
       break;
@@ -945,7 +943,7 @@ function createNewSegmentGroup(segmentGroup, startIndex, commands) {
       i++;
       continue;
     }
-    const curr = isCommandWithOutlets(command) ? command.outlets[PRIMARY_OUTLET] : "".concat(command);
+    const curr = isCommandWithOutlets(command) ? command.outlets[PRIMARY_OUTLET] : `${command}`;
     const next = i < commands.length - 1 ? commands[i + 1] : null;
     if (curr && next && isMatrixParams(next)) {
       paths.push(new UrlSegment(curr, stringify(next)));
@@ -971,7 +969,7 @@ function createNewSegmentChildren(outlets) {
 }
 function stringify(params) {
   const res = {};
-  Object.entries(params).forEach(([k, v]) => res[k] = "".concat(v));
+  Object.entries(params).forEach(([k, v]) => res[k] = `${v}`);
   return res;
 }
 function compare(path, params, segment) {
@@ -1013,7 +1011,7 @@ var NavigationStart = class extends RouterEvent {
   }
   /** @docsNotRequired */
   toString() {
-    return "NavigationStart(id: ".concat(this.id, ", url: '").concat(this.url, "')");
+    return `NavigationStart(id: ${this.id}, url: '${this.url}')`;
   }
 };
 var NavigationEnd = class extends RouterEvent {
@@ -1024,7 +1022,7 @@ var NavigationEnd = class extends RouterEvent {
   }
   /** @docsNotRequired */
   toString() {
-    return "NavigationEnd(id: ".concat(this.id, ", url: '").concat(this.url, "', urlAfterRedirects: '").concat(this.urlAfterRedirects, "')");
+    return `NavigationEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}')`;
   }
 };
 var NavigationCancellationCode;
@@ -1048,7 +1046,7 @@ var NavigationCancel = class extends RouterEvent {
   }
   /** @docsNotRequired */
   toString() {
-    return "NavigationCancel(id: ".concat(this.id, ", url: '").concat(this.url, "')");
+    return `NavigationCancel(id: ${this.id}, url: '${this.url}')`;
   }
 };
 var NavigationSkipped = class extends RouterEvent {
@@ -1068,7 +1066,7 @@ var NavigationError = class extends RouterEvent {
   }
   /** @docsNotRequired */
   toString() {
-    return "NavigationError(id: ".concat(this.id, ", url: '").concat(this.url, "', error: ").concat(this.error, ")");
+    return `NavigationError(id: ${this.id}, url: '${this.url}', error: ${this.error})`;
   }
 };
 var RoutesRecognized = class extends RouterEvent {
@@ -1080,7 +1078,7 @@ var RoutesRecognized = class extends RouterEvent {
   }
   /** @docsNotRequired */
   toString() {
-    return "RoutesRecognized(id: ".concat(this.id, ", url: '").concat(this.url, "', urlAfterRedirects: '").concat(this.urlAfterRedirects, "', state: ").concat(this.state, ")");
+    return `RoutesRecognized(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
   }
 };
 var GuardsCheckStart = class extends RouterEvent {
@@ -1091,7 +1089,7 @@ var GuardsCheckStart = class extends RouterEvent {
     this.type = EventType.GuardsCheckStart;
   }
   toString() {
-    return "GuardsCheckStart(id: ".concat(this.id, ", url: '").concat(this.url, "', urlAfterRedirects: '").concat(this.urlAfterRedirects, "', state: ").concat(this.state, ")");
+    return `GuardsCheckStart(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
   }
 };
 var GuardsCheckEnd = class extends RouterEvent {
@@ -1103,7 +1101,7 @@ var GuardsCheckEnd = class extends RouterEvent {
     this.type = EventType.GuardsCheckEnd;
   }
   toString() {
-    return "GuardsCheckEnd(id: ".concat(this.id, ", url: '").concat(this.url, "', urlAfterRedirects: '").concat(this.urlAfterRedirects, "', state: ").concat(this.state, ", shouldActivate: ").concat(this.shouldActivate, ")");
+    return `GuardsCheckEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state}, shouldActivate: ${this.shouldActivate})`;
   }
 };
 var ResolveStart = class extends RouterEvent {
@@ -1114,7 +1112,7 @@ var ResolveStart = class extends RouterEvent {
     this.type = EventType.ResolveStart;
   }
   toString() {
-    return "ResolveStart(id: ".concat(this.id, ", url: '").concat(this.url, "', urlAfterRedirects: '").concat(this.urlAfterRedirects, "', state: ").concat(this.state, ")");
+    return `ResolveStart(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
   }
 };
 var ResolveEnd = class extends RouterEvent {
@@ -1125,7 +1123,7 @@ var ResolveEnd = class extends RouterEvent {
     this.type = EventType.ResolveEnd;
   }
   toString() {
-    return "ResolveEnd(id: ".concat(this.id, ", url: '").concat(this.url, "', urlAfterRedirects: '").concat(this.urlAfterRedirects, "', state: ").concat(this.state, ")");
+    return `ResolveEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
   }
 };
 var RouteConfigLoadStart = class {
@@ -1134,7 +1132,7 @@ var RouteConfigLoadStart = class {
     this.type = EventType.RouteConfigLoadStart;
   }
   toString() {
-    return "RouteConfigLoadStart(path: ".concat(this.route.path, ")");
+    return `RouteConfigLoadStart(path: ${this.route.path})`;
   }
 };
 var RouteConfigLoadEnd = class {
@@ -1143,7 +1141,7 @@ var RouteConfigLoadEnd = class {
     this.type = EventType.RouteConfigLoadEnd;
   }
   toString() {
-    return "RouteConfigLoadEnd(path: ".concat(this.route.path, ")");
+    return `RouteConfigLoadEnd(path: ${this.route.path})`;
   }
 };
 var ChildActivationStart = class {
@@ -1153,7 +1151,7 @@ var ChildActivationStart = class {
   }
   toString() {
     const path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || "";
-    return "ChildActivationStart(path: '".concat(path, "')");
+    return `ChildActivationStart(path: '${path}')`;
   }
 };
 var ChildActivationEnd = class {
@@ -1163,7 +1161,7 @@ var ChildActivationEnd = class {
   }
   toString() {
     const path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || "";
-    return "ChildActivationEnd(path: '".concat(path, "')");
+    return `ChildActivationEnd(path: '${path}')`;
   }
 };
 var ActivationStart = class {
@@ -1173,7 +1171,7 @@ var ActivationStart = class {
   }
   toString() {
     const path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || "";
-    return "ActivationStart(path: '".concat(path, "')");
+    return `ActivationStart(path: '${path}')`;
   }
 };
 var ActivationEnd = class {
@@ -1183,7 +1181,7 @@ var ActivationEnd = class {
   }
   toString() {
     const path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || "";
-    return "ActivationEnd(path: '".concat(path, "')");
+    return `ActivationEnd(path: '${path}')`;
   }
 };
 var Scroll = class {
@@ -1194,8 +1192,8 @@ var Scroll = class {
     this.type = EventType.Scroll;
   }
   toString() {
-    const pos = this.position ? "".concat(this.position[0], ", ").concat(this.position[1]) : null;
-    return "Scroll(anchor: '".concat(this.anchor, "', position: '").concat(pos, "')");
+    const pos = this.position ? `${this.position[0]}, ${this.position[1]}` : null;
+    return `Scroll(anchor: '${this.anchor}', position: '${pos}')`;
   }
 };
 var BeforeActivateRoutes = class {
@@ -1206,43 +1204,42 @@ var RedirectRequest = class {
   }
 };
 function stringifyEvent(routerEvent) {
-  var _a, _b, _c, _d;
   switch (routerEvent.type) {
     case EventType.ActivationEnd:
-      return "ActivationEnd(path: '".concat(((_a = routerEvent.snapshot.routeConfig) == null ? void 0 : _a.path) || "", "')");
+      return `ActivationEnd(path: '${routerEvent.snapshot.routeConfig?.path || ""}')`;
     case EventType.ActivationStart:
-      return "ActivationStart(path: '".concat(((_b = routerEvent.snapshot.routeConfig) == null ? void 0 : _b.path) || "", "')");
+      return `ActivationStart(path: '${routerEvent.snapshot.routeConfig?.path || ""}')`;
     case EventType.ChildActivationEnd:
-      return "ChildActivationEnd(path: '".concat(((_c = routerEvent.snapshot.routeConfig) == null ? void 0 : _c.path) || "", "')");
+      return `ChildActivationEnd(path: '${routerEvent.snapshot.routeConfig?.path || ""}')`;
     case EventType.ChildActivationStart:
-      return "ChildActivationStart(path: '".concat(((_d = routerEvent.snapshot.routeConfig) == null ? void 0 : _d.path) || "", "')");
+      return `ChildActivationStart(path: '${routerEvent.snapshot.routeConfig?.path || ""}')`;
     case EventType.GuardsCheckEnd:
-      return "GuardsCheckEnd(id: ".concat(routerEvent.id, ", url: '").concat(routerEvent.url, "', urlAfterRedirects: '").concat(routerEvent.urlAfterRedirects, "', state: ").concat(routerEvent.state, ", shouldActivate: ").concat(routerEvent.shouldActivate, ")");
+      return `GuardsCheckEnd(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state}, shouldActivate: ${routerEvent.shouldActivate})`;
     case EventType.GuardsCheckStart:
-      return "GuardsCheckStart(id: ".concat(routerEvent.id, ", url: '").concat(routerEvent.url, "', urlAfterRedirects: '").concat(routerEvent.urlAfterRedirects, "', state: ").concat(routerEvent.state, ")");
+      return `GuardsCheckStart(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state})`;
     case EventType.NavigationCancel:
-      return "NavigationCancel(id: ".concat(routerEvent.id, ", url: '").concat(routerEvent.url, "')");
+      return `NavigationCancel(id: ${routerEvent.id}, url: '${routerEvent.url}')`;
     case EventType.NavigationSkipped:
-      return "NavigationSkipped(id: ".concat(routerEvent.id, ", url: '").concat(routerEvent.url, "')");
+      return `NavigationSkipped(id: ${routerEvent.id}, url: '${routerEvent.url}')`;
     case EventType.NavigationEnd:
-      return "NavigationEnd(id: ".concat(routerEvent.id, ", url: '").concat(routerEvent.url, "', urlAfterRedirects: '").concat(routerEvent.urlAfterRedirects, "')");
+      return `NavigationEnd(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}')`;
     case EventType.NavigationError:
-      return "NavigationError(id: ".concat(routerEvent.id, ", url: '").concat(routerEvent.url, "', error: ").concat(routerEvent.error, ")");
+      return `NavigationError(id: ${routerEvent.id}, url: '${routerEvent.url}', error: ${routerEvent.error})`;
     case EventType.NavigationStart:
-      return "NavigationStart(id: ".concat(routerEvent.id, ", url: '").concat(routerEvent.url, "')");
+      return `NavigationStart(id: ${routerEvent.id}, url: '${routerEvent.url}')`;
     case EventType.ResolveEnd:
-      return "ResolveEnd(id: ".concat(routerEvent.id, ", url: '").concat(routerEvent.url, "', urlAfterRedirects: '").concat(routerEvent.urlAfterRedirects, "', state: ").concat(routerEvent.state, ")");
+      return `ResolveEnd(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state})`;
     case EventType.ResolveStart:
-      return "ResolveStart(id: ".concat(routerEvent.id, ", url: '").concat(routerEvent.url, "', urlAfterRedirects: '").concat(routerEvent.urlAfterRedirects, "', state: ").concat(routerEvent.state, ")");
+      return `ResolveStart(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state})`;
     case EventType.RouteConfigLoadEnd:
-      return "RouteConfigLoadEnd(path: ".concat(routerEvent.route.path, ")");
+      return `RouteConfigLoadEnd(path: ${routerEvent.route.path})`;
     case EventType.RouteConfigLoadStart:
-      return "RouteConfigLoadStart(path: ".concat(routerEvent.route.path, ")");
+      return `RouteConfigLoadStart(path: ${routerEvent.route.path})`;
     case EventType.RoutesRecognized:
-      return "RoutesRecognized(id: ".concat(routerEvent.id, ", url: '").concat(routerEvent.url, "', urlAfterRedirects: '").concat(routerEvent.urlAfterRedirects, "', state: ").concat(routerEvent.state, ")");
+      return `RoutesRecognized(id: ${routerEvent.id}, url: '${routerEvent.url}', urlAfterRedirects: '${routerEvent.urlAfterRedirects}', state: ${routerEvent.state})`;
     case EventType.Scroll:
-      const pos = routerEvent.position ? "".concat(routerEvent.position[0], ", ").concat(routerEvent.position[1]) : null;
-      return "Scroll(anchor: '".concat(routerEvent.anchor, "', position: '").concat(pos, "')");
+      const pos = routerEvent.position ? `${routerEvent.position[0]}, ${routerEvent.position[1]}` : null;
+      return `Scroll(anchor: '${routerEvent.anchor}', position: '${pos}')`;
   }
 }
 var OutletContext = class {
@@ -1390,7 +1387,7 @@ var TreeNode = class {
     this.children = children;
   }
   toString() {
-    return "TreeNode(".concat(this.value, ")");
+    return `TreeNode(${this.value})`;
   }
 };
 function nodeChildrenAsMap(node) {
@@ -1433,7 +1430,6 @@ function createEmptyStateSnapshot(rootComponent) {
 var ActivatedRoute = class {
   /** @internal */
   constructor(urlSubject, paramsSubject, queryParamsSubject, fragmentSubject, dataSubject, outlet, component, futureSnapshot) {
-    var _a, _b;
     this.urlSubject = urlSubject;
     this.paramsSubject = paramsSubject;
     this.queryParamsSubject = queryParamsSubject;
@@ -1442,7 +1438,7 @@ var ActivatedRoute = class {
     this.outlet = outlet;
     this.component = component;
     this._futureSnapshot = futureSnapshot;
-    this.title = (_b = (_a = this.dataSubject) == null ? void 0 : _a.pipe(map((d) => d[RouteTitleKey]))) != null ? _b : of(void 0);
+    this.title = this.dataSubject?.pipe(map((d) => d[RouteTitleKey])) ?? of(void 0);
     this.url = urlSubject;
     this.params = paramsSubject;
     this.queryParams = queryParamsSubject;
@@ -1479,8 +1475,7 @@ var ActivatedRoute = class {
    * The map supports retrieving single and multiple values from the same parameter.
    */
   get paramMap() {
-    var _a;
-    (_a = this._paramMap) != null ? _a : this._paramMap = this.params.pipe(map((p) => convertToParamMap(p)));
+    this._paramMap ??= this.params.pipe(map((p) => convertToParamMap(p)));
     return this._paramMap;
   }
   /**
@@ -1488,33 +1483,31 @@ var ActivatedRoute = class {
    * The map supports retrieving single and multiple values from the query parameter.
    */
   get queryParamMap() {
-    var _a;
-    (_a = this._queryParamMap) != null ? _a : this._queryParamMap = this.queryParams.pipe(map((p) => convertToParamMap(p)));
+    this._queryParamMap ??= this.queryParams.pipe(map((p) => convertToParamMap(p)));
     return this._queryParamMap;
   }
   toString() {
-    return this.snapshot ? this.snapshot.toString() : "Future(".concat(this._futureSnapshot, ")");
+    return this.snapshot ? this.snapshot.toString() : `Future(${this._futureSnapshot})`;
   }
 };
 function getInherited(route, parent, paramsInheritanceStrategy = "emptyOnly") {
-  var _a, _b;
   let inherited;
   const {
     routeConfig
   } = route;
   if (parent !== null && (paramsInheritanceStrategy === "always" || // inherit parent data if route is empty path
-  (routeConfig == null ? void 0 : routeConfig.path) === "" || // inherit parent data if parent was componentless
-  !parent.component && !((_a = parent.routeConfig) == null ? void 0 : _a.loadComponent))) {
+  routeConfig?.path === "" || // inherit parent data if parent was componentless
+  !parent.component && !parent.routeConfig?.loadComponent)) {
     inherited = {
       params: __spreadValues(__spreadValues({}, parent.params), route.params),
       data: __spreadValues(__spreadValues({}, parent.data), route.data),
-      resolve: __spreadValues(__spreadValues(__spreadValues(__spreadValues({}, route.data), parent.data), routeConfig == null ? void 0 : routeConfig.data), route._resolvedData)
+      resolve: __spreadValues(__spreadValues(__spreadValues(__spreadValues({}, route.data), parent.data), routeConfig?.data), route._resolvedData)
     };
   } else {
     inherited = {
       params: __spreadValues({}, route.params),
       data: __spreadValues({}, route.data),
-      resolve: __spreadValues(__spreadValues({}, route.data), (_b = route._resolvedData) != null ? _b : {})
+      resolve: __spreadValues(__spreadValues({}, route.data), route._resolvedData ?? {})
     };
   }
   if (routeConfig && hasStaticTitle(routeConfig)) {
@@ -1525,8 +1518,7 @@ function getInherited(route, parent, paramsInheritanceStrategy = "emptyOnly") {
 var ActivatedRouteSnapshot = class {
   /** The resolved route title */
   get title() {
-    var _a;
-    return (_a = this.data) == null ? void 0 : _a[RouteTitleKey];
+    return this.data?.[RouteTitleKey];
   }
   /** @internal */
   constructor(url, params, queryParams, fragment, data, outlet, component, routeConfig, resolve) {
@@ -1561,19 +1553,17 @@ var ActivatedRouteSnapshot = class {
     return this._routerState.pathFromRoot(this);
   }
   get paramMap() {
-    var _a;
-    (_a = this._paramMap) != null ? _a : this._paramMap = convertToParamMap(this.params);
+    this._paramMap ??= convertToParamMap(this.params);
     return this._paramMap;
   }
   get queryParamMap() {
-    var _a;
-    (_a = this._queryParamMap) != null ? _a : this._queryParamMap = convertToParamMap(this.queryParams);
+    this._queryParamMap ??= convertToParamMap(this.queryParams);
     return this._queryParamMap;
   }
   toString() {
     const url = this.url.map((segment) => segment.toString()).join("/");
     const matched = this.routeConfig ? this.routeConfig.path : "";
-    return "Route(url:'".concat(url, "', path:'").concat(matched, "')");
+    return `Route(url:'${url}', path:'${matched}')`;
   }
 };
 var RouterStateSnapshot = class extends Tree {
@@ -1592,8 +1582,8 @@ function setRouterState(state, node) {
   node.children.forEach((c) => setRouterState(state, c));
 }
 function serializeNode(node) {
-  const c = node.children.length > 0 ? " { ".concat(node.children.map(serializeNode).join(", "), " } ") : "";
-  return "".concat(node.value).concat(c);
+  const c = node.children.length > 0 ? ` { ${node.children.map(serializeNode).join(", ")} } ` : "";
+  return `${node.value}${c}`;
 }
 function advanceActivatedRoute(route) {
   if (route.snapshot) {
@@ -1669,15 +1659,13 @@ var _RouterOutlet = class _RouterOutlet {
   }
   /** @nodoc */
   ngOnDestroy() {
-    var _a;
     if (this.isTrackedInParentContexts(this.name)) {
       this.parentContexts.onChildOutletDestroyed(this.name);
     }
-    (_a = this.inputBinder) == null ? void 0 : _a.unsubscribeFromRouteData(this);
+    this.inputBinder?.unsubscribeFromRouteData(this);
   }
   isTrackedInParentContexts(outletName) {
-    var _a;
-    return ((_a = this.parentContexts.getContext(outletName)) == null ? void 0 : _a.outlet) === this;
+    return this.parentContexts.getContext(outletName)?.outlet === this;
   }
   /** @nodoc */
   ngOnInit() {
@@ -1689,7 +1677,7 @@ var _RouterOutlet = class _RouterOutlet {
       return;
     }
     const context = this.parentContexts.getContext(this.name);
-    if (context == null ? void 0 : context.route) {
+    if (context?.route) {
       if (context.attachRef) {
         this.attach(context.attachRef, context.route);
       } else {
@@ -1737,11 +1725,10 @@ var _RouterOutlet = class _RouterOutlet {
    * Called when the `RouteReuseStrategy` instructs to re-attach a previously detached subtree
    */
   attach(ref, activatedRoute) {
-    var _a;
     this.activated = ref;
     this._activatedRoute = activatedRoute;
     this.location.insert(ref.hostView);
-    (_a = this.inputBinder) == null ? void 0 : _a.bindActivatedRouteToOutletComponent(this);
+    this.inputBinder?.bindActivatedRouteToOutletComponent(this);
     this.attachEvents.emit(ref.instance);
   }
   deactivate() {
@@ -1754,7 +1741,6 @@ var _RouterOutlet = class _RouterOutlet {
     }
   }
   activateWith(activatedRoute, environmentInjector) {
-    var _a;
     if (this.isActivated) {
       throw new RuntimeError(4013, (typeof ngDevMode === "undefined" || ngDevMode) && "Cannot activate an already activated outlet");
     }
@@ -1767,10 +1753,10 @@ var _RouterOutlet = class _RouterOutlet {
     this.activated = location.createComponent(component, {
       index: location.length,
       injector,
-      environmentInjector: environmentInjector != null ? environmentInjector : this.environmentInjector
+      environmentInjector: environmentInjector ?? this.environmentInjector
     });
     this.changeDetector.markForCheck();
-    (_a = this.inputBinder) == null ? void 0 : _a.bindActivatedRouteToOutletComponent(this);
+    this.inputBinder?.bindActivatedRouteToOutletComponent(this);
     this.activateEvents.emit(this.activated.instance);
   }
 };
@@ -1850,8 +1836,7 @@ var _RoutedComponentInputBinder = class _RoutedComponentInputBinder {
     this.subscribeToRouteData(outlet);
   }
   unsubscribeFromRouteData(outlet) {
-    var _a;
-    (_a = this.outletDataSubscriptions.get(outlet)) == null ? void 0 : _a.unsubscribe();
+    this.outletDataSubscriptions.get(outlet)?.unsubscribe();
     this.outletDataSubscriptions.delete(outlet);
   }
   subscribeToRouteData(outlet) {
@@ -1943,13 +1928,13 @@ function redirectingNavigationError(urlSerializer, redirect) {
     redirectTo: redirect,
     navigationBehaviorOptions: void 0
   } : redirect;
-  const error = navigationCancelingError(ngDevMode && 'Redirecting to "'.concat(urlSerializer.serialize(redirectTo), '"'), NavigationCancellationCode.Redirect);
+  const error = navigationCancelingError(ngDevMode && `Redirecting to "${urlSerializer.serialize(redirectTo)}"`, NavigationCancellationCode.Redirect);
   error.url = redirectTo;
   error.navigationBehaviorOptions = navigationBehaviorOptions;
   return error;
 }
 function navigationCancelingError(message, code) {
-  const error = new Error("NavigationCancelingError: ".concat(message || ""));
+  const error = new Error(`NavigationCancelingError: ${message || ""}`);
   error[NAVIGATION_CANCELING_ERROR] = true;
   error.cancellationCode = code;
   return error;
@@ -1985,18 +1970,17 @@ var ɵEmptyOutletComponent = _ɵEmptyOutletComponent;
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ɵEmptyOutletComponent, [{
     type: Component,
     args: [{
-      template: "<router-outlet></router-outlet>",
+      template: `<router-outlet></router-outlet>`,
       imports: [RouterOutlet],
       standalone: true
     }]
   }], null, null);
 })();
 function getOrCreateRouteInjectorIfNeeded(route, currentInjector) {
-  var _a;
   if (route.providers && !route._injector) {
-    route._injector = createEnvironmentInjector(route.providers, currentInjector, "Route: ".concat(route.path));
+    route._injector = createEnvironmentInjector(route.providers, currentInjector, `Route: ${route.path}`);
   }
-  return (_a = route._injector) != null ? _a : currentInjector;
+  return route._injector ?? currentInjector;
 }
 function validateConfig(config, parentPath = "", requireStandaloneComponents = false) {
   for (let i = 0; i < config.length; i++) {
@@ -2007,55 +1991,65 @@ function validateConfig(config, parentPath = "", requireStandaloneComponents = f
 }
 function assertStandalone(fullPath, component) {
   if (component && isNgModule(component)) {
-    throw new RuntimeError(4014, "Invalid configuration of route '".concat(fullPath, "'. You are using 'loadComponent' with a module, ") + "but it must be used with standalone components. Use 'loadChildren' instead.");
+    throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}'. You are using 'loadComponent' with a module, but it must be used with standalone components. Use 'loadChildren' instead.`);
   } else if (component && !isStandalone(component)) {
-    throw new RuntimeError(4014, "Invalid configuration of route '".concat(fullPath, "'. The component must be standalone."));
+    throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}'. The component must be standalone.`);
   }
 }
 function validateNode(route, fullPath, requireStandaloneComponents) {
   if (typeof ngDevMode === "undefined" || ngDevMode) {
     if (!route) {
-      throw new RuntimeError(4014, "\n      Invalid configuration of route '".concat(fullPath, "': Encountered undefined route.\n      The reason might be an extra comma.\n\n      Example:\n      const routes: Routes = [\n        { path: '', redirectTo: '/dashboard', pathMatch: 'full' },\n        { path: 'dashboard',  component: DashboardComponent },, << two commas\n        { path: 'detail/:id', component: HeroDetailComponent }\n      ];\n    "));
+      throw new RuntimeError(4014, `
+      Invalid configuration of route '${fullPath}': Encountered undefined route.
+      The reason might be an extra comma.
+
+      Example:
+      const routes: Routes = [
+        { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+        { path: 'dashboard',  component: DashboardComponent },, << two commas
+        { path: 'detail/:id', component: HeroDetailComponent }
+      ];
+    `);
     }
     if (Array.isArray(route)) {
-      throw new RuntimeError(4014, "Invalid configuration of route '".concat(fullPath, "': Array cannot be specified"));
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': Array cannot be specified`);
     }
     if (!route.redirectTo && !route.component && !route.loadComponent && !route.children && !route.loadChildren && route.outlet && route.outlet !== PRIMARY_OUTLET) {
-      throw new RuntimeError(4014, "Invalid configuration of route '".concat(fullPath, "': a componentless route without children or loadChildren cannot have a named outlet set"));
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': a componentless route without children or loadChildren cannot have a named outlet set`);
     }
     if (route.redirectTo && route.children) {
-      throw new RuntimeError(4014, "Invalid configuration of route '".concat(fullPath, "': redirectTo and children cannot be used together"));
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and children cannot be used together`);
     }
     if (route.redirectTo && route.loadChildren) {
-      throw new RuntimeError(4014, "Invalid configuration of route '".concat(fullPath, "': redirectTo and loadChildren cannot be used together"));
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and loadChildren cannot be used together`);
     }
     if (route.children && route.loadChildren) {
-      throw new RuntimeError(4014, "Invalid configuration of route '".concat(fullPath, "': children and loadChildren cannot be used together"));
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': children and loadChildren cannot be used together`);
     }
     if (route.redirectTo && (route.component || route.loadComponent)) {
-      throw new RuntimeError(4014, "Invalid configuration of route '".concat(fullPath, "': redirectTo and component/loadComponent cannot be used together"));
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and component/loadComponent cannot be used together`);
     }
     if (route.component && route.loadComponent) {
-      throw new RuntimeError(4014, "Invalid configuration of route '".concat(fullPath, "': component and loadComponent cannot be used together"));
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': component and loadComponent cannot be used together`);
     }
     if (route.redirectTo && route.canActivate) {
-      throw new RuntimeError(4014, "Invalid configuration of route '".concat(fullPath, "': redirectTo and canActivate cannot be used together. Redirects happen before activation ") + "so canActivate will never be executed.");
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and canActivate cannot be used together. Redirects happen before activation so canActivate will never be executed.`);
     }
     if (route.path && route.matcher) {
-      throw new RuntimeError(4014, "Invalid configuration of route '".concat(fullPath, "': path and matcher cannot be used together"));
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': path and matcher cannot be used together`);
     }
     if (route.redirectTo === void 0 && !route.component && !route.loadComponent && !route.children && !route.loadChildren) {
-      throw new RuntimeError(4014, "Invalid configuration of route '".concat(fullPath, "'. One of the following must be provided: component, loadComponent, redirectTo, children or loadChildren"));
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}'. One of the following must be provided: component, loadComponent, redirectTo, children or loadChildren`);
     }
     if (route.path === void 0 && route.matcher === void 0) {
-      throw new RuntimeError(4014, "Invalid configuration of route '".concat(fullPath, "': routes must have either a path or a matcher specified"));
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': routes must have either a path or a matcher specified`);
     }
     if (typeof route.path === "string" && route.path.charAt(0) === "/") {
-      throw new RuntimeError(4014, "Invalid configuration of route '".concat(fullPath, "': path cannot start with a slash"));
+      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': path cannot start with a slash`);
     }
     if (route.path === "" && route.redirectTo !== void 0 && route.pathMatch === void 0) {
-      const exp = "The default value of 'pathMatch' is 'prefix', but often the intent is to use 'full'.";
-      throw new RuntimeError(4014, "Invalid configuration of route '{path: \"".concat(fullPath, '", redirectTo: "').concat(route.redirectTo, "\"}': please provide 'pathMatch'. ").concat(exp));
+      const exp = `The default value of 'pathMatch' is 'prefix', but often the intent is to use 'full'.`;
+      throw new RuntimeError(4014, `Invalid configuration of route '{path: "${fullPath}", redirectTo: "${route.redirectTo}"}': please provide 'pathMatch'. ${exp}`);
     }
     if (requireStandaloneComponents) {
       assertStandalone(fullPath, route.component);
@@ -2072,11 +2066,11 @@ function getFullPath(parentPath, currentRoute) {
   if (!parentPath && !currentRoute.path) {
     return "";
   } else if (parentPath && !currentRoute.path) {
-    return "".concat(parentPath, "/");
+    return `${parentPath}/`;
   } else if (!parentPath && currentRoute.path) {
     return currentRoute.path;
   } else {
-    return "".concat(parentPath, "/").concat(currentRoute.path);
+    return `${parentPath}/${currentRoute.path}`;
   }
 }
 function standardizeConfig(r) {
@@ -2098,17 +2092,16 @@ function sortByMatchingOutlets(routes, outletName) {
   return sortedConfig;
 }
 function getClosestRouteInjector(snapshot) {
-  var _a;
   if (!snapshot)
     return null;
-  if ((_a = snapshot.routeConfig) == null ? void 0 : _a._injector) {
+  if (snapshot.routeConfig?._injector) {
     return snapshot.routeConfig._injector;
   }
   for (let s = snapshot.parent; s; s = s.parent) {
     const route = s.routeConfig;
-    if (route == null ? void 0 : route._loadedInjector)
+    if (route?._loadedInjector)
       return route._loadedInjector;
-    if (route == null ? void 0 : route._injector)
+    if (route?._injector)
       return route._injector;
   }
   return null;
@@ -2256,7 +2249,7 @@ var ActivateRoutes = class {
       const context = parentContexts.getOrCreateContext(future.outlet);
       const outlet = context.outlet;
       if (outlet && this.inputBindingEnabled && !outlet.supportsBindingToComponentInputs && !warnedAboutUnsupportedInputBinding) {
-        console.warn("'withComponentInputBinding' feature is enabled but this application is using an outlet that may not support binding to component inputs.");
+        console.warn(`'withComponentInputBinding' feature is enabled but this application is using an outlet that may not support binding to component inputs.`);
         warnedAboutUnsupportedInputBinding = true;
       }
     }
@@ -2408,7 +2401,7 @@ function isCanMatch(guard) {
   return guard && isFunction(guard.canMatch);
 }
 function isEmptyError(e) {
-  return e instanceof EmptyError || (e == null ? void 0 : e.name) === "EmptyError";
+  return e instanceof EmptyError || e?.name === "EmptyError";
 }
 var INITIAL_VALUE = Symbol("INITIAL_VALUE");
 function prioritizedGuardValue() {
@@ -2479,8 +2472,7 @@ function runCanActivate(futureRSS, futureARS, injector) {
     return of(true);
   const canActivateObservables = canActivate.map((canActivate2) => {
     return defer(() => {
-      var _a;
-      const closestInjector = (_a = getClosestRouteInjector(futureARS)) != null ? _a : injector;
+      const closestInjector = getClosestRouteInjector(futureARS) ?? injector;
       const guard = getTokenOrFunctionIdentity(canActivate2, closestInjector);
       const guardVal = isCanActivate(guard) ? guard.canActivate(futureARS, futureRSS) : runInInjectionContext(closestInjector, () => guard(futureARS, futureRSS));
       return wrapIntoObservable(guardVal).pipe(first());
@@ -2494,8 +2486,7 @@ function runCanActivateChild(futureRSS, path, injector) {
   const canActivateChildGuardsMapped = canActivateChildGuards.map((d) => {
     return defer(() => {
       const guardsMapped = d.guards.map((canActivateChild) => {
-        var _a;
-        const closestInjector = (_a = getClosestRouteInjector(d.node)) != null ? _a : injector;
+        const closestInjector = getClosestRouteInjector(d.node) ?? injector;
         const guard = getTokenOrFunctionIdentity(canActivateChild, closestInjector);
         const guardVal = isCanActivateChild(guard) ? guard.canActivateChild(futureARS, futureRSS) : runInInjectionContext(closestInjector, () => guard(futureARS, futureRSS));
         return wrapIntoObservable(guardVal).pipe(first());
@@ -2510,8 +2501,7 @@ function runCanDeactivate(component, currARS, currRSS, futureRSS, injector) {
   if (!canDeactivate || canDeactivate.length === 0)
     return of(true);
   const canDeactivateObservables = canDeactivate.map((c) => {
-    var _a;
-    const closestInjector = (_a = getClosestRouteInjector(currARS)) != null ? _a : injector;
+    const closestInjector = getClosestRouteInjector(currARS) ?? injector;
     const guard = getTokenOrFunctionIdentity(c, closestInjector);
     const guardVal = isCanDeactivate(guard) ? guard.canDeactivate(component, currARS, currRSS, futureRSS) : runInInjectionContext(closestInjector, () => guard(component, currARS, currRSS, futureRSS));
     return wrapIntoObservable(guardVal).pipe(first());
@@ -2563,10 +2553,10 @@ function noMatch$1(segmentGroup) {
   return throwError(new NoMatch(segmentGroup));
 }
 function namedOutletsRedirect(redirectTo) {
-  return throwError(new RuntimeError(4e3, (typeof ngDevMode === "undefined" || ngDevMode) && "Only absolute redirects can have named outlets. redirectTo: '".concat(redirectTo, "'")));
+  return throwError(new RuntimeError(4e3, (typeof ngDevMode === "undefined" || ngDevMode) && `Only absolute redirects can have named outlets. redirectTo: '${redirectTo}'`));
 }
 function canLoadFails(route) {
-  return throwError(navigationCancelingError((typeof ngDevMode === "undefined" || ngDevMode) && "Cannot load children because the guard of the route \"path: '".concat(route.path, "'\" returned false"), NavigationCancellationCode.GuardRejected));
+  return throwError(navigationCancelingError((typeof ngDevMode === "undefined" || ngDevMode) && `Cannot load children because the guard of the route "path: '${route.path}'" returned false`, NavigationCancellationCode.GuardRejected));
 }
 var ApplyRedirects = class {
   constructor(urlSerializer, urlTree) {
@@ -2625,7 +2615,7 @@ var ApplyRedirects = class {
   findPosParam(redirectTo, redirectToUrlSegment, posParams) {
     const pos = posParams[redirectToUrlSegment.path.substring(1)];
     if (!pos)
-      throw new RuntimeError(4001, (typeof ngDevMode === "undefined" || ngDevMode) && "Cannot redirect to '".concat(redirectTo, "'. Cannot find '").concat(redirectToUrlSegment.path, "'."));
+      throw new RuntimeError(4001, (typeof ngDevMode === "undefined" || ngDevMode) && `Cannot redirect to '${redirectTo}'. Cannot find '${redirectToUrlSegment.path}'.`);
     return pos;
   }
   findOrReturn(redirectToUrlSegment, actualSegments) {
@@ -2656,7 +2646,6 @@ function matchWithChecks(segmentGroup, route, segments, injector, urlSerializer)
   return runCanMatchGuards(injector, route, segments, urlSerializer).pipe(map((v) => v === true ? result : __spreadValues({}, noMatch)));
 }
 function match(segmentGroup, route, segments) {
-  var _a, _b;
   if (route.path === "**") {
     return createWildcardMatchResult(segments);
   }
@@ -2677,7 +2666,7 @@ function match(segmentGroup, route, segments) {
   if (!res)
     return __spreadValues({}, noMatch);
   const posParams = {};
-  Object.entries((_a = res.posParams) != null ? _a : {}).forEach(([k, v]) => {
+  Object.entries(res.posParams ?? {}).forEach(([k, v]) => {
     posParams[k] = v.path;
   });
   const parameters = res.consumed.length > 0 ? __spreadValues(__spreadValues({}, posParams), res.consumed[res.consumed.length - 1].parameters) : posParams;
@@ -2687,7 +2676,7 @@ function match(segmentGroup, route, segments) {
     remainingSegments: segments.slice(res.consumed.length),
     // TODO(atscott): investigate combining parameters and positionalParamSegments
     parameters,
-    positionalParamSegments: (_b = res.posParams) != null ? _b : {}
+    positionalParamSegments: res.posParams ?? {}
   };
 }
 function createWildcardMatchResult(segments) {
@@ -2782,7 +2771,7 @@ var Recognizer = class {
     this.allowRedirects = true;
   }
   noMatchError(e) {
-    return new RuntimeError(4002, typeof ngDevMode === "undefined" || ngDevMode ? "Cannot match any routes. URL Segment: '".concat(e.segmentGroup, "'") : "'".concat(e.segmentGroup, "'"));
+    return new RuntimeError(4002, typeof ngDevMode === "undefined" || ngDevMode ? `Cannot match any routes. URL Segment: '${e.segmentGroup}'` : `'${e.segmentGroup}'`);
   }
   recognize() {
     const rootSegmentGroup = split(this.urlTree.root, [], [], this.config).segmentGroup;
@@ -2863,8 +2852,7 @@ var Recognizer = class {
   }
   processSegment(injector, routes, segmentGroup, segments, outlet, allowRedirects) {
     return from(routes).pipe(concatMap((r) => {
-      var _a;
-      return this.processSegmentAgainstRoute((_a = r._injector) != null ? _a : injector, routes, r, segmentGroup, segments, outlet, allowRedirects).pipe(catchError((e) => {
+      return this.processSegmentAgainstRoute(r._injector ?? injector, routes, r, segmentGroup, segments, outlet, allowRedirects).pipe(catchError((e) => {
         if (e instanceof NoMatch) {
           return of(null);
         }
@@ -2904,7 +2892,8 @@ var Recognizer = class {
       this.absoluteRedirectCount++;
       if (this.absoluteRedirectCount > MAX_ALLOWED_REDIRECTS) {
         if (ngDevMode) {
-          throw new RuntimeError(4016, "Detected possible infinite redirect when redirecting from '".concat(this.urlTree, "' to '").concat(route.redirectTo, "'.\n") + "This is currently a dev mode only error but will become a call stack size exceeded error in production in a future major version.");
+          throw new RuntimeError(4016, `Detected possible infinite redirect when redirecting from '${this.urlTree}' to '${route.redirectTo}'.
+This is currently a dev mode only error but will become a call stack size exceeded error in production in a future major version.`);
         }
         this.allowRedirects = false;
       }
@@ -2920,22 +2909,20 @@ var Recognizer = class {
       rawSegment.children = {};
     }
     return matchResult.pipe(switchMap((result) => {
-      var _a;
       if (!result.matched) {
         return noMatch$1(rawSegment);
       }
-      injector = (_a = route._injector) != null ? _a : injector;
+      injector = route._injector ?? injector;
       return this.getChildConfig(injector, route, segments).pipe(switchMap(({
         routes: childConfig
       }) => {
-        var _a2, _b, _c;
-        const childInjector = (_a2 = route._loadedInjector) != null ? _a2 : injector;
+        const childInjector = route._loadedInjector ?? injector;
         const {
           consumedSegments,
           remainingSegments,
           parameters
         } = result;
-        const snapshot = new ActivatedRouteSnapshot(consumedSegments, parameters, Object.freeze(__spreadValues({}, this.urlTree.queryParams)), this.urlTree.fragment, getData(route), getOutlet(route), (_c = (_b = route.component) != null ? _b : route._loadedComponent) != null ? _c : null, route, getResolve(route));
+        const snapshot = new ActivatedRouteSnapshot(consumedSegments, parameters, Object.freeze(__spreadValues({}, this.urlTree.queryParams)), this.urlTree.fragment, getData(route), getOutlet(route), route.component ?? route._loadedComponent ?? null, route, getResolve(route));
         const {
           segmentGroup,
           slicedSegments
@@ -3030,7 +3017,7 @@ function checkOutletNameUniqueness(nodes) {
     if (routeWithSameOutletName) {
       const p = routeWithSameOutletName.url.map((s) => s.toString()).join("/");
       const c = n.value.url.map((s) => s.toString()).join("/");
-      throw new RuntimeError(4006, (typeof ngDevMode === "undefined" || ngDevMode) && "Two segments cannot have the same outlet name: '".concat(p, "' and '").concat(c, "'."));
+      throw new RuntimeError(4006, (typeof ngDevMode === "undefined" || ngDevMode) && `Two segments cannot have the same outlet name: '${p}' and '${c}'.`);
     }
     names[n.value.outlet] = n.value;
   });
@@ -3091,7 +3078,7 @@ function flattenRouteTree(route) {
 function runResolve(futureARS, futureRSS, paramsInheritanceStrategy, injector) {
   const config = futureARS.routeConfig;
   const resolve = futureARS._resolve;
-  if ((config == null ? void 0 : config.title) !== void 0 && !hasStaticTitle(config)) {
+  if (config?.title !== void 0 && !hasStaticTitle(config)) {
     resolve[RouteTitleKey] = config.title;
   }
   return resolveNode(resolve, futureARS, futureRSS, injector).pipe(map((resolvedData) => {
@@ -3111,8 +3098,7 @@ function resolveNode(resolve, futureARS, futureRSS, injector) {
   }))), takeLast(1), mapTo(data), catchError((e) => isEmptyError(e) ? EMPTY : throwError(e)));
 }
 function getResolver(injectionToken, futureARS, futureRSS, injector) {
-  var _a;
-  const closestInjector = (_a = getClosestRouteInjector(futureARS)) != null ? _a : injector;
+  const closestInjector = getClosestRouteInjector(futureARS) ?? injector;
   const resolver = getTokenOrFunctionIdentity(injectionToken, closestInjector);
   const resolverValue = resolver.resolve ? resolver.resolve(futureARS, futureRSS) : runInInjectionContext(closestInjector, () => resolver(futureARS, futureRSS));
   return wrapIntoObservable(resolverValue);
@@ -3131,11 +3117,10 @@ var _TitleStrategy = class _TitleStrategy {
    * @returns The `title` of the deepest primary route.
    */
   buildTitle(snapshot) {
-    var _a;
     let pageTitle;
     let route = snapshot.root;
     while (route !== void 0) {
-      pageTitle = (_a = this.getResolvedTitleForRoute(route)) != null ? _a : pageTitle;
+      pageTitle = this.getResolvedTitleForRoute(route) ?? pageTitle;
       route = route.children.find((child) => child.outlet === PRIMARY_OUTLET);
     }
     return pageTitle;
@@ -3223,11 +3208,10 @@ var _RouterConfigLoader = class _RouterConfigLoader {
       this.onLoadStartListener(route);
     }
     const loadRunner = wrapIntoObservable(route.loadComponent()).pipe(map(maybeUnwrapDefaultExport), tap((component) => {
-      var _a;
       if (this.onLoadEndListener) {
         this.onLoadEndListener(route);
       }
-      (typeof ngDevMode === "undefined" || ngDevMode) && assertStandalone((_a = route.path) != null ? _a : "", component);
+      (typeof ngDevMode === "undefined" || ngDevMode) && assertStandalone(route.path ?? "", component);
       route._loadedComponent = component;
     }), finalize(() => {
       this.componentLoaders.delete(route);
@@ -3434,13 +3418,11 @@ var _NavigationTransitions = class _NavigationTransitions {
     this.configLoader.onLoadStartListener = onLoadStart;
   }
   complete() {
-    var _a;
-    (_a = this.transitions) == null ? void 0 : _a.complete();
+    this.transitions?.complete();
   }
   handleNavigationRequest(request) {
-    var _a;
     const id = ++this.navigationId;
-    (_a = this.transitions) == null ? void 0 : _a.next(__spreadProps(__spreadValues(__spreadValues({}, this.transitions.value), request), {
+    this.transitions?.next(__spreadProps(__spreadValues(__spreadValues({}, this.transitions.value), request), {
       id
     }));
   }
@@ -3494,11 +3476,10 @@ var _NavigationTransitions = class _NavigationTransitions {
             };
           }),
           switchMap((t) => {
-            var _a;
             const urlTransition = !router.navigated || this.isUpdatingInternalState() || this.isUpdatedBrowserUrl();
-            const onSameUrlNavigation = (_a = t.extras.onSameUrlNavigation) != null ? _a : router.onSameUrlNavigation;
+            const onSameUrlNavigation = t.extras.onSameUrlNavigation ?? router.onSameUrlNavigation;
             if (!urlTransition && onSameUrlNavigation !== "reload") {
-              const reason = typeof ngDevMode === "undefined" || ngDevMode ? "Navigation to ".concat(t.rawUrl, " was ignored because it is the same as the current Router URL.") : "";
+              const reason = typeof ngDevMode === "undefined" || ngDevMode ? `Navigation to ${t.rawUrl} was ignored because it is the same as the current Router URL.` : "";
               this.events.next(new NavigationSkipped(t.id, this.urlSerializer.serialize(t.rawUrl), reason, NavigationSkippedCode.IgnoredSameUrlNavigation));
               t.resolve(null);
               return EMPTY;
@@ -3507,10 +3488,9 @@ var _NavigationTransitions = class _NavigationTransitions {
               return of(t).pipe(
                 // Fire NavigationStart event
                 switchMap((t2) => {
-                  var _a2, _b;
-                  const transition = (_a2 = this.transitions) == null ? void 0 : _a2.getValue();
+                  const transition = this.transitions?.getValue();
                   this.events.next(new NavigationStart(t2.id, this.urlSerializer.serialize(t2.extractedUrl), t2.source, t2.restoredState));
-                  if (transition !== ((_b = this.transitions) == null ? void 0 : _b.getValue())) {
+                  if (transition !== this.transitions?.getValue()) {
                     return EMPTY;
                   }
                   return Promise.resolve(t2);
@@ -3550,7 +3530,7 @@ var _NavigationTransitions = class _NavigationTransitions {
               this.currentNavigation.finalUrl = extractedUrl;
               return of(overallTransitionState);
             } else {
-              const reason = typeof ngDevMode === "undefined" || ngDevMode ? "Navigation was ignored because the UrlHandlingStrategy" + " indicated neither the current URL ".concat(t.currentRawUrl, " nor target URL ").concat(t.rawUrl, " should be processed.") : "";
+              const reason = typeof ngDevMode === "undefined" || ngDevMode ? `Navigation was ignored because the UrlHandlingStrategy indicated neither the current URL ${t.currentRawUrl} nor target URL ${t.rawUrl} should be processed.` : "";
               this.events.next(new NavigationSkipped(t.id, this.urlSerializer.serialize(t.extractedUrl), reason, NavigationSkippedCode.IgnoredByUrlHandlingStrategy));
               t.resolve(null);
               return EMPTY;
@@ -3595,7 +3575,7 @@ var _NavigationTransitions = class _NavigationTransitions {
                   next: () => dataResolved = true,
                   complete: () => {
                     if (!dataResolved) {
-                      this.cancelNavigationTransition(t2, typeof ngDevMode === "undefined" || ngDevMode ? "At least one route resolver didn't emit any value." : "", NavigationCancellationCode.NoDataFromResolver);
+                      this.cancelNavigationTransition(t2, typeof ngDevMode === "undefined" || ngDevMode ? `At least one route resolver didn't emit any value.` : "", NavigationCancellationCode.NoDataFromResolver);
                     }
                   }
                 }));
@@ -3609,9 +3589,8 @@ var _NavigationTransitions = class _NavigationTransitions {
           // --- LOAD COMPONENTS ---
           switchTap((t) => {
             const loadComponents = (route) => {
-              var _a;
               const loaders = [];
-              if (((_a = route.routeConfig) == null ? void 0 : _a.loadComponent) && !route.routeConfig._loadedComponent) {
+              if (route.routeConfig?.loadComponent && !route.routeConfig._loadedComponent) {
                 loaders.push(this.configLoader.loadComponent(route.routeConfig).pipe(tap((loadedComponent) => {
                   route.component = loadedComponent;
                 }), map(() => void 0)));
@@ -3625,12 +3604,11 @@ var _NavigationTransitions = class _NavigationTransitions {
           }),
           switchTap(() => this.afterPreactivation()),
           switchMap(() => {
-            var _a;
             const {
               currentSnapshot,
               targetSnapshot
             } = overallTransitionState;
-            const viewTransitionStarted = (_a = this.createViewTransition) == null ? void 0 : _a.call(this, this.environmentInjector, currentSnapshot.root, targetSnapshot.root);
+            const viewTransitionStarted = this.createViewTransition?.(this.environmentInjector, currentSnapshot.root, targetSnapshot.root);
             return viewTransitionStarted ? from(viewTransitionStarted).pipe(map(() => overallTransitionState)) : of(overallTransitionState);
           }),
           map((t) => {
@@ -3651,11 +3629,10 @@ var _NavigationTransitions = class _NavigationTransitions {
           take(1),
           tap({
             next: (t) => {
-              var _a;
               completed = true;
               this.lastSuccessfulNavigation = this.currentNavigation;
               this.events.next(new NavigationEnd(t.id, this.urlSerializer.serialize(t.extractedUrl), this.urlSerializer.serialize(t.urlAfterRedirects)));
-              (_a = this.titleStrategy) == null ? void 0 : _a.updateTitle(t.targetRouterState.snapshot);
+              this.titleStrategy?.updateTitle(t.targetRouterState.snapshot);
               t.resolve(true);
             },
             complete: () => {
@@ -3673,18 +3650,16 @@ var _NavigationTransitions = class _NavigationTransitions {
             throw err;
           }))),
           finalize(() => {
-            var _a;
             if (!completed && !errored) {
-              const cancelationReason = typeof ngDevMode === "undefined" || ngDevMode ? "Navigation ID ".concat(overallTransitionState.id, " is not equal to the current navigation id ").concat(this.navigationId) : "";
+              const cancelationReason = typeof ngDevMode === "undefined" || ngDevMode ? `Navigation ID ${overallTransitionState.id} is not equal to the current navigation id ${this.navigationId}` : "";
               this.cancelNavigationTransition(overallTransitionState, cancelationReason, NavigationCancellationCode.SupersededByNewNavigation);
             }
-            if (((_a = this.currentTransition) == null ? void 0 : _a.id) === overallTransitionState.id) {
+            if (this.currentTransition?.id === overallTransitionState.id) {
               this.currentNavigation = null;
               this.currentTransition = null;
             }
           }),
           catchError((e) => {
-            var _a;
             errored = true;
             if (isNavigationCancelingError(e)) {
               this.events.next(new NavigationCancel(overallTransitionState.id, this.urlSerializer.serialize(overallTransitionState.extractedUrl), e.message, e.cancellationCode));
@@ -3694,7 +3669,7 @@ var _NavigationTransitions = class _NavigationTransitions {
                 this.events.next(new RedirectRequest(e.url));
               }
             } else {
-              this.events.next(new NavigationError(overallTransitionState.id, this.urlSerializer.serialize(overallTransitionState.extractedUrl), e, (_a = overallTransitionState.targetSnapshot) != null ? _a : void 0));
+              this.events.next(new NavigationError(overallTransitionState.id, this.urlSerializer.serialize(overallTransitionState.extractedUrl), e, overallTransitionState.targetSnapshot ?? void 0));
               try {
                 overallTransitionState.resolve(router.errorHandler(e));
               } catch (ee) {
@@ -3721,8 +3696,7 @@ var _NavigationTransitions = class _NavigationTransitions {
    * currently set to.
    */
   isUpdatingInternalState() {
-    var _a, _b;
-    return ((_a = this.currentTransition) == null ? void 0 : _a.extractedUrl.toString()) !== ((_b = this.currentTransition) == null ? void 0 : _b.currentUrlTree.toString());
+    return this.currentTransition?.extractedUrl.toString() !== this.currentTransition?.currentUrlTree.toString();
   }
   /**
    * @returns Whether we're updating the browser URL to something new (navigation is going
@@ -3730,9 +3704,8 @@ var _NavigationTransitions = class _NavigationTransitions {
    * bar if navigation succeeds).
    */
   isUpdatedBrowserUrl() {
-    var _a, _b;
     const extractedBrowserUrl = this.urlHandlingStrategy.extract(this.urlSerializer.parse(this.location.path(true)));
-    return extractedBrowserUrl.toString() !== ((_a = this.currentTransition) == null ? void 0 : _a.extractedUrl.toString()) && !((_b = this.currentTransition) == null ? void 0 : _b.extras.skipLocationChange);
+    return extractedBrowserUrl.toString() !== this.currentTransition?.extractedUrl.toString() && !this.currentTransition?.extras.skipLocationChange;
   }
 };
 _NavigationTransitions.ɵfac = function NavigationTransitions_Factory(t) {
@@ -3880,11 +3853,10 @@ var _HistoryStateManager = class _HistoryStateManager extends StateManager {
    * page id in the browser history is 1 more than the previous entry.
    */
   get browserPageId() {
-    var _a, _b;
     if (this.canceledNavigationResolution !== "computed") {
       return this.currentPageId;
     }
-    return (_b = (_a = this.restoredState()) == null ? void 0 : _a.ɵrouterPageId) != null ? _b : this.currentPageId;
+    return this.restoredState()?.ɵrouterPageId ?? this.currentPageId;
   }
   getRouterState() {
     return this.routerState;
@@ -3967,10 +3939,9 @@ var _HistoryStateManager = class _HistoryStateManager extends StateManager {
     }
   }
   resetState(navigation) {
-    var _a;
     this.routerState = this.stateMemento.routerState;
     this.currentUrlTree = this.stateMemento.currentUrlTree;
-    this.rawUrlTree = this.urlHandlingStrategy.merge(this.currentUrlTree, (_a = navigation.finalUrl) != null ? _a : this.rawUrlTree);
+    this.rawUrlTree = this.urlHandlingStrategy.merge(this.currentUrlTree, navigation.finalUrl ?? this.rawUrlTree);
   }
   resetUrlToCurrentUrlTree() {
     this.location.replaceState(this.urlSerializer.serialize(this.rawUrlTree), "", this.generateNgRouterState(this.lastSuccessfulId, this.currentPageId));
@@ -4059,7 +4030,6 @@ var _Router = class _Router {
     return this.stateManager.getRouterState();
   }
   constructor() {
-    var _a, _b;
     this.disposed = false;
     this.isNgZoneEnabled = false;
     this.console = inject(Console);
@@ -4078,9 +4048,9 @@ var _Router = class _Router {
     this.navigated = false;
     this.routeReuseStrategy = inject(RouteReuseStrategy);
     this.onSameUrlNavigation = this.options.onSameUrlNavigation || "ignore";
-    this.config = (_b = (_a = inject(ROUTES, {
+    this.config = inject(ROUTES, {
       optional: true
-    })) == null ? void 0 : _a.flat()) != null ? _b : [];
+    })?.flat() ?? [];
     this.componentInputBindingEnabled = !!inject(INPUT_BINDER, {
       optional: true
     });
@@ -4089,7 +4059,7 @@ var _Router = class _Router {
     this.resetConfig(this.config);
     this.navigationTransitions.setupNavigations(this, this.currentUrlTree, this.routerState).subscribe({
       error: (e) => {
-        this.console.warn(ngDevMode ? "Unhandled Navigation Error: ".concat(e) : e);
+        this.console.warn(ngDevMode ? `Unhandled Navigation Error: ${e}` : e);
       }
     });
     this.subscribeToNavigationEvents();
@@ -4153,8 +4123,7 @@ var _Router = class _Router {
    * navigation so that the correct events, guards, etc. are triggered.
    */
   setUpLocationChangeListener() {
-    var _a;
-    (_a = this.nonRouterCurrentEntryChangeSubscription) != null ? _a : this.nonRouterCurrentEntryChangeSubscription = this.stateManager.registerNonRouterCurrentEntryChangeListener((url, state) => {
+    this.nonRouterCurrentEntryChangeSubscription ??= this.stateManager.registerNonRouterCurrentEntryChangeListener((url, state) => {
       setTimeout(() => {
         this.navigateToSyncWithBrowser(url, "popstate", state);
       }, 0);
@@ -4171,7 +4140,7 @@ var _Router = class _Router {
     const extras = {
       replaceUrl: true
     };
-    const restoredState = (state == null ? void 0 : state.navigationId) ? state : null;
+    const restoredState = state?.navigationId ? state : null;
     if (state) {
       const stateCopy = __spreadValues({}, state);
       delete stateCopy.navigationId;
@@ -4317,7 +4286,7 @@ var _Router = class _Router {
       }
       relativeToUrlSegmentGroup = this.currentUrlTree.root;
     }
-    return createUrlTreeFromSegmentGroup(relativeToUrlSegmentGroup, commands, q, f != null ? f : null);
+    return createUrlTreeFromSegmentGroup(relativeToUrlSegmentGroup, commands, q, f ?? null);
   }
   /**
    * Navigates to a view using an absolute route path.
@@ -4348,7 +4317,7 @@ var _Router = class _Router {
   }) {
     if (typeof ngDevMode === "undefined" || ngDevMode) {
       if (this.isNgZoneEnabled && !NgZone.isInAngularZone()) {
-        this.console.warn("Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?");
+        this.console.warn(`Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?`);
       }
     }
     const urlTree = isUrlTree(url) ? url : this.parseUrl(url);
@@ -4486,7 +4455,7 @@ function validateCommands(commands) {
   for (let i = 0; i < commands.length; i++) {
     const cmd = commands[i];
     if (cmd == null) {
-      throw new RuntimeError(4008, (typeof ngDevMode === "undefined" || ngDevMode) && "The requested path contains ".concat(cmd, " segment at index ").concat(i));
+      throw new RuntimeError(4008, (typeof ngDevMode === "undefined" || ngDevMode) && `The requested path contains ${cmd} segment at index ${i}`);
     }
   }
 }
@@ -4495,7 +4464,6 @@ function isPublicRouterEvent(e) {
 }
 var _RouterLink = class _RouterLink {
   constructor(router, route, tabIndexAttribute, renderer, el, locationStrategy) {
-    var _a;
     this.router = router;
     this.route = route;
     this.tabIndexAttribute = tabIndexAttribute;
@@ -4508,7 +4476,7 @@ var _RouterLink = class _RouterLink {
     this.preserveFragment = false;
     this.skipLocationChange = false;
     this.replaceUrl = false;
-    const tagName = (_a = el.nativeElement.tagName) == null ? void 0 : _a.toLowerCase();
+    const tagName = el.nativeElement.tagName?.toLowerCase();
     this.isAnchorElement = tagName === "a" || tagName === "area";
     if (this.isAnchorElement) {
       this.subscription = router.events.subscribe((s) => {
@@ -4578,13 +4546,11 @@ var _RouterLink = class _RouterLink {
   }
   /** @nodoc */
   ngOnDestroy() {
-    var _a;
-    (_a = this.subscription) == null ? void 0 : _a.unsubscribe();
+    this.subscription?.unsubscribe();
   }
   updateHref() {
-    var _a;
     const urlTree = this.urlTree;
-    this.href = urlTree !== null && this.locationStrategy ? (_a = this.locationStrategy) == null ? void 0 : _a.prepareExternalUrl(this.router.serializeUrl(urlTree)) : null;
+    this.href = urlTree !== null && this.locationStrategy ? this.locationStrategy?.prepareExternalUrl(this.router.serializeUrl(urlTree)) : null;
     const sanitizedValue = this.href === null ? null : (
       // This class represents a directive that can be added to both `<a>` elements,
       // as well as other elements. As a result, we can't define security context at
@@ -4763,8 +4729,7 @@ var _RouterLinkActive = class _RouterLinkActive {
     });
   }
   subscribeToEachLinkOnChanges() {
-    var _a;
-    (_a = this.linkInputChangesSubscription) == null ? void 0 : _a.unsubscribe();
+    this.linkInputChangesSubscription?.unsubscribe();
     const allLinkChanges = [...this.links.toArray(), this.link].filter((link) => !!link).map((link) => link.onChanges);
     this.linkInputChangesSubscription = from(allLinkChanges).pipe(mergeAll()).subscribe((link) => {
       if (this._isActive !== this.isLinkActive(this.router)(link)) {
@@ -4782,9 +4747,8 @@ var _RouterLinkActive = class _RouterLinkActive {
   }
   /** @nodoc */
   ngOnDestroy() {
-    var _a;
     this.routerEventsSubscription.unsubscribe();
-    (_a = this.linkInputChangesSubscription) == null ? void 0 : _a.unsubscribe();
+    this.linkInputChangesSubscription?.unsubscribe();
   }
   update() {
     if (!this.links || !this.router.navigated)
@@ -4965,19 +4929,18 @@ var _RouterPreloader = class _RouterPreloader {
     }
   }
   processRoutes(injector, routes) {
-    var _a, _b, _c;
     const res = [];
     for (const route of routes) {
       if (route.providers && !route._injector) {
-        route._injector = createEnvironmentInjector(route.providers, injector, "Route: ".concat(route.path));
+        route._injector = createEnvironmentInjector(route.providers, injector, `Route: ${route.path}`);
       }
-      const injectorForCurrentRoute = (_a = route._injector) != null ? _a : injector;
-      const injectorForChildren = (_b = route._loadedInjector) != null ? _b : injectorForCurrentRoute;
+      const injectorForCurrentRoute = route._injector ?? injector;
+      const injectorForChildren = route._loadedInjector ?? injectorForCurrentRoute;
       if (route.loadChildren && !route._loadedRoutes && route.canLoad === void 0 || route.loadComponent && !route._loadedComponent) {
         res.push(this.preloadConfig(injectorForCurrentRoute, route));
       }
       if (route.children || route._loadedRoutes) {
-        res.push(this.processRoutes(injectorForChildren, (_c = route.children) != null ? _c : route._loadedRoutes));
+        res.push(this.processRoutes(injectorForChildren, route.children ?? route._loadedRoutes));
       }
     }
     return from(res).pipe(mergeAll());
@@ -4991,13 +4954,12 @@ var _RouterPreloader = class _RouterPreloader {
         loadedChildren$ = of(null);
       }
       const recursiveLoadChildren$ = loadedChildren$.pipe(mergeMap((config) => {
-        var _a;
         if (config === null) {
           return of(void 0);
         }
         route._loadedRoutes = config.routes;
         route._loadedInjector = config.injector;
-        return this.processRoutes((_a = config.injector) != null ? _a : injector, config.routes);
+        return this.processRoutes(config.injector ?? injector, config.routes);
       }));
       if (route.loadComponent && !route._loadedComponent) {
         const loadComponent$ = this.loader.loadComponent(route);
@@ -5048,8 +5010,8 @@ var _RouterScroller = class _RouterScroller {
     this.lastSource = "imperative";
     this.restoredId = 0;
     this.store = {};
-    options.scrollPositionRestoration || (options.scrollPositionRestoration = "disabled");
-    options.anchorScrolling || (options.anchorScrolling = "disabled");
+    options.scrollPositionRestoration ||= "disabled";
+    options.anchorScrolling ||= "disabled";
   }
   init() {
     if (this.options.scrollPositionRestoration !== "disabled") {
@@ -5104,9 +5066,8 @@ var _RouterScroller = class _RouterScroller {
   }
   /** @nodoc */
   ngOnDestroy() {
-    var _a, _b;
-    (_a = this.routerEventsSubscription) == null ? void 0 : _a.unsubscribe();
-    (_b = this.scrollEventsSubscription) == null ? void 0 : _b.unsubscribe();
+    this.routerEventsSubscription?.unsubscribe();
+    this.scrollEventsSubscription?.unsubscribe();
   }
 };
 _RouterScroller.ɵfac = function RouterScroller_Factory(t) {
@@ -5197,7 +5158,6 @@ function withInMemoryScrolling(options = {}) {
 function getBootstrapListener() {
   const injector = inject(Injector);
   return (bootstrappedComponentRef) => {
-    var _a, _b;
     const ref = injector.get(ApplicationRef);
     if (bootstrappedComponentRef !== ref.components[0]) {
       return;
@@ -5207,8 +5167,8 @@ function getBootstrapListener() {
     if (injector.get(INITIAL_NAVIGATION) === 1) {
       router.initialNavigation();
     }
-    (_a = injector.get(ROUTER_PRELOADER, null, InjectFlags.Optional)) == null ? void 0 : _a.setUpPreloading();
-    (_b = injector.get(ROUTER_SCROLLER, null, InjectFlags.Optional)) == null ? void 0 : _b.init();
+    injector.get(ROUTER_PRELOADER, null, InjectFlags.Optional)?.setUpPreloading();
+    injector.get(ROUTER_SCROLLER, null, InjectFlags.Optional)?.init();
     router.resetRootComponentType(ref.componentTypes[0]);
     if (!bootstrapDone.closed) {
       bootstrapDone.next();
@@ -5284,11 +5244,10 @@ function withDebugTracing() {
       useFactory: () => {
         const router = inject(Router);
         return () => router.events.subscribe((e) => {
-          var _a, _b;
-          (_a = console.group) == null ? void 0 : _a.call(console, "Router Event: ".concat(e.constructor.name));
+          console.group?.(`Router Event: ${e.constructor.name}`);
           console.log(stringifyEvent(e));
           console.log(e);
-          (_b = console.groupEnd) == null ? void 0 : _b.call(console);
+          console.groupEnd?.();
         });
       }
     }];
@@ -5351,7 +5310,7 @@ function withViewTransitions(options) {
   }, {
     provide: VIEW_TRANSITION_OPTIONS,
     useValue: __spreadValues({
-      skipNextTransition: !!(options == null ? void 0 : options.skipInitialTransition)
+      skipNextTransition: !!options?.skipInitialTransition
     }, options)
   }];
   return routerFeature(9, providers);
@@ -5403,7 +5362,7 @@ var _RouterModule = class _RouterModule {
   static forRoot(routes, config) {
     return {
       ngModule: _RouterModule,
-      providers: [ROUTER_PROVIDERS, typeof ngDevMode === "undefined" || ngDevMode ? (config == null ? void 0 : config.enableTracing) ? withDebugTracing().ɵproviders : [] : [], {
+      providers: [ROUTER_PROVIDERS, typeof ngDevMode === "undefined" || ngDevMode ? config?.enableTracing ? withDebugTracing().ɵproviders : [] : [], {
         provide: ROUTES,
         multi: true,
         useValue: routes
@@ -5414,7 +5373,7 @@ var _RouterModule = class _RouterModule {
       }, {
         provide: ROUTER_CONFIGURATION,
         useValue: config ? config : {}
-      }, (config == null ? void 0 : config.useHash) ? provideHashLocationStrategy() : providePathLocationStrategy(), provideRouterScroller(), (config == null ? void 0 : config.preloadingStrategy) ? withPreloading(config.preloadingStrategy).ɵproviders : [], (config == null ? void 0 : config.initialNavigation) ? provideInitialNavigation(config) : [], (config == null ? void 0 : config.bindToComponentInputs) ? withComponentInputBinding().ɵproviders : [], (config == null ? void 0 : config.enableViewTransitions) ? withViewTransitions().ɵproviders : [], provideRouterInitializer()]
+      }, config?.useHash ? provideHashLocationStrategy() : providePathLocationStrategy(), provideRouterScroller(), config?.preloadingStrategy ? withPreloading(config.preloadingStrategy).ɵproviders : [], config?.initialNavigation ? provideInitialNavigation(config) : [], config?.bindToComponentInputs ? withComponentInputBinding().ɵproviders : [], config?.enableViewTransitions ? withViewTransitions().ɵproviders : [], provideRouterInitializer()]
     };
   }
   /**
@@ -5501,7 +5460,7 @@ function providePathLocationStrategy() {
 }
 function provideForRootGuard(router) {
   if ((typeof ngDevMode === "undefined" || ngDevMode) && router) {
-    throw new RuntimeError(4007, "The Router was provided more than once. This can happen if 'forRoot' is used outside of the root injector. Lazy loaded modules should use RouterModule.forChild() instead.");
+    throw new RuntimeError(4007, `The Router was provided more than once. This can happen if 'forRoot' is used outside of the root injector. Lazy loaded modules should use RouterModule.forChild() instead.`);
   }
   return "guarded";
 }
