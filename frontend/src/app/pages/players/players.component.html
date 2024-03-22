@@ -3,92 +3,185 @@
 </div>
 <app-header-secondary></app-header-secondary>
 <main class="flex" style="margin-bottom: 60px;">
-    <aside class="w-1/3 p-4">
-    <label class="label">Nacionalidad</label>
-    <select [(ngModel)]="nacionalidadFiltro" class="select select-bordered w-full">
-      <option value>Seleccione una nacionalidad:</option>
-      <option [ngValue]="nacionalidadesUnicas[0]">{{ nacionalidadesUnicas[0] }}</option>
-      <option *ngFor="let nacionalidad of nacionalidadesUnicas.slice(1)" [value]="nacionalidad">{{ nacionalidad }}</option>
-    </select>
-    <label class="label">Rango de Edad</label>
-    <div class="flex flex-wrap">
-      <div *ngFor="let rango of rangosEdad" class="form-control mr-2 mb-2">
-        <label class="label cursor-pointer">
-          <span class="label-text">{{ rango }}</span>
-          <input type="radio" [value]="rango" [(ngModel)]="edadFiltro"
-            name="edadFiltro" class="radio checked:bg-primary" />
-        </label>
+  <div class="w-1/4 p-2 m-5">
+    <div class="relative group duration-500 cursor-pointer group overflow-hidden relative text-gray-50 h-[35rem] w-full md:w-[105%] rounded-2xl hover:duration-700 duration-700">
+      <div class="w-full w-400 h-auto h-70 bg-yellow-300 text-gray-800">
+    
+        <div class="flex flex-row justify-between">
+          <svg class="fill-current stroke-current w-8 h-8 p-2 hover:bg-yellow-300  rounded-full m-1" height="100"
+            preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 100" width="100" x="0"
+            xmlns="http://www.w3.org/2000/svg" y="0">
+            <path class=""
+              d="M15.8,32.9V15.8m0,0H32.9m-17.1,0L37.2,37.2m47-4.3V15.8m0,0H67.1m17.1,0L62.8,37.2m-47,29.9V84.2m0,0H32.9m-17.1,0L37.2,62.8m47,21.4L62.8,62.8M84.2,84.2V67.1m0,17.1H67.1"
+              fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+            </path>
+          </svg>
+          <svg class="fill-current stroke-current w-8 h-8 p-2 m-1 hover:bg-yellow-300 rounded-full" height="100"
+            preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 100" width="100" x="0"
+            xmlns="http://www.w3.org/2000/svg" y="0">
+            <path class="svg-stroke-primary"
+              d="M50,17.4h0M50,50h0m0,32.6h0M50,22a4.7,4.7,0,1,1,4.7-4.6A4.7,4.7,0,0,1,50,22Zm0,32.7A4.7,4.7,0,1,1,54.7,50,4.7,4.7,0,0,1,50,54.7Zm0,32.6a4.7,4.7,0,1,1,4.7-4.7A4.7,4.7,0,0,1,50,87.3Z"
+              fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+            </path>
+          </svg>
+        </div>
+        <span class="p-3 text-black font-bold text-2xl">FILTROS</span>
+        <p class="p-3 text-neutral-800 text-s">Selecciona las habilidades para escoger a nuestros jugadores según tus
+          preferencias</p>
       </div>
-    </div>
-    <label class="label">Rango de Peso</label>
-    <div class="flex flex-wrap">
-      <div *ngFor="let rango of rangosPeso" class="form-control mr-2 mb-2">
-        <label class="label cursor-pointer">
-          <span class="label-text">{{ rango }}</span>
-          <input type="radio" [value]="rango" [(ngModel)]="pesoFiltro"
-            name="pesoFiltro" class="radio checked:bg-primary" />
-        </label>
-      </div>
-    </div>
-    <label class="label">Rango de Estatura</label>
-    <div class="flex flex-wrap">
-      <div *ngFor="let rango of rangosEstatura" class="form-control mr-2 mb-2">
-        <label class="label cursor-pointer">
-          <span class="label-text">{{ rango }}</span>
-          <input type="radio" [value]="rango" [(ngModel)]="estaturaFiltro"
-            name="estaturaFiltro" class="radio checked:bg-primary" />
-        </label>
-      </div>
-    </div>
-    <label class="label">Pie Dominante</label>
-    <div class="flex">
-      <div class="form-control mr-2">
-        <label class="label cursor-pointer">
-          <span class="label-text">Derecho</span>
-          <input type="radio" value="derecho" [(ngModel)]="pieDominanteFilter"
-            name="pieDominante" class="radio checked:bg-primary" />
-        </label>
-      </div>
-      <div class="form-control mr-2">
-        <label class="label cursor-pointer">
-          <span class="label-text">Izquierdo</span>
-          <input type="radio" value="izquierdo" [(ngModel)]="pieDominanteFilter"
-            name="pieDominante" class="radio checked:bg-primary" />
-        </label>
-      </div>
-      <div class="form-control mr-2">
-        <label class="label cursor-pointer">
-          <span class="label-text">Ambos</span>
-          <input type="radio" value="ambos" [(ngModel)]="pieDominanteFilter"
-            name="pieDominante" class="radio checked:bg-primary" />
-        </label>
-      </div>
-    </div>
-    <button (click)="filtrarJugadores()" class="btn btn-primary"
-      [style.background-color]="'#C84343'">Aplicar
-      filtros</button>
-    <button (click)="limpiarFiltros()" class="btn btn-secondary ml-2"
-      [style.background-color]="'#142740'">Limpiar
-      filtros</button>
-    <ng-template #noResults>
-      <div class="text-red-500">No se encontraron resultados.</div>
-    </ng-template>
-  </aside>
-
-  <div class="w-2/3 p-4">
-    <div class="grid grid-cols-3 gap-4">
       <div
-        *ngFor="let player of filteredPlayers | paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
-        <div class="card glass mb-10 h-96">
-          <figure><img src="{{player.photo}}" alt="{{player.name}}"
-              class="w-full h-48 object-cover" /></figure>
-          <div class="card-body">
-            <h2 class="card-title">{{player.name}}</h2>
-            <p>{{player.actualTeam}}</p>
-            <p>{{player.nationality}}</p>
-            <div class="card-actions justify-end">
-              <a [routerLink]="['/player', player.id]" class="btn btn-primary">Detalles</a>
-              <button (click)="eliminarJugador(player.id)" class="btn btn-danger ml-2">Eliminar</button>
+        class="absolute bg-gray-50 -bottom-24 w-full md:w-200 h-198 p-3 flex flex-col gap-1 group-hover:-bottom-0 group-hover:duration-600 duration-500">
+        <!-- Aquí van los filtros -->
+        <label class="label text-lg sm:text-xl font-bold text-black -mb-0.5">Nacionalidad</label>
+        <select [(ngModel)]="nacionalidadFiltro" class="select select-bordered w-full text-black">
+          <option value="">Seleccione una nacionalidad:</option>
+          <option *ngFor="let nacionalidad of nacionalidadesUnicas" [value]="nacionalidad">{{ nacionalidad }}</option>
+        </select>
+    
+        <label class="label text-lg sm:text-xl font-bold text-black -mb-0.5">Rango de Edad</label>
+        <div class="flex flex-wrap">
+          <div *ngFor="let rango of rangosEdad" class="form-control mr-2 mb-2">
+            <label class="label cursor-pointer">
+              <span class="label-text text-black ">{{ rango }}</span>
+              <input type="radio" [value]="rango" [(ngModel)]="edadFiltro" name="edadFiltro"
+                class="radio checked:bg-primary" />
+            </label>
+          </div>
+        </div>
+        <label class="label text-lg sm:text-xl font-bold text-black -mb-0.5">Rango de Estatura</label>
+        <div class="flex flex-wrap ">
+          <div *ngFor="let rango of rangosEstatura" class="form-control mr-2 mb-2 ">
+            <label class="label cursor-pointer">
+              <span class="label-text text-black ">{{ rango }}</span>
+              <input type="radio" [value]="rango" [(ngModel)]="estaturaFiltro" name="estaturaFiltro"
+                class="radio checked:bg-primary" />
+            </label>
+          </div>
+        </div>
+        <label class="label text-lg sm:text-xl font-bold text-black -mb-0.5">Pie Dominante</label>
+        <div class="flex">
+          <div class="form-control mr-2">
+            <label class="label cursor-pointer">
+              <span class="label-text text-black ">Derecho</span>
+              <input type="radio" value="derecho" [(ngModel)]="pieDominanteFilter" name="pieDominante"
+                class="radio checked:bg-primary" />
+            </label>
+          </div>
+          <div class="form-control mr-2">
+            <label class="label cursor-pointer">
+              <span class="label-text text-black ">Izquierdo</span>
+              <input type="radio" value="izquierdo" [(ngModel)]="pieDominanteFilter" name="pieDominante"
+                class="radio checked:bg-primary" />
+            </label>
+          </div>
+          <div class="form-control mr-2">
+            <label class="label cursor-pointer">
+              <span class="label-text text-black ">Ambos</span>
+              <input type="radio" value="ambos" [(ngModel)]="pieDominanteFilter" name="pieDominante"
+                class="radio checked:bg-primary" />
+            </label>
+          </div>
+        </div>
+    
+        <button (click)="limpiarFiltros()" class="btn btn-secondary">Limpiar filtros</button>
+        <button (click)="filtrarJugadores()" class="btn btn-primary">Aplicar filtros</button>
+        <ng-template #noResults>
+          <div class="text-red-500">No se encontraron resultados.</div>
+        </ng-template>
+      </div>
+    </div>
+
+
+    <!-- <aside>
+      <button (click)="filtrarJugadores()" class="btn btn-primary" [style.background-color]="'#C84343'">Aplicar
+        filtros</button>
+      <button (click)="limpiarFiltros()" class="btn btn-secondary ml-2" [style.background-color]="'#142740'">Limpiar
+        filtros</button>
+      <ng-template #noResults>
+        <div class="text-red-500">No se encontraron resultados.</div>
+      </ng-template>
+    </aside> -->
+
+  </div>
+  <!-- <label class="label text-lg sm:text-xl font-bold">Nacionalidad</label>
+      <select [(ngModel)]="nacionalidadFiltro" class="select select-bordered w-full">
+        <option value>Seleccione una nacionalidad:</option>
+        <option [ngValue]="nacionalidadesUnicas[0]">{{ nacionalidadesUnicas[0] }}</option>
+        <option *ngFor="let nacionalidad of nacionalidadesUnicas.slice(1)" [value]="nacionalidad">{{ nacionalidad }}
+        </option>
+      </select> -->
+  <!-- <label class="label">Rango de Edad</label>
+      <div class="flex flex-wrap">
+        <div *ngFor="let rango of rangosEdad" class="form-control mr-2 mb-2">
+          <label class="label cursor-pointer">
+            <span class="label-text">{{ rango }}</span>
+            <input type="radio" [value]="rango" [(ngModel)]="edadFiltro" name="edadFiltro"
+              class="radio checked:bg-primary" />
+          </label>
+        </div>
+      </div> -->
+  <!-- <label class="label">Rango de Peso</label>
+      <div class="flex flex-wrap">
+        <div *ngFor="let rango of rangosPeso" class="form-control mr-2 mb-2">
+          <label class="label cursor-pointer">
+            <span class="label-text">{{ rango }}</span>
+            <input type="radio" [value]="rango" [(ngModel)]="pesoFiltro" name="pesoFiltro"
+              class="radio checked:bg-primary" />
+          </label>
+        </div>
+      </div>
+      <label class="label">Rango de Estatura</label>
+      <div class="flex flex-wrap">
+        <div *ngFor="let rango of rangosEstatura" class="form-control mr-2 mb-2">
+          <label class="label cursor-pointer">
+            <span class="label-text">{{ rango }}</span>
+            <input type="radio" [value]="rango" [(ngModel)]="estaturaFiltro" name="estaturaFiltro"
+              class="radio checked:bg-primary" />
+          </label>
+        </div>
+      </div>
+      <label class="label">Pie Dominante</label>
+      <div class="flex">
+        <div class="form-control mr-2">
+          <label class="label cursor-pointer">
+            <span class="label-text">Derecho</span>
+            <input type="radio" value="derecho" [(ngModel)]="pieDominanteFilter" name="pieDominante"
+              class="radio checked:bg-primary" />
+          </label>
+        </div>
+        <div class="form-control mr-2">
+          <label class="label cursor-pointer">
+            <span class="label-text">Izquierdo</span>
+            <input type="radio" value="izquierdo" [(ngModel)]="pieDominanteFilter" name="pieDominante"
+              class="radio checked:bg-primary" />
+          </label>
+        </div>
+        <div class="form-control mr-2">
+          <label class="label cursor-pointer">
+            <span class="label-text">Ambos</span>
+            <input type="radio" value="ambos" [(ngModel)]="pieDominanteFilter" name="pieDominante"
+              class="radio checked:bg-primary" />
+          </label>
+        </div>
+      </div> -->
+
+
+  <div class="w-full md:w-2/3 p-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div *ngFor="let player of filteredPlayers | paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
+        <div class="card-background bg-white rounded-lg shadow-lg mb-4 h-auto sm:h-90">
+          <figure>
+            <img [src]="player.photo" alt="{{player.name}}" class="w-full h-36 sm:h-48 object-cover rounded-t-lg" />
+          </figure>
+          <div class="p-4 flex flex-col justify-center">
+            <h2 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">{{player.name}}</h2>
+            <p class="text-sm sm:text-md text-white mb-2 text-center">{{player.actualTeam}}</p>
+            <p class="text-xs sm:text-sm text-white mb-2 text-center">{{player.nationality}}</p>
+            <div class="flex justify-center mt-auto">
+              <a [routerLink]="['/player', player.id]"
+                class="btn btn-primary text-white bg-red-600 hover:bg-red-150 focus:outline-none focus:ring-4 focus:ring-gray-500 font-medium rounded-full text-xs sm:text-xs px-3 py-1.5 sm:px-3 sm:py-1.5 text-center me-2 mb-2 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Detalles</a>
+              <button (click)="eliminarJugador(player.id)"
+                class="btn btn-danger ml-2 text-white bg-transparent hover:bg-red-150 focus:outline-none focus:ring-4 focus:ring-gray-500 font-medium rounded-full text-xs sm:text-xs px-3 py-1.5 sm:px-4 sm:py-1.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Eliminar</button>
             </div>
           </div>
         </div>
@@ -106,17 +199,15 @@
     </div>
 
     <ng-template #showResults>
-      <div class="grid grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         <!-- Resto del código para mostrar los jugadores -->
       </div>
     </ng-template>
-    <pagination-controls
-      (pageChange)="currentPage = $event"
-      previousLabel="Anterior"
-      nextLabel="Siguiente"
+    <pagination-controls (pageChange)="currentPage = $event" previousLabel="Anterior" nextLabel="Siguiente"
       class="mt-4 mb-12"></pagination-controls>
   </div>
 </main>
+
 <div>
   <app-footer></app-footer>
 </div>
