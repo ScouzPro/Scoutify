@@ -18,6 +18,8 @@ export class AuthComponent {
         'userName': new FormControl('', [Validators.required]),
         'password': new FormControl('', [Validators.required])
     });
+username: any;
+password: any;
 
     constructor(private router: Router, private userService: UsersService) {}
 
@@ -33,7 +35,22 @@ export class AuthComponent {
         this.router.navigate(["/home"])
     }
 
-  
+    // Custom function to check all fields have a value, correct or not
+    areAllFieldsFilled(): boolean {
+        const formValues = this.formUser.value as { [key: string]: string | null };
+        for (const key in formValues) {
+            if (formValues.hasOwnProperty(key)) {
+                const value: string | null = formValues[key]; 
+                if (!value) {
+                    return false; 
+                }
+            }
+        }
+        return true; 
+    }
+showTermsError = false; 
+
+
     onSubmit() {
         if (this.formUser.valid) {
           const credentials = {
