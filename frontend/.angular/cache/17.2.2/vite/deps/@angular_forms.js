@@ -1,6 +1,10 @@
 import {
   getDOM
+<<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/@angular_forms.js
 } from "./chunk-QODWSEAU.js";
+=======
+} from "./chunk-TI6YBJNW.js";
+>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/@angular_forms.js
 import {
   ChangeDetectorRef,
   Directive,
@@ -42,7 +46,11 @@ import {
   ɵɵdirectiveInject,
   ɵɵgetInheritedFactory,
   ɵɵlistener
+<<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/@angular_forms.js
 } from "./chunk-K6PN74MK.js";
+=======
+} from "./chunk-IFULXOSD.js";
+>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/@angular_forms.js
 import {
   __spreadProps,
   __spreadValues
@@ -6236,7 +6244,7 @@ var UntypedFormBuilder = _UntypedFormBuilder;
     }]
   }], null, null);
 })();
-var VERSION = new Version("17.2.4");
+var VERSION = new Version("17.2.3");
 var _FormsModule = class _FormsModule {
   /**
    * @description
@@ -6384,7 +6392,7 @@ export {
 
 @angular/forms/fesm2022/forms.mjs:
   (**
-   * @license Angular v17.2.4
+   * @license Angular v17.2.3
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)

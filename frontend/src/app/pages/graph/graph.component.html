@@ -1,19 +1,32 @@
 <div>
     <app-navbar/>
 </div>
-<br>
-<div class="container">
-    <div class="graph">
-        <div class="flex justify-center">
-            <h1 class="text-center">Habilidades Principales</h1>
+
+<section id="full-container">
+
+    <section class="w-full h-full bg-[#F2D16D] mb-3 p-3 opacity-90 rounded-xl flex flex-col items-center justify-center ">
+            <h2>Escoge y compara las habilidades de tus jugadores para realizar tus informes con todo detalle y poder escoger la mejor alineación</h2>
+        <div class="mt-1 text-center">
+            <h3>Como usar la gráfica:</h3>
+            <p>Haz click en el rectangulo frente al nombre del jugador/a.<br>
+                Seleccióna dos o más jugadores/as en cada tabla para observar como se comparan sus métricas en los diferentes tipos de habilidades.</p>
         </div>
-        <br>
-        <canvas id="myChart">{{ chart }}</canvas>
-    </div>
-    <app-graph-tactical />
-    <app-graph-phisical />
-</div>
-<br>
+    </section>
+
+    <section class=" pb-20 pt-5 flex align-center items-center justify-center opacity-90 rounded-xl overflow-hidden bg-[#F2F2F2]">
+        <div class="bg-[#fefefe] rounded-xl px-2 py-1 mx-3">
+            <app-graph-principal />
+        </div>
+        <div class="bg-[#fefefe] rounded-xl px-2 py-1 mx-3" >
+            <app-graph-tactical />
+        </div>
+        <div class="bg-[#fefefe] rounded-xl px-2 py-1 mx-3">
+            <app-graph-phisical />
+        </div>
+    </section>
+
+</section>
+
 <div>
     <app-footer/>
 </div>

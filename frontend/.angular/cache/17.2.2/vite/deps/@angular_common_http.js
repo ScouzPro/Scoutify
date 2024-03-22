@@ -36,9 +36,15 @@ import {
   withNoXsrfProtection,
   withRequestsMadeViaParent,
   withXsrfConfiguration
+<<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/@angular_common_http.js
 } from "./chunk-KQAXTARW.js";
 import "./chunk-QODWSEAU.js";
 import "./chunk-K6PN74MK.js";
+=======
+} from "./chunk-FHHGF4XE.js";
+import "./chunk-TI6YBJNW.js";
+import "./chunk-IFULXOSD.js";
+>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/@angular_common_http.js
 import "./chunk-GLLL6ZVE.js";
 export {
   FetchBackend,

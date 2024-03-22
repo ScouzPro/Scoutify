@@ -98,10 +98,17 @@ import {
   provideNetlifyLoader,
   registerLocaleData,
   setRootDomAdapter
+<<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/@angular_common.js
 } from "./chunk-QODWSEAU.js";
 import {
   IMAGE_CONFIG
 } from "./chunk-K6PN74MK.js";
+=======
+} from "./chunk-TI6YBJNW.js";
+import {
+  IMAGE_CONFIG
+} from "./chunk-IFULXOSD.js";
+>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/@angular_common.js
 import "./chunk-GLLL6ZVE.js";
 export {
   APP_BASE_HREF,
