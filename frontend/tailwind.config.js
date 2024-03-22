@@ -16,4 +16,3 @@ module.exports = {
     'gradient-yellow': 'linear-gradient(to bottom right, white, #F2D16D)', // Define el gradiente personalizado
   },
 }
-

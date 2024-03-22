@@ -3532,6 +3532,7 @@ function assertOneOf(value, ...validValues) {
   if (validValues.indexOf(value) !== -1)
     return true;
   throwError2(`Expected value to be one of ${JSON.stringify(validValues)} but was ${JSON.stringify(value)}.`);
+<<<<<<< HEAD
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-K6PN74MK.js
 }
 function assertNotReactive(fn) {
@@ -3540,6 +3541,8 @@ function assertNotReactive(fn) {
   }
 ========
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-IFULXOSD.js
+=======
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 }
 var ChangeDetectionStrategy;
 (function(ChangeDetectionStrategy2) {
@@ -10087,6 +10090,7 @@ function renderChildComponents(hostLView, components) {
   }
 }
 function createAndRenderEmbeddedLView(declarationLView, templateTNode, context2, options) {
+<<<<<<< HEAD
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-K6PN74MK.js
   const prevConsumer = setActiveConsumer(null);
   try {
@@ -10108,6 +10112,8 @@ function createAndRenderEmbeddedLView(declarationLView, templateTNode, context2,
   } finally {
     setActiveConsumer(prevConsumer);
 ========
+=======
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
   const embeddedTView = templateTNode.tView;
   ngDevMode && assertDefined(embeddedTView, "TView must be defined for a template node.");
   ngDevMode && assertTNodeForLView(templateTNode, declarationLView);
@@ -10120,7 +10126,10 @@ function createAndRenderEmbeddedLView(declarationLView, templateTNode, context2,
   const declarationViewLQueries = declarationLView[QUERIES];
   if (declarationViewLQueries !== null) {
     embeddedLView[QUERIES] = declarationViewLQueries.createEmbeddedView(embeddedTView);
+<<<<<<< HEAD
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-IFULXOSD.js
+=======
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
   }
   renderView(embeddedTView, embeddedLView, context2);
   return embeddedLView;
@@ -12454,6 +12463,7 @@ function assertNotInReactiveContext(debugFn, extraContext) {
     throw new RuntimeError(-602, ngDevMode && `${debugFn.name}() cannot be called from within a reactive context.${extraContext ? ` ${extraContext}` : ""}`);
   }
 }
+<<<<<<< HEAD
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-K6PN74MK.js
 var markedFeatures = /* @__PURE__ */ new Set();
 function performanceMarkFeature(feature) {
@@ -12463,6 +12473,8 @@ function performanceMarkFeature(feature) {
   markedFeatures.add(feature);
   performance?.mark?.("mark_feature_usage", { detail: { feature } });
 ========
+=======
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 var APP_EFFECT_SCHEDULER = new InjectionToken("", {
   providedIn: "root",
   factory: () => inject(EffectScheduler)
@@ -12567,7 +12579,10 @@ function effect(effectFn, options) {
     (cdr._lView[EFFECTS_TO_SCHEDULE] ??= []).push(handle.watcher.notify);
   }
   return handle;
+<<<<<<< HEAD
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-IFULXOSD.js
+=======
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 }
 function noop2(...args) {
 }
@@ -13365,6 +13380,7 @@ var ComponentFactory = class extends ComponentFactory$1 {
     this.isBoundToModule = !!ngModule;
   }
   create(injector, projectableNodes, rootSelectorOrNode, environmentInjector) {
+<<<<<<< HEAD
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-K6PN74MK.js
     const prevConsumer = setActiveConsumer(null);
     try {
@@ -13448,11 +13464,16 @@ var ComponentFactory = class extends ComponentFactory$1 {
     } finally {
       setActiveConsumer(prevConsumer);
 ========
+=======
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
     if (ngDevMode && (typeof ngJitMode === "undefined" || ngJitMode) && this.componentDef.debugInfo?.forbidOrphanRendering) {
       if (depsTracker.isOrphanComponent(this.componentType)) {
         throw new RuntimeError(1001, `Orphan component found! Trying to render the component ${debugStringifyTypeForError(this.componentType)} without first loading the NgModule that declares it. It is recommended to make this component standalone in order to avoid this error. If this is not possible now, import the component's NgModule in the appropriate NgModule, or the standalone component in which you are trying to render this component. If this is a lazy import, load the NgModule lazily as well and use its module injector.`);
       }
+<<<<<<< HEAD
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-IFULXOSD.js
+=======
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
     }
     environmentInjector = environmentInjector || this.ngModule;
     let realEnvironmentInjector = environmentInjector instanceof EnvironmentInjector ? environmentInjector : environmentInjector?.injector;
@@ -14256,6 +14277,7 @@ function getQueryResults(lView, queryIndex) {
   const tQuery = getTQuery(tView, queryIndex);
   return tQuery.crossesNgTemplate ? collectQueryResults(tView, lView, queryIndex, []) : materializeViewResults(tView, lView, tQuery, queryIndex);
 }
+<<<<<<< HEAD
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-K6PN74MK.js
 function isSignal(value) {
   return typeof value === "function" && value[SIGNAL] !== void 0;
@@ -14293,6 +14315,8 @@ function isWritableSignal(value) {
 }
 ========
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-IFULXOSD.js
+=======
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 function createQuerySignalFn(firstOnly, required) {
   let node;
   const signalFn = createComputed(() => {
@@ -22594,6 +22618,7 @@ function getNgModuleById(id) {
 }
 function noModuleError(id) {
   return new Error(`No module with ID ${id} loaded`);
+<<<<<<< HEAD
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-K6PN74MK.js
 }
 var _ChangeDetectorRef = class _ChangeDetectorRef {
@@ -22619,6 +22644,8 @@ function createViewRef(tNode, lView, isPipe2) {
   return null;
 ========
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-IFULXOSD.js
+=======
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 }
 var ViewRef = class extends ChangeDetectorRef {
 };
@@ -23032,6 +23059,7 @@ function getDebugNode(nativeNode) {
   }
   return null;
 }
+<<<<<<< HEAD
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-K6PN74MK.js
 var DefaultIterableDifferFactory = class {
   constructor() {
@@ -23927,6 +23955,8 @@ var defaultIterableDiffers = new IterableDiffers(iterableDiff);
 var defaultKeyValueDiffers = new KeyValueDiffers(keyValDiff);
 ========
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-IFULXOSD.js
+=======
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 var platformCore = createPlatformFactory(null, "core", []);
 var _ApplicationModule = class _ApplicationModule {
   // Inject ApplicationRef to make it eager...
@@ -24806,6 +24836,7 @@ function ɵɵngDeclareNgModule(decl) {
 function ɵɵngDeclarePipe(decl) {
   const compiler = getCompilerFacade({ usage: 1, kind: "pipe", type: decl.type });
   return compiler.compilePipeDeclaration(angularCoreEnv, `ng:///${decl.type.name}/ɵpipe.js`, decl);
+<<<<<<< HEAD
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-K6PN74MK.js
 }
 function computed(computation, options) {
@@ -24938,6 +24969,8 @@ function effect(effectFn, options) {
   return handle;
 ========
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-IFULXOSD.js
+=======
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 }
 function createComponent(component, options) {
   ngDevMode && assertComponentDef(component);
@@ -25504,8 +25537,12 @@ export {
    * found in the LICENSE file at https://angular.io/license
    *)
 */
+<<<<<<< HEAD
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-K6PN74MK.js
 //# sourceMappingURL=chunk-K6PN74MK.js.map
 ========
 //# sourceMappingURL=chunk-IFULXOSD.js.map
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-IFULXOSD.js
+=======
+//# sourceMappingURL=chunk-IFULXOSD.js.map
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3

@@ -1,10 +1,14 @@
 import {
   withHttpTransferCache
+<<<<<<< HEAD
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-SYGTHEYQ.js
 } from "./chunk-KQAXTARW.js";
 ========
 } from "./chunk-FHHGF4XE.js";
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-LAYYVIQG.js
+=======
+} from "./chunk-FHHGF4XE.js";
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 import {
   CommonModule,
   DOCUMENT,
@@ -15,11 +19,15 @@ import {
   isPlatformServer,
   parseCookieValue,
   setRootDomAdapter
+<<<<<<< HEAD
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-SYGTHEYQ.js
 } from "./chunk-QODWSEAU.js";
 ========
 } from "./chunk-TI6YBJNW.js";
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-LAYYVIQG.js
+=======
+} from "./chunk-TI6YBJNW.js";
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 import {
   APP_ID,
   ApplicationModule,
@@ -75,11 +83,15 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
+<<<<<<< HEAD
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-SYGTHEYQ.js
 } from "./chunk-K6PN74MK.js";
 ========
 } from "./chunk-IFULXOSD.js";
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-LAYYVIQG.js
+=======
+} from "./chunk-IFULXOSD.js";
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 import {
   __spreadProps,
   __spreadValues
@@ -1906,8 +1918,12 @@ export {
    * License: MIT
    *)
 */
+<<<<<<< HEAD
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-SYGTHEYQ.js
 //# sourceMappingURL=chunk-SYGTHEYQ.js.map
 ========
 //# sourceMappingURL=chunk-LAYYVIQG.js.map
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-LAYYVIQG.js
+=======
+//# sourceMappingURL=chunk-LAYYVIQG.js.map
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3

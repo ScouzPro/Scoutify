@@ -35,13 +35,25 @@ import {
   provideProtractorTestingSupport,
   withHttpTransferCacheOptions,
   withNoHttpTransferCache
+<<<<<<< HEAD
 <<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/@angular_platform-browser.js
+=======
+<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_platform-browser.js
+} from "./chunk-LAYYVIQG.js";
+import "./chunk-FHHGF4XE.js";
+import {
+  getDOM
+} from "./chunk-TI6YBJNW.js";
+import "./chunk-IFULXOSD.js";
+=======
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 } from "./chunk-SYGTHEYQ.js";
 import "./chunk-KQAXTARW.js";
 import {
   getDOM
 } from "./chunk-QODWSEAU.js";
 import "./chunk-K6PN74MK.js";
+<<<<<<< HEAD
 =======
 } from "./chunk-LAYYVIQG.js";
 import "./chunk-FHHGF4XE.js";
@@ -50,6 +62,9 @@ import {
 } from "./chunk-TI6YBJNW.js";
 import "./chunk-IFULXOSD.js";
 >>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/@angular_platform-browser.js
+=======
+>>>>>>> 840312c57c952ca96040c2624d4383b00ac76814:frontend/.angular/cache/17.2.3/vite/deps/@angular_platform-browser.js
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 import "./chunk-GLLL6ZVE.js";
 export {
   BrowserModule,

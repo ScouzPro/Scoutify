@@ -1,5 +1,6 @@
 import {
   Title
+<<<<<<< HEAD
 <<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/@angular_router.js
 } from "./chunk-SYGTHEYQ.js";
 import "./chunk-KQAXTARW.js";
@@ -7,6 +8,15 @@ import "./chunk-KQAXTARW.js";
 } from "./chunk-LAYYVIQG.js";
 import "./chunk-FHHGF4XE.js";
 >>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/@angular_router.js
+=======
+<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_router.js
+} from "./chunk-LAYYVIQG.js";
+import "./chunk-FHHGF4XE.js";
+=======
+} from "./chunk-SYGTHEYQ.js";
+import "./chunk-KQAXTARW.js";
+>>>>>>> 840312c57c952ca96040c2624d4383b00ac76814:frontend/.angular/cache/17.2.3/vite/deps/@angular_router.js
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 import {
   DOCUMENT,
   HashLocationStrategy,
@@ -15,11 +25,19 @@ import {
   LocationStrategy,
   PathLocationStrategy,
   ViewportScroller
+<<<<<<< HEAD
 <<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/@angular_router.js
 } from "./chunk-QODWSEAU.js";
 =======
 } from "./chunk-TI6YBJNW.js";
 >>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/@angular_router.js
+=======
+<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_router.js
+} from "./chunk-TI6YBJNW.js";
+=======
+} from "./chunk-QODWSEAU.js";
+>>>>>>> 840312c57c952ca96040c2624d4383b00ac76814:frontend/.angular/cache/17.2.3/vite/deps/@angular_router.js
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 import {
   APP_BOOTSTRAP_LISTENER,
   APP_INITIALIZER,
@@ -120,11 +138,19 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵsanitizeUrlOrResourceUrl
+<<<<<<< HEAD
 <<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/@angular_router.js
 } from "./chunk-K6PN74MK.js";
 =======
 } from "./chunk-IFULXOSD.js";
 >>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/@angular_router.js
+=======
+<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_router.js
+} from "./chunk-IFULXOSD.js";
+=======
+} from "./chunk-K6PN74MK.js";
+>>>>>>> 840312c57c952ca96040c2624d4383b00ac76814:frontend/.angular/cache/17.2.3/vite/deps/@angular_router.js
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 import {
   __spreadProps,
   __spreadValues

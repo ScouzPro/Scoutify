@@ -1,10 +1,14 @@
 import {
   withHttpTransferCache
+<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-SYGTHEYQ.js
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-SYGTHEYQ.js
 } from "./chunk-KQAXTARW.js";
 ========
 } from "./chunk-FHHGF4XE.js";
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-LAYYVIQG.js
+=======
+} from "./chunk-KQAXTARW.js";
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3:frontend/.angular/cache/17.2.3/vite/deps/chunk-SYGTHEYQ.js
 import {
   CommonModule,
   DOCUMENT,
@@ -15,11 +19,15 @@ import {
   isPlatformServer,
   parseCookieValue,
   setRootDomAdapter
+<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-SYGTHEYQ.js
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-SYGTHEYQ.js
 } from "./chunk-QODWSEAU.js";
 ========
 } from "./chunk-TI6YBJNW.js";
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-LAYYVIQG.js
+=======
+} from "./chunk-QODWSEAU.js";
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3:frontend/.angular/cache/17.2.3/vite/deps/chunk-SYGTHEYQ.js
 import {
   APP_ID,
   ApplicationModule,
@@ -75,11 +83,15 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
+<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-SYGTHEYQ.js
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-SYGTHEYQ.js
 } from "./chunk-K6PN74MK.js";
 ========
 } from "./chunk-IFULXOSD.js";
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-LAYYVIQG.js
+=======
+} from "./chunk-K6PN74MK.js";
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3:frontend/.angular/cache/17.2.3/vite/deps/chunk-SYGTHEYQ.js
 import {
   __spreadProps,
   __spreadValues
@@ -1855,7 +1867,7 @@ function provideClientHydration(...features) {
   }
   return makeEnvironmentProviders([typeof ngDevMode !== "undefined" && ngDevMode ? provideZoneJsCompatibilityDetector() : [], withDomHydration(), featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) || hasHttpTransferCacheOptions ? [] : withHttpTransferCache({}), providers]);
 }
-var VERSION = new Version("17.2.3");
+var VERSION = new Version("17.2.4");
 var makeStateKey2 = makeStateKey;
 var TransferState2 = TransferState;
 
@@ -1901,13 +1913,17 @@ export {
 
 @angular/platform-browser/fesm2022/platform-browser.mjs:
   (**
-   * @license Angular v17.2.3
+   * @license Angular v17.2.4
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
 */
+<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-SYGTHEYQ.js
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-SYGTHEYQ.js
 //# sourceMappingURL=chunk-SYGTHEYQ.js.map
 ========
 //# sourceMappingURL=chunk-LAYYVIQG.js.map
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-LAYYVIQG.js
+=======
+//# sourceMappingURL=chunk-SYGTHEYQ.js.map
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3:frontend/.angular/cache/17.2.3/vite/deps/chunk-SYGTHEYQ.js

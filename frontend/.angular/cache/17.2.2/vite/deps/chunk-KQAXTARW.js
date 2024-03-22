@@ -3,11 +3,15 @@ import {
   XhrFactory,
   isPlatformServer,
   parseCookieValue
+<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-KQAXTARW.js
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-KQAXTARW.js
 } from "./chunk-QODWSEAU.js";
 ========
 } from "./chunk-TI6YBJNW.js";
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-FHHGF4XE.js
+=======
+} from "./chunk-QODWSEAU.js";
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3:frontend/.angular/cache/17.2.3/vite/deps/chunk-KQAXTARW.js
 import {
   APP_BOOTSTRAP_LISTENER,
   ApplicationRef,
@@ -44,11 +48,15 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
+<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-KQAXTARW.js
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-KQAXTARW.js
 } from "./chunk-K6PN74MK.js";
 ========
 } from "./chunk-IFULXOSD.js";
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-FHHGF4XE.js
+=======
+} from "./chunk-K6PN74MK.js";
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3:frontend/.angular/cache/17.2.3/vite/deps/chunk-KQAXTARW.js
 import {
   __async,
   __objRest,
@@ -2287,13 +2295,17 @@ export {
 
 @angular/common/fesm2022/http.mjs:
   (**
-   * @license Angular v17.2.3
+   * @license Angular v17.2.4
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
 */
+<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-KQAXTARW.js
 <<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/chunk-KQAXTARW.js
 //# sourceMappingURL=chunk-KQAXTARW.js.map
 ========
 //# sourceMappingURL=chunk-FHHGF4XE.js.map
 >>>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/chunk-FHHGF4XE.js
+=======
+//# sourceMappingURL=chunk-KQAXTARW.js.map
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3:frontend/.angular/cache/17.2.3/vite/deps/chunk-KQAXTARW.js

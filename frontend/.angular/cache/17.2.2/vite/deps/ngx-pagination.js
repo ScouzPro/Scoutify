@@ -3,11 +3,19 @@ import {
   DecimalPipe,
   NgForOf,
   NgIf
+<<<<<<< HEAD
 <<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/ngx-pagination.js
 } from "./chunk-QODWSEAU.js";
 =======
 } from "./chunk-TI6YBJNW.js";
 >>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/ngx-pagination.js
+=======
+<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/ngx-pagination.js
+} from "./chunk-TI6YBJNW.js";
+=======
+} from "./chunk-QODWSEAU.js";
+>>>>>>> 840312c57c952ca96040c2624d4383b00ac76814:frontend/.angular/cache/17.2.3/vite/deps/ngx-pagination.js
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -48,11 +56,19 @@ import {
   ɵɵtextInterpolate,
   ɵɵtextInterpolate1,
   ɵɵtextInterpolate2
+<<<<<<< HEAD
 <<<<<<< HEAD:frontend/.angular/cache/17.2.3/vite/deps/ngx-pagination.js
 } from "./chunk-K6PN74MK.js";
 =======
 } from "./chunk-IFULXOSD.js";
 >>>>>>> develop:frontend/.angular/cache/17.2.2/vite/deps/ngx-pagination.js
+=======
+<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/ngx-pagination.js
+} from "./chunk-IFULXOSD.js";
+=======
+} from "./chunk-K6PN74MK.js";
+>>>>>>> 840312c57c952ca96040c2624d4383b00ac76814:frontend/.angular/cache/17.2.3/vite/deps/ngx-pagination.js
+>>>>>>> 864b381168bdfc8da3cc49c2e2239e6b6970b6e3
 import "./chunk-GLLL6ZVE.js";
 
 // node_modules/ngx-pagination/fesm2020/ngx-pagination.mjs
