@@ -5,10 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon backend/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node backend/index.js",
-    "build": "npm install --prefix frontend && npm run build --prefix frontend"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",

@@ -7,10 +7,9 @@ import reportRoutes from "./routes/reportRoutes.js";
 import playerMetricsRouter from './routes/metricRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import seasonRoutes from './routes/seasonRoutes.js'
-import path from 'path';
+
 dotenv.config();
 
-const _dirname = path.resolve();
 const app = express();
 app.use(express.json());
 
@@ -21,13 +20,6 @@ app.use('/api', reportRoutes);
 app.use("/player", playerRouter)
 app.use("/season", seasonRoutes)
 app.use("/auth", authRoutes);
-
-app.use(express.static(path.join(_dirname, '/frontend/dist')));
-app.get('*', (req, res) => {
-
-res.sendFile(path.join(__dirname, 'frontend','dist','index.html'));
-})
-
 
 //PUERTO Y DB
 db();
