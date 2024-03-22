@@ -1,12 +1,7 @@
 import {
   Title
-<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_router.js
-} from "./chunk-LAYYVIQG.js";
-import "./chunk-FHHGF4XE.js";
-=======
 } from "./chunk-SYGTHEYQ.js";
 import "./chunk-KQAXTARW.js";
->>>>>>> 840312c57c952ca96040c2624d4383b00ac76814:frontend/.angular/cache/17.2.3/vite/deps/@angular_router.js
 import {
   DOCUMENT,
   HashLocationStrategy,
@@ -15,11 +10,7 @@ import {
   LocationStrategy,
   PathLocationStrategy,
   ViewportScroller
-<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_router.js
-} from "./chunk-TI6YBJNW.js";
-=======
 } from "./chunk-QODWSEAU.js";
->>>>>>> 840312c57c952ca96040c2624d4383b00ac76814:frontend/.angular/cache/17.2.3/vite/deps/@angular_router.js
 import {
   APP_BOOTSTRAP_LISTENER,
   APP_INITIALIZER,
@@ -120,11 +111,7 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵsanitizeUrlOrResourceUrl
-<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_router.js
-} from "./chunk-IFULXOSD.js";
-=======
 } from "./chunk-K6PN74MK.js";
->>>>>>> 840312c57c952ca96040c2624d4383b00ac76814:frontend/.angular/cache/17.2.3/vite/deps/@angular_router.js
 import {
   __spreadProps,
   __spreadValues
@@ -5511,7 +5498,7 @@ function mapToCanDeactivate(providers) {
 function mapToResolve(provider) {
   return (...params) => inject(provider).resolve(...params);
 }
-var VERSION = new Version("17.2.3");
+var VERSION = new Version("17.2.4");
 export {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -5594,7 +5581,7 @@ export {
 
 @angular/router/fesm2022/router.mjs:
   (**
-   * @license Angular v17.2.3
+   * @license Angular v17.2.4
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
