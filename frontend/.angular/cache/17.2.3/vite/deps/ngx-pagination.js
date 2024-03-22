@@ -3,11 +3,7 @@ import {
   DecimalPipe,
   NgForOf,
   NgIf
-<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/ngx-pagination.js
-} from "./chunk-TI6YBJNW.js";
-=======
 } from "./chunk-QODWSEAU.js";
->>>>>>> 840312c57c952ca96040c2624d4383b00ac76814:frontend/.angular/cache/17.2.3/vite/deps/ngx-pagination.js
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -48,11 +44,7 @@ import {
   ɵɵtextInterpolate,
   ɵɵtextInterpolate1,
   ɵɵtextInterpolate2
-<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/ngx-pagination.js
-} from "./chunk-IFULXOSD.js";
-=======
 } from "./chunk-K6PN74MK.js";
->>>>>>> 840312c57c952ca96040c2624d4383b00ac76814:frontend/.angular/cache/17.2.3/vite/deps/ngx-pagination.js
 import "./chunk-GLLL6ZVE.js";
 
 // node_modules/ngx-pagination/fesm2020/ngx-pagination.mjs
