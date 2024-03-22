@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "start": "node frontend/index.js"
+    "build": "nodemon backend/index.js",
+    "start": "node backend/index.js"
   },
   "keywords": [],
   "author": "",
