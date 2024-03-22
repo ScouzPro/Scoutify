@@ -7,7 +7,6 @@ import reportRoutes from "./routes/reportRoutes.js";
 import playerMetricsRouter from './routes/metricRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import seasonRoutes from './routes/seasonRoutes.js'
-import { Path } from "mongoose";
 
 dotenv.config();
 
@@ -18,11 +17,6 @@ dotenv.config();
 // })
 
 // const __dirname = path.resolve();
-
-const app = express();
-app.use(express.json());
-
-const _dirname = path.resolve()
 
 //RUTAS DE USO
 app.use(cors());
