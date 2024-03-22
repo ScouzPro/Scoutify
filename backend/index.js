@@ -7,17 +7,17 @@ import reportRoutes from "./routes/reportRoutes.js";
 import playerMetricsRouter from "./routes/metricRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import seasonRoutes from "./routes/seasonRoutes.js";
-import path from "path";
+// import path from "path";
 
 dotenv.config();
 
-app.use(express.static(path.join(__dirname,'/frontend/dist')));
+// app.use(express.static(path.join(__dirname,'/frontend/dist')));
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
-})
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+// })
 
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 const app = express();
 app.use(express.json());
