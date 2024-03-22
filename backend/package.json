@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node backend/index.js",
-    "build": "npm install && npm run build --prefix frontend && npm run build --prefix frontend"
+    "build": "tsc",
+    "start": "node frontend/index.js"
   },
   "keywords": [],
   "author": "",
