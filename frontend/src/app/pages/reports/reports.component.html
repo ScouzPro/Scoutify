@@ -6,33 +6,34 @@
   <!-- Iteración sobre las tarjetas de informes -->
   <ng-container *ngFor="let player of players">
     <div *ngFor="let metric of getPlayerMetrics(player.id)" class="card1">
-      <div class="PrincipalCard">
-        <img src="{{player.photo}}" alt="{{player.name}}" />
-        <div>       
+      <div class="PrincipalCard" >
+        <img src="{{player.photo}}" alt="{{player.name}}" style="border-radius: 12px;"/>
+        <div class="playerInfo">       
           <p>{{ player.name }}</p>
           <p>{{player.position}}</p>
           <p>{{player.dorsal}}</p>
         </div>
       </div>
-      <h2>Ultimo Partido</h2>
       <div>
-        <label>Resumen del Partido:</label>
-        <p>{{ metric.matchSummary }}</p>
-      </div>
-      <div class="metricClass">
-        <div>
-          <label>Fecha:</label>
-          <p>{{ formatCreatedAt(metric.Created_At) }}</p>
-        </div>
-        <div>
-          <label>Evaluación:</label>
-          <p>{{ metric.averageTotalSkills }}</p>
-        </div>
+        <h2>Ultimo Partido</h2>
+          <div >
+            <label>Resumen del Partido:</label>
+            <p>{{ metric.matchSummary }}</p>
+          </div>
+          <div class="metricClass">
+            <div>
+              <label>Fecha:</label>
+              <p>{{ formatCreatedAt(metric.Created_At) }}</p>
+            </div>
+            <div>
+              <label>Evaluación:</label>
+              <p>{{ metric.averageTotalSkills }}</p>
+            </div>
+          </div>
       </div>
       <!-- Botones de Editar y Eliminar -->
-      <div class="buttonMetrics">
-        <button>Edit</button>
-        <button (click)="openConfirmModal()">Eliminar</button>
+      <div class="buttonMetrics">        
+        <button (click)="openConfirmModal()" class="text-white bg-red-600 hover:bg-gray-500 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-xs px-3 py-1 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Borrar informe</button>
       </div>
       <div>
       <!-- Modal de confirmación -->
@@ -76,7 +77,7 @@
   </ng-container>
 </div>
 
-<div class="footer">
+<div>
   <app-footer></app-footer>
 </div>
 

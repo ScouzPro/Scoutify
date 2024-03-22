@@ -446,7 +446,11 @@ import {
   ɵɵvalidateIframeAttribute,
   ɵɵviewQuery,
   ɵɵviewQuerySignal
+<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_core.js
 } from "./chunk-IFULXOSD.js";
+=======
+} from "./chunk-K6PN74MK.js";
+>>>>>>> 840312c57c952ca96040c2624d4383b00ac76814:frontend/.angular/cache/17.2.3/vite/deps/@angular_core.js
 import "./chunk-GLLL6ZVE.js";
 export {
   ANIMATION_MODULE_TYPE,

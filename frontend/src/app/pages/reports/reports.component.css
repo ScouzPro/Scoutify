@@ -4,16 +4,23 @@
     gap: 20px; /* Espacio entre las tarjetas */
     font-size: 12px;
     margin-bottom: 60px;
-   
+    border: none;   
   }
   
   /* Estilos para las tarjetas */
 
+  .principalCard {
+      display: flex !important;
+      
+    }
+
   
   .card1 {
-    border: 1px solid #ccc;
+    border: none;
     padding: 20px;
     width: auto;
+    
+   
   }
 
   .card1 h2 {
@@ -27,20 +34,23 @@
     font-weight: bold;
   }
   
+  
+  .playerInfo {
+    margin-top: 5px;
+    font-weight: bold;
+    
+  }
+
   .metricClass {
     display: flex;
-    gap: 60px;
+    gap: 80px;
     margin-top: 10px;
     margin-bottom: 20px;
   }
   /* Estilos para los botones */
   .buttonMetrics {
     margin-top: 10px;
-    margin-left: 20px;
+    margin-left: 70px;
   }
-  .buttonMetrics button {
-    margin-right: 60px; /* Agrega espacio entre los botones */
-  }
-  .principalCard {
-    display: flex !important;
-  }
+  
+  
