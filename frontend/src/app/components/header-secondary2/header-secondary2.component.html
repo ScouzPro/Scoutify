@@ -1,0 +1,13 @@
+<div class="hero flex flex-col md:flex-row justify-between items-center bg-gray-200 p-8">
+    <div class="hero-content text-center md:text-left mb-4 md:mb-0 md:mr-4" style="margin-left:8%;">
+        <div class="max-w-xl md:max-w-full mx-auto md:ml-auto">
+            <h2 class="text-3xl font-bold text-black">INFORMES REALIZADOS </h2>
+        </div>
+    </div>
+    <div class="flex items-center space-x-4 md:space-x-8" style="margin-right: 2%;">
+        <!-- <button class="btn btn-primary py-2 px-4 rounded-lg bg-blue-500 text-white hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300" style="background-color: #142740;">Nuevo Informe</button> -->
+        <app-modal-new-report/>
+        <app-modal-new-player/>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="navigateToMetricGraph()">Grafica de informes</button>
+    </div>
+</div>
