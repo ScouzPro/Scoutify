@@ -18,7 +18,7 @@ app.use(cors());
 app.use('/', playerMetricsRouter);
 app.use('/api', reportRoutes);
 app.use("/player", playerRouter)
-app.use("/season", seasonRoutes)
+
 app.use("/auth", authRoutes);
 
 //PUERTO Y DB
