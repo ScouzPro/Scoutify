@@ -3,7 +3,11 @@ import {
   DecimalPipe,
   NgForOf,
   NgIf
+<<<<<<< HEAD
 } from "./chunk-QODWSEAU.js";
+=======
+} from "./chunk-3OUS5LHJ.js";
+>>>>>>> 320581aee391e231288078dc9112a63b6283d9ac
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -44,8 +48,13 @@ import {
   ɵɵtextInterpolate,
   ɵɵtextInterpolate1,
   ɵɵtextInterpolate2
+<<<<<<< HEAD
 } from "./chunk-K6PN74MK.js";
 import "./chunk-GLLL6ZVE.js";
+=======
+} from "./chunk-DTTFSVPX.js";
+import "./chunk-3XDEHMPW.js";
+>>>>>>> 320581aee391e231288078dc9112a63b6283d9ac
 
 // node_modules/ngx-pagination/fesm2020/ngx-pagination.mjs
 function PaginationControlsComponent_ul_3_li_1_a_1_Template(rf, ctx) {
@@ -427,7 +436,7 @@ var PaginatePipe = class {
     const required = ["itemsPerPage", "currentPage"];
     const missing = required.filter((prop) => !(prop in config));
     if (0 < missing.length) {
-      throw new Error(`PaginatePipe: Argument is missing the following required properties: ${missing.join(", ")}`);
+      throw new Error("PaginatePipe: Argument is missing the following required properties: ".concat(missing.join(", ")));
     }
   }
   /**
@@ -481,125 +490,8 @@ PaginatePipe.ɵpipe = ɵɵdefinePipe({
     }];
   }, null);
 })();
-var DEFAULT_TEMPLATE = `
-    <pagination-template  #p="paginationApi"
-                         [id]="id"
-                         [maxSize]="maxSize"
-                         (pageChange)="pageChange.emit($event)"
-                         (pageBoundsCorrection)="pageBoundsCorrection.emit($event)">
-    <nav role="navigation" [attr.aria-label]="screenReaderPaginationLabel">
-    <ul class="ngx-pagination" 
-        [class.responsive]="responsive"
-        *ngIf="!(autoHide && p.pages.length <= 1)">
-
-        <li class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="directionLinks"> 
-            <a tabindex="0" *ngIf="1 < p.getCurrent()" (keyup.enter)="p.previous()" (click)="p.previous()">
-                {{ previousLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
-            </a>
-            <span *ngIf="p.isFirstPage()" aria-disabled="true">
-                {{ previousLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
-            </span>
-        </li> 
-
-        <li class="small-screen">
-            {{ p.getCurrent() }} / {{ p.getLastPage() }}
-        </li>
-
-        <li [class.current]="p.getCurrent() === page.value" 
-            [class.ellipsis]="page.label === '...'"
-            *ngFor="let page of p.pages; trackBy: trackByIndex">
-            <a tabindex="0" (keyup.enter)="p.setCurrent(page.value)" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
-                <span class="show-for-sr">{{ screenReaderPageLabel }} </span>
-                <span>{{ (page.label === '...') ? page.label : (page.label | number:'') }}</span>
-            </a>
-            <ng-container *ngIf="p.getCurrent() === page.value">
-              <span aria-live="polite">
-                <span class="show-for-sr">{{ screenReaderCurrentLabel }} </span>
-                <span>{{ (page.label === '...') ? page.label : (page.label | number:'') }}</span> 
-              </span>
-            </ng-container>
-        </li>
-
-        <li class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="directionLinks">
-            <a tabindex="0" *ngIf="!p.isLastPage()" (keyup.enter)="p.next()" (click)="p.next()">
-                 {{ nextLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
-            </a>
-            <span *ngIf="p.isLastPage()" aria-disabled="true">
-                 {{ nextLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
-            </span>
-        </li>
-
-    </ul>
-    </nav>
-    </pagination-template>
-    `;
-var DEFAULT_STYLES = `
-.ngx-pagination {
-  margin-left: 0;
-  margin-bottom: 1rem; }
-  .ngx-pagination::before, .ngx-pagination::after {
-    content: ' ';
-    display: table; }
-  .ngx-pagination::after {
-    clear: both; }
-  .ngx-pagination li {
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    margin-right: 0.0625rem;
-    border-radius: 0; }
-  .ngx-pagination li {
-    display: inline-block; }
-  .ngx-pagination a,
-  .ngx-pagination button {
-    color: #0a0a0a; 
-    display: block;
-    padding: 0.1875rem 0.625rem;
-    border-radius: 0; }
-    .ngx-pagination a:hover,
-    .ngx-pagination button:hover {
-      background: #e6e6e6; }
-  .ngx-pagination .current {
-    padding: 0.1875rem 0.625rem;
-    background: #2199e8;
-    color: #fefefe;
-    cursor: default; }
-  .ngx-pagination .disabled {
-    padding: 0.1875rem 0.625rem;
-    color: #cacaca;
-    cursor: default; } 
-    .ngx-pagination .disabled:hover {
-      background: transparent; }
-  .ngx-pagination a, .ngx-pagination button {
-    cursor: pointer; }
-
-.ngx-pagination .pagination-previous a::before,
-.ngx-pagination .pagination-previous.disabled::before { 
-  content: '«';
-  display: inline-block;
-  margin-right: 0.5rem; }
-
-.ngx-pagination .pagination-next a::after,
-.ngx-pagination .pagination-next.disabled::after {
-  content: '»';
-  display: inline-block;
-  margin-left: 0.5rem; }
-
-.ngx-pagination .show-for-sr {
-  position: absolute !important;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0); }
-.ngx-pagination .small-screen {
-  display: none; }
-@media screen and (max-width: 601px) {
-  .ngx-pagination.responsive .small-screen {
-    display: inline-block; } 
-  .ngx-pagination.responsive li:not(.small-screen):not(.pagination-previous):not(.pagination-next) {
-    display: none; }
-}
-  `;
+var DEFAULT_TEMPLATE = '\n    <pagination-template  #p="paginationApi"\n                         [id]="id"\n                         [maxSize]="maxSize"\n                         (pageChange)="pageChange.emit($event)"\n                         (pageBoundsCorrection)="pageBoundsCorrection.emit($event)">\n    <nav role="navigation" [attr.aria-label]="screenReaderPaginationLabel">\n    <ul class="ngx-pagination" \n        [class.responsive]="responsive"\n        *ngIf="!(autoHide && p.pages.length <= 1)">\n\n        <li class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="directionLinks"> \n            <a tabindex="0" *ngIf="1 < p.getCurrent()" (keyup.enter)="p.previous()" (click)="p.previous()">\n                {{ previousLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>\n            </a>\n            <span *ngIf="p.isFirstPage()" aria-disabled="true">\n                {{ previousLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>\n            </span>\n        </li> \n\n        <li class="small-screen">\n            {{ p.getCurrent() }} / {{ p.getLastPage() }}\n        </li>\n\n        <li [class.current]="p.getCurrent() === page.value" \n            [class.ellipsis]="page.label === \'...\'"\n            *ngFor="let page of p.pages; trackBy: trackByIndex">\n            <a tabindex="0" (keyup.enter)="p.setCurrent(page.value)" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">\n                <span class="show-for-sr">{{ screenReaderPageLabel }} </span>\n                <span>{{ (page.label === \'...\') ? page.label : (page.label | number:\'\') }}</span>\n            </a>\n            <ng-container *ngIf="p.getCurrent() === page.value">\n              <span aria-live="polite">\n                <span class="show-for-sr">{{ screenReaderCurrentLabel }} </span>\n                <span>{{ (page.label === \'...\') ? page.label : (page.label | number:\'\') }}</span> \n              </span>\n            </ng-container>\n        </li>\n\n        <li class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="directionLinks">\n            <a tabindex="0" *ngIf="!p.isLastPage()" (keyup.enter)="p.next()" (click)="p.next()">\n                 {{ nextLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>\n            </a>\n            <span *ngIf="p.isLastPage()" aria-disabled="true">\n                 {{ nextLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>\n            </span>\n        </li>\n\n    </ul>\n    </nav>\n    </pagination-template>\n    ';
+var DEFAULT_STYLES = "\n.ngx-pagination {\n  margin-left: 0;\n  margin-bottom: 1rem; }\n  .ngx-pagination::before, .ngx-pagination::after {\n    content: ' ';\n    display: table; }\n  .ngx-pagination::after {\n    clear: both; }\n  .ngx-pagination li {\n    -moz-user-select: none;\n    -webkit-user-select: none;\n    -ms-user-select: none;\n    margin-right: 0.0625rem;\n    border-radius: 0; }\n  .ngx-pagination li {\n    display: inline-block; }\n  .ngx-pagination a,\n  .ngx-pagination button {\n    color: #0a0a0a; \n    display: block;\n    padding: 0.1875rem 0.625rem;\n    border-radius: 0; }\n    .ngx-pagination a:hover,\n    .ngx-pagination button:hover {\n      background: #e6e6e6; }\n  .ngx-pagination .current {\n    padding: 0.1875rem 0.625rem;\n    background: #2199e8;\n    color: #fefefe;\n    cursor: default; }\n  .ngx-pagination .disabled {\n    padding: 0.1875rem 0.625rem;\n    color: #cacaca;\n    cursor: default; } \n    .ngx-pagination .disabled:hover {\n      background: transparent; }\n  .ngx-pagination a, .ngx-pagination button {\n    cursor: pointer; }\n\n.ngx-pagination .pagination-previous a::before,\n.ngx-pagination .pagination-previous.disabled::before { \n  content: '«';\n  display: inline-block;\n  margin-right: 0.5rem; }\n\n.ngx-pagination .pagination-next a::after,\n.ngx-pagination .pagination-next.disabled::after {\n  content: '»';\n  display: inline-block;\n  margin-left: 0.5rem; }\n\n.ngx-pagination .show-for-sr {\n  position: absolute !important;\n  width: 1px;\n  height: 1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0); }\n.ngx-pagination .small-screen {\n  display: none; }\n@media screen and (max-width: 601px) {\n  .ngx-pagination.responsive .small-screen {\n    display: inline-block; } \n  .ngx-pagination.responsive li:not(.small-screen):not(.pagination-previous):not(.pagination-next) {\n    display: none; }\n}\n  ";
 var PaginationControlsDirective = class {
   constructor(service, changeDetectorRef) {
     this.service = service;
@@ -681,7 +573,7 @@ var PaginationControlsDirective = class {
   }
   checkValidId() {
     if (this.service.getInstance(this.id).id == null) {
-      console.warn(`PaginationControlsDirective: the specified id "${this.id}" does not match any registered PaginationInstance`);
+      console.warn('PaginationControlsDirective: the specified id "'.concat(this.id, '" does not match any registered PaginationInstance'));
     }
   }
   /**
@@ -823,7 +715,7 @@ var PaginationControlsComponent = class {
     this.nextLabel = "Next";
     this.screenReaderPaginationLabel = "Pagination";
     this.screenReaderPageLabel = "page";
-    this.screenReaderCurrentLabel = `You're on page`;
+    this.screenReaderCurrentLabel = "You're on page";
     this.pageChange = new EventEmitter();
     this.pageBoundsCorrection = new EventEmitter();
     this._directionLinks = true;
