@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginFormComponent } from '../login-form/login-form.component';
 import { RegisterFormComponent } from '../register-form/register-form.component';
@@ -11,7 +11,13 @@ import { FooterComponent } from "../footer/footer.component";
     styleUrl: './hero-landing.component.css',
     imports: [LoginFormComponent, RegisterFormComponent, FooterComponent]
 })
-export class HeroLandingComponent {
+export class HeroLandingComponent implements AfterViewInit {
+
+  ngAfterViewInit() {
+    const video = document.getElementById('background-video') as HTMLVideoElement;
+    video.play();
+  }
+
   constructor(private router: Router) {} // Inject Router service
 
   navigateToLogin() {
