@@ -6,6 +6,7 @@ import playerRouter from "./routes/playersRouter.js"
 import reportRoutes from "./routes/reportRoutes.js";
 import playerMetricsRouter from './routes/metricRoutes.js'
 import authRoutes from './routes/authRoutes.js'
+import seasonRoutes from './routes/seasonRoutes.js'
 
 dotenv.config();
 
