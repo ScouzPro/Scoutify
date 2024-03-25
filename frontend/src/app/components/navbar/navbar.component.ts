@@ -1,36 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { IconsNavbarComponent } from "../icons-navbar/icons-navbar.component";
-import { Router } from '@angular/router';
+import { Router, RouterModule } from "@angular/router";
+import { initFlowbite as localInitFlowbite } from "flowbite";
+import { CarouselComponent } from "../carousel/carousel.component";
 
 @Component({
-    selector: 'app-navbar',
+    selector: "app-navbar",
     standalone: true,
-    templateUrl: './navbar.component.html',
-    styleUrls: ['./navbar.component.css'] // Usa styleUrls en lugar de styleUrl
-    ,
-    imports: [IconsNavbarComponent]
+    templateUrl: "./navbar.component.html",
+    styleUrls: ["./navbar.component.css"],
+    imports: [IconsNavbarComponent, RouterModule, CarouselComponent]
 })
-export class NavbarComponent {
-navigateToLandingComponent() {
-throw new Error('Method not implemented.');
-}
-    constructor(private router: Router) { }
+export class NavbarComponent implements OnInit {
+  title = "web-app";
+
+  ngOnInit(): void {
+    initFlowbite();
+  }
+  navigateToLandingComponent() {
+    throw new Error("Method not implemented.");
+  }
+  constructor(private router: Router) {}
 
   navigateToInicio() {
-    this.router.navigate(['/']);
+    this.router.navigate(["/"]);
   }
 
   navigateToPlayers() {
-    this.router.navigate(['/players']);
+    this.router.navigate(["/players"]);
   }
 
   navigateToReports() {
-    this.router.navigate(['/reports']);
+    this.router.navigate(["/reports"]);
   }
   navigateToGraph() {
-    this.router.navigate(['/graph']);
+    this.router.navigate(["/graph"]);
   }
 }
 
-
-
+function initFlowbite() {
+  throw new Error("Function not implemented.");
+}
