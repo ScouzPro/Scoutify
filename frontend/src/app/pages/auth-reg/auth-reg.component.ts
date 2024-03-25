@@ -62,7 +62,7 @@ export class AuthRegComponent {
     }
 
     navigateToHome() { //Ruta que navega a home al pulsar btn
-        this.router.navigate(["/home"])
+        this.router.navigate(["/login"])
     }
 
     // Custom validator function to check if passwords match

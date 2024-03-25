@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-icons-navbar',
@@ -10,4 +11,11 @@ import { RouterModule } from '@angular/router';
 })
 export class IconsNavbarComponent {
 
+  router = inject(Router);
+
+  onClickLogout(){
+    localStorage.removeItem('token de admin');
+    this.router.navigate(['login'])
+
+  }
 }

@@ -64,6 +64,7 @@ onSubmit() {
         this.userService.loginUser(credentials).subscribe(
             (response) => {
                 console.log('Login con éxito:', response);
+                localStorage.setItem('token de admin',response.tokenLog)
                 this.alertMessage = '¡Bienvenido, ' + credentials.username + '!';
                 this.AlertMessage = true;
                 setTimeout(() => {

@@ -1,8 +1,10 @@
 import { User } from "../models/authModel.js"
 
 export const verifyRole = async (req, res, next) => {
-    if (req.user.role !== "admin") {
-        return res.status(401).json({ message: "No tienes permisos para acceder a esta función." });
+    const id= req.user._id
+    const userRole= await User.findById(id)
+    if (userRole.role !== "admin") {
+        return res.status(401).json({ message: "No tienes permisos para acceder a esta funcionalidad." });
     }
     next();
 };
