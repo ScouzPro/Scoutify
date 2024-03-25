@@ -38,23 +38,23 @@
 
     <!-- RECUERDAME Y REDIRECCION -->
     <section class="mx-auto max-w-md">
-        <div class="form-control flex items-center flex-row justify-between mb-4">
-            <div class="flex items-center">
-                <label class="label cursor-pointer flex items-center ml-2 ">
-                    <input type="checkbox" class="toggle toggle-xs" />
-                    <span class="label-text pl-2"> Recuérdame </span>
-                </label>
-            </div>
-            <div>
-                <button class="btn btn-ghost btn-xs" (click)="navigateToAuthRegister()">¿No tienes cuenta?</button>
-            </div>
+    <div class="form-control flex items-center flex-row justify-between mb-4">
+        <div class="flex items-center">
+            <label class="label cursor-pointer flex items-center ml-2 "> 
+                <input type="checkbox" class="toggle toggle-xs" />
+                <span class="label-text pl-2"> Recuérdame </span>
+            </label>
         </div>
+        <div>
+            <button class="btn btn-ghost btn-xs" (click)="navigateToAuthRegister()">¿No tienes cuenta?</button>
+        </div>
+    </div>
     </section>
 
     <!-- ENVIAR -->
     <div class="flex justify-center">
-        <button class="btn btn-s btn-wide btn-outline btn-primary mb-4 text-center"
-                (click)="onSubmit()">
+        <button class="btn btn-s btn-wide btn-outline btn-primary mb-4 text-center" 
+        (click)="onSubmit()">
             Entrar </button>
     </div>
     <!-- Agrega esto donde quieras que aparezca la alerta -->
@@ -63,4 +63,5 @@
             {{ alertMessage }}
         </div>
     </div>
-<app-footer></app-footer>
+</form>
+<app-footer></app-footer> 
