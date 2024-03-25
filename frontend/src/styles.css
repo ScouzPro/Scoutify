@@ -45,3 +45,7 @@
 body {
   font-family: "Oswald", sans-serif;
 }
+/* Oculta la barra de desplazamiento en todos los elementos */
+::-webkit-scrollbar {
+  display: none;
+}

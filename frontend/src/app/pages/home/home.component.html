@@ -116,10 +116,10 @@
   <app-videos></app-videos>
   
   <div class="mt-9">
-    <div class="players-container mt-4 pb-8 max-w-screen-2xl mx-auto">
-      <div class="flex justify-center">
-        <div *ngIf="pagedPlayers && pagedPlayers.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
-          <div *ngFor="let player of pagedPlayers" class="card-background bg-white rounded-lg shadow-lg">
+    <div class="players-container mt-4 pb-8 max-w-screen-2xl mx-auto ">
+      <div class="flex justify-center ">
+        <div *ngIf="pagedPlayers && pagedPlayers.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 ">
+          <div *ngFor="let player of pagedPlayers" class="card-background bg-white rounded-lg shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-110">
             <!-- Contenido de la tarjeta -->
             <img [src]="player.photo" alt="Player Photo" class="w-full h-32 object-cover rounded-t-lg">
             <div class="p-2">
