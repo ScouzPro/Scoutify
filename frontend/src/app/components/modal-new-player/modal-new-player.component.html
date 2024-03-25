@@ -1,9 +1,9 @@
 <button class="btn bg-[#F2D16D]" (click)="showModal()">Crear Jugador</button>
 <dialog id="my_modal_4" class="modal">
-    <div class="modal-box w-11/12 max-w-5xl mx-auto flex flex-col">
+    <div class="modal-box w-2xl max-w-1xl mx-auto flex flex-col items-center">
         <h3 class="font-bold text-lg mb-3">Crear Jugador</h3>
         <form method="dialog">
-            <button (click)="closeModal()" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            <button (click)="closeModal()" class="btn btn-sm btn-circle btn-ghost absolute right-4 top-2">✕</button>
           </form>
         <form #playerForm="ngForm" (ngSubmit)="submitForm(playerForm)" class="flex flex-col items-center">
             <input type="text" placeholder="Nombre y Apellidos" class="input input-bordered w-full max-w-xs mb-3" name="name" ngModel required />
@@ -27,7 +27,7 @@
                 <option>Ambas</option>
             </select>
             <input type="text" placeholder="URL Foto del Jugador" class="input input-bordered w-full max-w-xs mb-3" name="photo" ngModel required />  
-            <button type="submit" class="btn">Enviar</button>
+            <button type="submit" class="w-full justify-center items-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white bg-[#142740] hover:bg-[#A19DA8] active:bg-[#142740] sm:ml-3 sm:w-auto sm:text-sm">Enviar</button>
         </form>
     </div>
     <div>
