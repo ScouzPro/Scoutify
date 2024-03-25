@@ -57,4 +57,19 @@ export class MetricsService {
       return null;
     }
   }
+<<<<<<< HEAD
 }
+=======
+
+  async getPlayerMetricsById(playerId: string): Promise<any> {
+    try {
+      const response = await axios.get(`http://localhost:3001/metrics/${playerId}`);      
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return []; // Retorna un arreglo vacío en caso de error
+    }
+  }
+}
+
+>>>>>>> main

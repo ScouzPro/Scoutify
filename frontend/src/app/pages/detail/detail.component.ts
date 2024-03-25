@@ -1,21 +1,41 @@
 import { NavbarComponent } from "../../components/navbar/navbar.component";
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PlayerServiceService } from '../../service/player-service.service';
 import { CommonModule } from '@angular/common';
+<<<<<<< HEAD
 
+=======
+import { FormsModule } from "@angular/forms";
+import { SeasonPlayerComponent } from "../../components/season-player/season-player.component";
+import { TotalGraphicsComponent } from "../../components/total-graphics/total-graphics.component";
+import { FooterComponent } from "../../components/footer/footer.component";
+>>>>>>> main
 
 @Component({
   selector: 'app-detail',
   standalone: true,
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
+<<<<<<< HEAD
   imports: [NavbarComponent,  CommonModule]
 })
 export class DetailComponent implements OnInit {
   player: any;
 playerId: any;
+=======
+  imports: [NavbarComponent,  CommonModule, FormsModule,SeasonPlayerComponent, TotalGraphicsComponent, FooterComponent]
+})
+export class DetailComponent implements OnInit {
+  player: any;
+  editedPlayer: any = {}; // Variable para almacenar los datos del jugador que se editarán
+  modalOpened: boolean = false;
+  successModalOpen: boolean  = false;
+>>>>>>> main
 
   constructor(
     private route: ActivatedRoute,
@@ -24,8 +44,13 @@ playerId: any;
 
   ngOnInit() {
     this.route.params.subscribe(params => {
+<<<<<<< HEAD
       const playerId = params['id']; // Utiliza directamente playerId aquí
       console.log('playerId:', playerId); // Imprime el playerId
+=======
+      const playerId = params['id'];
+      console.log('playerId:', playerId);
+>>>>>>> main
       this.loadPlayerDetails(playerId);
     });
   }
@@ -33,8 +58,13 @@ playerId: any;
   async loadPlayerDetails(playerId: string) {
     try {
       const response = await this.playerService.getPlayerById(playerId);
+<<<<<<< HEAD
       if (response && response.length > 0) { // Verifica si hay al menos un elemento en el array
         const playerData = response[0]; // Accede al primer elemento del array
+=======
+      if (response && response.length > 0) {
+        const playerData = response[0];
+>>>>>>> main
         this.player = {
           name: playerData.name,
           actualTeam: playerData.actualTeam,
@@ -47,7 +77,13 @@ playerId: any;
           dorsal: playerData.dorsal,
           strongFoot: playerData.strongFoot
         };
+<<<<<<< HEAD
         console.log('Datos del jugador cargados:', this.player);
+=======
+        this.editedPlayer = { ...this.player }; // Inicializa editedPlayer con los datos del jugador actual
+        console.log('Datos del jugador cargados:', this.player);
+       
+>>>>>>> main
       } else {
         console.error('No se encontraron datos para el jugador con ID:', playerId);
       }
@@ -55,6 +91,38 @@ playerId: any;
       console.error('Error al cargar los detalles del jugador:', error);
     }
   }
+<<<<<<< HEAD
   
   
 }
+=======
+  openSuccesModal() {
+    this.successModalOpen = true ;
+  }
+  async updatePlayerData() {
+    try {
+      const playerId = this.player.id;
+      const success = await this.playerService.updatePlayer(playerId, this.editedPlayer);
+      if (success) {
+        console.log('¡Los datos del jugador se actualizaron correctamente!', this.editedPlayer);
+        this.openSuccesModal()
+        this.closeModal()
+      } else {
+        console.error('¡Error al actualizar los datos del jugador!');
+      }
+    } catch (error) {
+      console.error('Error al intentar actualizar los datos del jugador:', error);
+    }
+  }
+
+  // Función para abrir el modal
+  openModal() {
+    this.modalOpened = true; // Establece la variable modalOpened a true para abrir el modal
+  }
+
+  closeModal() {
+    this.modalOpened = false; // Establece la variable modalOpened a false para cerrar el modal
+  }
+}
+
+>>>>>>> main

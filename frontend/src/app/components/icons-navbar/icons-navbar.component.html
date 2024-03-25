@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="navbar bg-base-100">
   
   <div class="flex-none gap-2">
@@ -34,3 +35,46 @@
 </div>
 
   
+=======
+<div class="navbar bg-base-100 blue-background">
+
+  <div class="flex-none gap-9">
+    <!-- Icono de notificaciones-->
+    <a [routerLink]="['/home']" class="text-white hover:text-custom-yellow">
+      <i class="fas fa-home text-3xl"></i> <!-- Tamaño grande del icono -->
+    </a>
+    <!-- Barra de búsqueda -->
+    <div class="form-control">
+      <input type="text" placeholder="Buscar" class="input input-bordered w-24 md:w-auto" />
+    </div>
+
+    <!-- Icono de home -->
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="w-13 rounded-full">
+          <img alt="Tailwind CSS Navbar component"
+            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+        </div>
+      </div>
+      <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+        <!-- <li>
+          <a [routerLink]="['/register']"class="justify-between">
+            Crear Usuario
+            <span class="badge">Nuevo</span>
+          </a>
+        </li> -->
+        <li>
+          <a [routerLink]="['/#']">
+            <span>Perfil</span>
+            <span class="text-xs text-gray-400 ml-1">(En construcción)</span> <!-- Texto indicando que está en construcción -->
+          </a>
+        </li>
+
+        <li><a [routerLink]="['/']">Cerrar Sesión</a></li>
+      </ul>
+    </div>
+
+
+  </div>
+</div>
+>>>>>>> main

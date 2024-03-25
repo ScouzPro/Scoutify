@@ -1,15 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { ActivatedRoute } from '@angular/router';
+=======
+import { ActivatedRoute, } from '@angular/router';
+>>>>>>> main
 import { PlayerServiceService } from '../../service/player-service.service';
 import { MetricsService } from '../../service/metrics.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+<<<<<<< HEAD
+=======
+import { Router } from '@angular/router';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { FooterComponent } from '../../components/footer/footer.component';
+>>>>>>> main
 
 
 @Component({
   selector: 'app-new-report',
   standalone: true,
+<<<<<<< HEAD
   imports: [FormsModule, CommonModule],
+=======
+  imports: [FormsModule, CommonModule, NavbarComponent, FooterComponent],
+>>>>>>> main
   templateUrl: './new-report.component.html',
   styleUrls: ['./new-report.component.css']
 })
@@ -46,8 +60,15 @@ export class NewReportComponent implements OnInit {
   totalTacticalSkills: number;
   totalPhysicalSkills: number;
   matchSummary: string;
+<<<<<<< HEAD
 
   constructor(private route: ActivatedRoute, private playerService: PlayerServiceService, private metricsService: MetricsService) {
+=======
+  modalOpen: boolean = false;
+  
+
+  constructor(private route: ActivatedRoute, private playerService: PlayerServiceService, private metricsService: MetricsService, private router: Router) {
+>>>>>>> main
     this.playerId = '';
     this.metrics = [];
     this.averageTotalSkills=0;
@@ -142,7 +163,14 @@ export class NewReportComponent implements OnInit {
     try {
       const response = await this.metricsService.submitMetrics(formData);
       if (response) {
+<<<<<<< HEAD
         console.log('Formulario enviado correctamente:', response);
+=======
+        console.log('Formulario enviado correctamente:');
+        this.openModal();
+        console.log('Formulario enviado correctamente:');
+        this.openModal();
+>>>>>>> main
       } else {
         console.error('Error al enviar el formulario');
       }
@@ -151,6 +179,24 @@ export class NewReportComponent implements OnInit {
     }
   }
 
+<<<<<<< HEAD
+=======
+
+  openModal() { 
+          this.modalOpen = true;
+      console.log('esto abre ?')
+      
+    
+  }
+
+  closeModal() {
+      this.modalOpen= false;
+      this.router.navigateByUrl('/reports');
+    
+
+  }
+
+>>>>>>> main
   calculateTotal() {
     // Calcula la suma de los valores ingresados para las habilidades principales
     let totalPrincipal = 0;
@@ -198,6 +244,7 @@ export class NewReportComponent implements OnInit {
     this.averageTotalSkills = +totalAverage.toFixed(1);
 }
 
+<<<<<<< HEAD
 }
 
 
@@ -208,3 +255,6 @@ export class NewReportComponent implements OnInit {
 
 
 
+=======
+}
+>>>>>>> main

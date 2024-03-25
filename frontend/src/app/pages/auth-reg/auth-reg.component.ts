@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+<<<<<<< HEAD
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { FooterComponent } from "../../components/footer/footer.component";
@@ -13,6 +14,23 @@ import { NgIf } from '@angular/common';
     imports: [NgIf, ReactiveFormsModule, FooterComponent]
 })
 export class AuthRegComponent {
+=======
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { UsersService } from '../../service/users.service';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FooterComponent } from '../../components/footer/footer.component';
+
+@Component({
+    selector: 'app-auth-reg',
+    templateUrl: './auth-reg.component.html',
+    standalone: true,
+    imports :[FooterComponent, CommonModule, ReactiveFormsModule],
+    styleUrls: ['./auth-reg.component.css']
+})
+export class AuthRegComponent {
+    showSuccessMessage = false;
+>>>>>>> main
     //VALIDACIONES
     //GETTERS
     get name(){
@@ -48,8 +66,14 @@ export class AuthRegComponent {
         'terms': new FormControl(false) // Add a FormControl for the checkbox
     }, { validators: this.passwordMatchValidator }); // Add custom validator for matching passwords)
 
+<<<<<<< HEAD
        //Constructor para las rutas de navegación de la pagina
     constructor (private router: Router) {}
+=======
+    //Constructor para las rutas de navegación de la pagina
+    constructor (private userService: UsersService, private router: Router) {}
+
+>>>>>>> main
     navigateToHeroLanding() { //Ruta que vueve a landing al pulsar btn
         this.router.navigate([""]);
     }
@@ -68,11 +92,16 @@ export class AuthRegComponent {
         const repeatPassword = control.get('repeatPassword')?.value;
         
         if (password === repeatPassword) {
+<<<<<<< HEAD
             return null; // Passwords match, return null (no error)
+=======
+            return null; 
+>>>>>>> main
         } else {
             return { mismatch: true }; // Passwords don't match, return an error object
         }
     }
+<<<<<<< HEAD
 
     showTermsError = false; // Variable to track the error message for terms acceptance
     onSubmit() {
@@ -86,4 +115,48 @@ export class AuthRegComponent {
             this.showTermsError = true;
         }
     }
+=======
+// Custom function to check all fields have a value, correct or not
+    areAllFieldsFilled(): boolean {
+        const formValues = this.formNewUser.value as { [key: string]: string | null };
+        for (const key in formValues) {
+            if (formValues.hasOwnProperty(key)) {
+                const value: string | null = formValues[key]; 
+                if (!value) {
+                    return false; 
+                }
+            }
+        }
+        return true; 
+    }
+    showTermsError = false; // Variable to track the error message for terms acceptance
+   
+    onSubmit() {
+        if (this.formNewUser.valid && !this.formNewUser.errors?.['mismatch'] && this.formNewUser.get('terms')?.value) {
+            // Hide the error message if there's no error
+            this.showTermsError = false;
+            // Llama al servicio para crear el nuevo usuario
+            this.userService.createUser(this.formNewUser.value).subscribe(
+                response => {
+                    console.log('Usuario creado con éxito:', response);
+                    this.showSuccessMessage = true;
+                    setTimeout(() => {
+                        this.navigateToHome();
+                      }, 3000); 
+                },
+                error => {
+                    console.error('Error al crear el usuario:', error);
+                }
+            );
+        } else {
+            this.showTermsError = true;
+            if (this.formNewUser.hasError('mismatch')) {
+                // Handle mismatch error
+            }
+        }
+        
+    }
+
+    
+>>>>>>> main
 }
