@@ -9,9 +9,8 @@ export const authMiddleware = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, "codesecret");
-        // Agregar el rol del usuario al objeto decoded antes de asignarlo a req.user
-        req.user = { ...decoded, role: "admin" }; // Aquí puedes establecer el rol según tus necesidades
-        console.log(req.user); // Esto permite verificar que el objeto req.user ahora incluye el rol
+        req.user = decoded;
+        console.log(decoded) // Esto permite que la información del usuario esté disponible en las rutas protegidas
         next();
     } catch (error) {
         return res.status(400).json({ message: "Token inválido." });

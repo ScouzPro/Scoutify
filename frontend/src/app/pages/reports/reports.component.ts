@@ -55,32 +55,29 @@ export class ReportsComponent implements OnInit {
         const day = date.getDate().toString().padStart(2, '0'); // Agrega un 0 al principio si el día es de un solo dígito
         return `${year}-${month}-${day}`;
       }
-
-
       async eliminarMetricas(playerId: string, informeId: string) {
         try {
-            // Utiliza playerId para obtener las métricas correspondientes al jugador
-            const metrics = this.playerMetricsMap.get(playerId);
-            if (metrics && metrics.length > 0) {
-                // Encuentra la métrica que corresponde al informe
-                const metric = metrics.find(metric => metric._id === informeId);
-                if (metric) {
-                    const metricId = metric._id;
-                    // Llama al servicio para eliminar la métrica utilizando el _id de las métricas
-                    await this.playerMetricService.deletePlayerMetrics(metricId);
-                    console.log('Id para borrar:', metricId);
-                    // Vuelve a cargar los jugadores sin las métricas eliminadas
-                    await this.loadPlayers();
-                    this.confirmModal = false;
-                } else {
-                    console.log('No se encontró la métrica correspondiente al informe.');
-                }
+          // Obtener las métricas correspondientes al jugador
+          const metrics = this.playerMetricsMap.get(playerId);
+          if (metrics && metrics.length > 0) {
+            // Encuentra la métrica que corresponde al informe
+            const metric = metrics.find(metric => metric.informeId === informeId);
+            if (metric) {
+              const metricId = metric._id;
+              // Llama al servicio para eliminar la métrica utilizando el _id de las métricas
+              await this.playerMetricService.deletePlayerMetrics(metricId);
+              console.log('Id para borrar:', metricId);
+              // Vuelve a cargar los jugadores sin las métricas eliminadas
+              await this.loadPlayers();
+              this.confirmModal = false;
             } else {
-                console.log('No se encontraron métricas para el jugador.');
+              console.log('No se encontró la métrica correspondiente al informe.');
             }
+          } else {
+            console.log('No se encontraron métricas para el jugador.');
+          }
         } catch (error) {
-            console.error('Error al eliminar métricas:', error);
+          console.error('Error al eliminar métricas:', error);
         }
-    }
-    
+      }
   }
