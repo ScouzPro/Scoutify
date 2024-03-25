@@ -6,7 +6,7 @@ import { authMiddleware } from "../middlewares/authMiddleware.js";
 const playerRouter = express.Router();
 
 // Crear Player
-playerRouter.post('/', authMiddleware, verifyRole,createPlayer)
+playerRouter.post('/', createPlayer)
 playerRouter.get('/', getPlayers)
 playerRouter.get('/:id', getOnePlayer)
 playerRouter.delete('/:id', deletePlayer)
