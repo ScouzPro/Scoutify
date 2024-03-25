@@ -1,0 +1,38 @@
+/* .graph{
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+} */
+
+.container{
+    width: max-content;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+.full-container{
+    width: 400px;
+    display: grid;
+
+    align-items: center;
+    align-content: center;
+}
+
+h2{
+    font-size: medium;
+}
+
+h3{
+    font-size: x-small;
+    font-style: oblique;
+    font-weight: 700;
+}
+
+p{
+    font-size: x-small;
+    font-style: oblique;
+
+}
