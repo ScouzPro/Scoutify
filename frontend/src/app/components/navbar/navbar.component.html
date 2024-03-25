@@ -13,27 +13,29 @@
         <li><a (click)="navigateToGraph()">Estadísticas</a></li>
       </ul>
     </div>
-    <!-- Envuelve la imagen del logo dentro de una etiqueta <a> -->
     <a href="./home">
       <img src="../../../assets/logos/svg/scoutifyLogoBlanco.webp" alt="Logo" class="logo-scoutify h-11 mr-2">
     </a>
   </div>
   <div class="navbar-center hidden lg:flex text-white">
     <ul class="menu menu-horizontal px-8">
-      <li><a (click)="navigateToPlayers()" class="text-xl">Jugadores</a></li>
-      <li><a (click)="navigateToReports()" class="text-xl">Informes</a></li>
-      <li><a (click)="navigateToGraph()" class="text-xl">Estadísticas</a></li>
+      <li><a (click)="navigateToPlayers()" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+          class="text-xl">Jugadores</a></li>
+      <li><a (click)="navigateToReports()" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+          class="text-xl">Informes</a></li>
+      <li><a (click)="navigateToGraph()" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+          class="text-xl">Estadísticas</a></li>
     </ul>
   </div>
   <div class="navbar-end">
-    <div class="flex items-center gap-5"> <!-- Contenedor flexible con espaciado entre elementos -->
+    <div class="flex items-center gap-5">
       <!-- Icono de home-->
       <div class="max-h-1 flex items-center">
-        <a [routerLink]="['/home']" class="text-white hover:text-custom-yellow">
+        <a [routerLink]="['/home']" routerLinkActive="active" class="text-white hover:text-custom-yellow"
+          [routerLinkActiveOptions]="{ exact: true }">
           <i class="fas fa-home text-2xl"></i> <!-- Tamaño grande del icono -->
         </a>
       </div>
-
       <!-- Icono de user -->
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
@@ -50,7 +52,6 @@
               <!-- Texto indicando que está en construcción -->
             </a>
           </li>
-
           <li><a [routerLink]="['/']">Cerrar Sesión</a></li>
         </ul>
       </div>
