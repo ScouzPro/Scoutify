@@ -98,19 +98,11 @@ import {
   provideNetlifyLoader,
   registerLocaleData,
   setRootDomAdapter
-<<<<<<< HEAD:frontend/.angular/cache/17.2.2/vite/deps/@angular_common.js
-} from "./chunk-O66W3HBT.js";
+} from "./chunk-3OUS5LHJ.js";
 import {
   IMAGE_CONFIG
-} from "./chunk-RDRRF72H.js";
-import "./chunk-AOF462FV.js";
-=======
-} from "./chunk-QODWSEAU.js";
-import {
-  IMAGE_CONFIG
-} from "./chunk-K6PN74MK.js";
->>>>>>> origin/develop:frontend/.angular/cache/17.2.3/vite/deps/@angular_common.js
-import "./chunk-GLLL6ZVE.js";
+} from "./chunk-DTTFSVPX.js";
+import "./chunk-3XDEHMPW.js";
 export {
   APP_BASE_HREF,
   AsyncPipe,

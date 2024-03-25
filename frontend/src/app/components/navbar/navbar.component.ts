@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { IconsNavbarComponent } from "../icons-navbar/icons-navbar.component";
 import { Router, RouterModule } from "@angular/router";
-import { initFlowbite as localInitFlowbite } from "flowbite";
 import { CarouselComponent } from "../carousel/carousel.component";
 
 @Component({
