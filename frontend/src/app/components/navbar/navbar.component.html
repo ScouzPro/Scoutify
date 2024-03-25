@@ -26,16 +26,15 @@
     </ul>
   </div>
   <div class="navbar-end">
-
-    <div class="flex-none gap-9">
+    <div class="flex items-center gap-5"> <!-- Contenedor flexible con espaciado entre elementos -->
       <!-- Icono de home-->
-      <div class="max-h-1 ">
+      <div class="max-h-1 flex items-center">
         <a [routerLink]="['/home']" class="text-white hover:text-custom-yellow">
-          <i class="fas fa-home text-3xl"></i> <!-- Tamaño grande del icono -->
+          <i class="fas fa-home text-2xl"></i> <!-- Tamaño grande del icono -->
         </a>
       </div>
 
-      <!-- Icono de home -->
+      <!-- Icono de user -->
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
           <div class="w-13 rounded-full">
@@ -56,6 +55,5 @@
         </ul>
       </div>
     </div>
-
   </div>
 </div>
