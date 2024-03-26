@@ -5,7 +5,7 @@
 
 <!-- Carrusel -->
 
-<div class="mt- relative mt-10">
+<div class="mt- relative mt-10 ">
   <div class="carousel w-full h-80 relative overflow-hidden rounded-lg shadow-md"
     style="background-image: url('/frontend/src/assets/logos/png/banner.png');">
     <div id="item1" class="carousel-item w-full h-full absolute top-0 left-0 flex">
@@ -144,18 +144,18 @@
     </div>
     <h3
       class="text-center text-3xl text-black underline mt-12 mb-10 animate-bounce animate-twice animate-ease-linear hover:text-[#C84343]">
-      Nuestras
-      jugadoras estrella de la ultima jornada.</h3>
+      Nuestras jugadoras estrella de la ultima jornada.</h3>
 
     <div class="mt-9">
-      <div class="players-container mt-4 pb-8 max-w-screen-2xl mx-auto ">
-        <div class="flex justify-center ">
+      <div class="players-container mt-4 pb-8 max-w-screen-2xl mx-auto">
+        <div class="flex justify-center">
           <div *ngIf="pagedPlayers && pagedPlayers.length > 0"
-            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 ">
+            class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-6">
             <div *ngFor="let player of pagedPlayers"
-              class="card-background bg-white rounded-lg shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-110">
+              class="card-background bg-white rounded-lg shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-110 w-full md:w-80 lg:w-96 xl:w-80">
+
               <!-- Contenido de la tarjeta -->
-              <img [src]="player.photo" alt="Player Photo" class="w-full h-32 object-cover rounded-t-lg">
+              <img [src]="player.photo" alt="Player Photo" class="w-full h-34 object-cover rounded-t-lg">
               <div class="p-2">
                 <p class="text-lg font-bold text-white">{{ player.name }}</p>
                 <p class="text-xs text-white">{{ player.position }}</p>
@@ -182,14 +182,9 @@
             </div>
           </div>
         </div>
-        <!-- <div class="flex justify-center mt-4">
-          <pagination-controls (pageChange)="onPageChange($event)" previousLabel="Anterior"
-            nextLabel="Siguiente"></pagination-controls>
-        </div> -->
       </div>
-
     </div>
 
-    <div class="mt-8">
+    <div>
       <app-footer></app-footer>
     </div>
