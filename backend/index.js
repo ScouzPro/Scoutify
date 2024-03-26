@@ -7,7 +7,7 @@ import reportRoutes from "./routes/reportRoutes.js";
 import playerMetricsRouter from './routes/metricRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import seasonRoutes from './routes/seasonRoutes.js'
-import path from 'path'
+// import path from 'path'
 
 dotenv.config();
 
@@ -29,11 +29,13 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-//RENDER
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname,'/frontend/dist')));
+// //RENDER
+// const __dirname = path.resolve();
+// app.use(express.static(path.join(__dirname,'/frontend/dist')));
 
-app.get('*' , (req, res) => {
+// app.get('*' , (req, res) => {
 
-res.sendFile(path.join(__dirname, 'frontend','dist','index.html'));
-})
+// res.sendFile(path.join(__dirname, 'frontend','dist','index.html'));
+// })
+
+export default app;

@@ -1,40 +1,35 @@
 <div>
   <app-navbar></app-navbar>
 </div>
-
-<div>
-  <app-header-secondary2></app-header-secondary2>
-</div>
-
+<app-header-secondary2></app-header-secondary2>
 <div class="container">
   <!-- Iteración sobre las tarjetas de informes -->
   <ng-container *ngFor="let player of players">
-    <div *ngFor="let metric of getPlayerMetrics(player.id)" class="card1 bg-[#efede5] rounded-2xl m-4 transition-transform duration-300 ease-in-out transform hover:scale-110">
-      <div class="PrincipalCard">
-        <img [src]="player.photo" [alt]="player.name" style="border-radius: 12px;"/>
-        <div class="playerInfo">
+    <div *ngFor="let metric of getPlayerMetrics(player.id)" class="card1 bg-[#efede5] rounded-2xl m-4">
+      <div class="PrincipalCard" >
+        <img src="{{player.photo}}" alt="{{player.name}}" style="border-radius: 12px;"/>
+        <div class="playerInfo">       
           <p>{{ player.name }}</p>
           <p>{{ player.position }}</p>
           <p>{{ player.dorsal }}</p>
         </div>
       </div>
-
       <div>
         <h2>Ultimo Partido</h2>
-        <div>
-          <label>Resumen del Partido:</label>
-          <p>{{ metric.matchSummary }}</p>
-        </div>
-        <div class="metricClass">
-          <div>
-            <label>Fecha:</label>
-            <p>{{ formatCreatedAt(metric.Created_At) }}</p>
+          <div >
+            <label>Resumen del Partido:</label>
+            <p>{{ metric.matchSummary }}</p>
           </div>
-          <div>
-            <label>Evaluación:</label>
-            <p>{{ metric.averageTotalSkills }}</p>
+          <div class="metricClass">
+            <div>
+              <label>Fecha:</label>
+              <p>{{ formatCreatedAt(metric.Created_At) }}</p>
+            </div>
+            <div>
+              <label>Evaluación:</label>
+              <p>{{ metric.averageTotalSkills }}</p>
+            </div>
           </div>
-        </div>
       </div>
 
       <!-- Botones de Editar y Eliminar -->
@@ -48,29 +43,48 @@
           <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
             <div class="inline-block align-middle bg-white rounded-lg text-center overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="sm:flex sm:flex-col sm:justify-evenly">
-                  <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                    ¿Quieres continuar y borrar este informe?
-                  </h3>
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                  <div class="sm:flex sm:flex-col sm:justify-evenly">
+                        <!-- Mensaje de confirmación -->
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                            ¿Quieres continuar y borrar este informe?
+                        </h3>
+                    </div>
                 </div>
-              </div>
-              <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse sm:justify-evenly">
-                <button (click)="eliminarMetricas(player.id, metric.id)" type="button" class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 font-medium text-black bg-gray-100 hover:bg-gray-300 sm:ml-3 sm:w-auto sm:text-sm">
-                  Aceptar
-                </button>
-                <button (click)="confirmModal = false" type="button" class="mt-3 w-full inline-flex justify-center rounded-md shadow-sm px-4 py-2 bg-[#C84343] hover:bg-red-800 text-white font-medium text-gray-700 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                  Cancelar
-                </button>
-              </div>
+                <!-- Botones de confirmar y cancelar -->
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse sm:justify-evenly">
+                    <!-- Botón de aceptar -->
+                    <button (click)="eliminarMetricas(player.id, metric.id)" type="button" class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 font-medium text-black bg-gray-100 hover:bg-gray-300 sm:ml-3 sm:w-auto sm:text-sm">
+                        Aceptar
+                    </button>
+                    <!-- Botón de cancelar -->
+                    <button (click)="confirmModal = false" type="button" class="mt-3 w-full inline-flex justify-center rounded-md shadow-sm px-4 py-2 bg-[#C84343] hover:bg-red-800 text-white font-medium text-gray-700 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Cancelar
+                    </button>
+                </div>
             </div>
-          </div>
         </div>
       </div>
+
     </div>
+    </div>
+    
   </ng-container>
 </div>
 
 <div>
   <app-footer></app-footer>
 </div>
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
