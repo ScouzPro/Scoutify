@@ -3,7 +3,13 @@
 
 ## Asi se ve nuestra web :soccer:
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Landing](frontend/src/assets/img/landing.png)
+![Login](frontend/src/assets/img/login.png)
+![Home](frontend/src/assets/img/home.png)
+![Players](frontend/src/assets/img/players.png)
+![Player](frontend/src/assets/img/player.png)
+![Graph](frontend/src/assets/img/graph.png)
+![Graph](frontend/src/assets/img/graph.png)
 
 
 ## Como empezar :rocket:
@@ -75,7 +81,7 @@ Nuestra aplicación utiliza el siguiente stack tecnológico:
 
 **Server:** ![NPM](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white) ![Node](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)![Express](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 
-**Testing:** ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white) ![Cypress](https://img.shields.io/badge/Cypress-17202C?style=for-the-badge&logo=cypress&logoColor=white) ![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
+**Testing:** ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white) ![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
 ## Desarrolladores :trophy:
 
 - :man_technologist: [@JeanCarlosPerez](https://github.com/JeanCarlosPerez) como Scrum Master
