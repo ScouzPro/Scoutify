@@ -63,7 +63,7 @@
 <div class="w-full md:w-2/3 p-4">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       <div *ngFor="let player of filteredPlayers | paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
-        <div class="card-background bg-white rounded-lg shadow-lg mb-4 h-auto sm:h-90 transition-transform duration-300 ease-in-out transform hover:scale-110">
+        <div class="card-background bg-white rounded-lg shadow-lg mb-4 h-auto sm:h-90">
           <figure>
             <img [src]="player.photo" alt="{{player.name}}" class="w-full h-36 sm:h-48 object-cover rounded-t-lg" />
           </figure>
