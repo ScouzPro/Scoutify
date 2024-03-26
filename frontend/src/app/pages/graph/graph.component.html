@@ -1,26 +1,35 @@
 <div>
-    <app-navbar/>
+    <app-navbar />
 </div>
 
 <section id="full-container">
 
-    <section class="w-full h-full bg-[#F2D16D] mb-3 p-3 opacity-90 rounded-xl flex flex-col items-center justify-center ">
-            <h2>Escoge y compara las habilidades de tus jugadores para realizar tus informes con todo detalle y poder escoger la mejor alineación</h2>
+    <section class="w-full h-full bg-[#F2D16D] mb-10 p-10 flex flex-col items-center justify-center ">
+        <div class="text-10xl">
+            <h2 class=" text-6xl">Escoge y compara las habilidades de tus jugadores para realizar tus informes con todo
+                detalle y poder escoger la mejor alineación</h2>
+        </div>
+
         <div class="mt-1 text-center">
             <h3>Como usar la gráfica:</h3>
             <p>Haz click en el rectangulo frente al nombre del jugador/a.<br>
-                Seleccióna dos o más jugadores/as en cada tabla para observar como se comparan sus métricas en los diferentes tipos de habilidades.</p>
+                Seleccióna dos o más jugadores/as en cada tabla para observar como se comparan sus métricas en los
+                diferentes tipos de habilidades.</p>
         </div>
     </section>
 
-    <section class=" pb-20 pt-5 flex align-center items-center justify-center opacity-90 rounded-xl overflow-hidden bg-[#F2F2F2]">
-        <div class="bg-[#fefefe] rounded-xl px-2 py-1 mx-3 transition-transform duration-300 ease-in-out transform hover:scale-110">
+    <section
+        class=" pb-20 pt-5 flex align-center items-center justify-center opacity-90 rounded-xl overflow-hidden bg-[#F2F2F2]">
+        <div
+            class="bg-[#fefefe] rounded-xl px-2 py-1 mx-3 transition-transform duration-300 ease-in-out transform hover:scale-110">
             <app-graph-principal />
         </div>
-        <div class="bg-[#fefefe] rounded-xl px-2 py-1 mx-3 transition-transform duration-300 ease-in-out transform hover:scale-110" >
+        <div
+            class="bg-[#fefefe] rounded-xl px-2 py-1 mx-3 transition-transform duration-300 ease-in-out transform hover:scale-110">
             <app-graph-tactical />
         </div>
-        <div class="bg-[#fefefe] rounded-xl px-2 py-1 mx-3 transition-transform duration-300 ease-in-out transform hover:scale-110">
+        <div
+            class="bg-[#fefefe] rounded-xl px-2 py-1 mx-3 transition-transform duration-300 ease-in-out transform hover:scale-110">
             <app-graph-phisical />
         </div>
     </section>
@@ -28,5 +37,5 @@
 </section>
 
 <div>
-    <app-footer/>
+    <app-footer />
 </div>
