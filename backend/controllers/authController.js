@@ -58,7 +58,7 @@ export const Login = async (req, res) => {
         }, process.env.JWT_SECRET) 
 
         //Guardo la clave en un header que llamo tokenAuth y le paso la constante del token (tokenLog)
-        res.header ({ "tokenAuth": tokenLog})
+        res.header ({ "auth": tokenLog})
         res.status(200).json({message: "Login successfull", tokenLog})
         
     } catch (error) {

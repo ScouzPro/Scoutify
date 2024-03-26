@@ -8,6 +8,7 @@ import { AuthRegComponent } from './pages/auth-reg/auth-reg.component';
 import { DetailComponent } from './pages/detail/detail.component';
 import { NewReportComponent } from './pages/new-report/new-report.component';
 import { GraphComponent } from './pages/graph/graph.component';
+import { blockPage } from './guards/loginBlock';
 
 
 
@@ -16,11 +17,13 @@ import { GraphComponent } from './pages/graph/graph.component';
 export const routes: Routes = [
     {
         path: '',
-        component: HeroLandingComponent
+        component: HeroLandingComponent,
+        
     },
     {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
+        canActivate : [blockPage]
     },
     {
         path: 'login',
@@ -32,23 +35,28 @@ export const routes: Routes = [
     },
     {
         path: 'players',
-        component: PlayersComponent
+        component: PlayersComponent,
+        canActivate : [blockPage]
     },
     {
         path: 'reports',
-        component: ReportsComponent
+        component: ReportsComponent,
+        canActivate : [blockPage]
     },
     {
         path: 'player/:id',
-        component: DetailComponent
+        component: DetailComponent,
+        canActivate : [blockPage]
     },
     {
     path: 'players/:id',
-    component: NewReportComponent
+    component: NewReportComponent,
+    canActivate : [blockPage]
     },
     {
      path: 'graph',
-     component: GraphComponent
+     component: GraphComponent,
+     canActivate : [blockPage]
     },
 
 ];
