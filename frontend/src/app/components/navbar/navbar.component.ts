@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IconsNavbarComponent } from "../icons-navbar/icons-navbar.component";
-import { Router } from '@angular/router';
+import { Router, RouterModule } from "@angular/router";
+import { CarouselComponent } from "../carousel/carousel.component";
 
 @Component({
     selector: 'app-navbar',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.css'] // Usa styleUrls en lugar de styleUrl
     ,
-    imports: [IconsNavbarComponent]
+    imports: [IconsNavbarComponent, CarouselComponent, RouterModule]
 })
 export class NavbarComponent {
 navigateToLandingComponent() {

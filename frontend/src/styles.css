@@ -1,6 +1,12 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 
 @font-face {
   font-family: "Oswald";
@@ -44,4 +50,8 @@
 
 body {
   font-family: "Oswald", sans-serif;
+}
+/* Oculta la barra de desplazamiento en todos los elementos */
+::-webkit-scrollbar {
+  display: none;
 }

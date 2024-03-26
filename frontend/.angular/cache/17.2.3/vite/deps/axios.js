@@ -2,7 +2,7 @@ import {
   __async,
   __export,
   __spreadValues
-} from "./chunk-GLLL6ZVE.js";
+} from "./chunk-3XDEHMPW.js";
 
 // node_modules/axios/lib/helpers/bind.js
 function bind(fn, thisArg) {
@@ -1527,7 +1527,7 @@ utils_default.forEach(knownAdapters, (fn, value) => {
     Object.defineProperty(fn, "adapterName", { value });
   }
 });
-var renderReason = (reason) => `- ${reason}`;
+var renderReason = (reason) => "- ".concat(reason);
 var isResolvedHandle = (adapter) => utils_default.isFunction(adapter) || adapter === null || adapter === false;
 var adapters_default = {
   getAdapter: (adapters) => {
@@ -1543,7 +1543,7 @@ var adapters_default = {
       if (!isResolvedHandle(nameOrAdapter)) {
         adapter = knownAdapters[(id = String(nameOrAdapter)).toLowerCase()];
         if (adapter === void 0) {
-          throw new AxiosError_default(`Unknown adapter '${id}'`);
+          throw new AxiosError_default("Unknown adapter '".concat(id, "'"));
         }
       }
       if (adapter) {
@@ -1553,11 +1553,11 @@ var adapters_default = {
     }
     if (!adapter) {
       const reasons = Object.entries(rejectedReasons).map(
-        ([id, state]) => `adapter ${id} ` + (state === false ? "is not supported by the environment" : "is not available in the build")
+        ([id, state]) => "adapter ".concat(id, " ") + (state === false ? "is not supported by the environment" : "is not available in the build")
       );
       let s = length ? reasons.length > 1 ? "since :\n" + reasons.map(renderReason).join("\n") : " " + renderReason(reasons[0]) : "as no adapter specified";
       throw new AxiosError_default(
-        `There is no suitable adapter to dispatch the request ` + s,
+        "There is no suitable adapter to dispatch the request " + s,
         "ERR_NOT_SUPPORT"
       );
     }
