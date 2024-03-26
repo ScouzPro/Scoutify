@@ -1,4 +1,4 @@
-![Logo](frontend/src/assets/logos/png/scoutifyLogoBlack_Mesa de trabajo 1.png)
+![Landing](frontend/src/assets/logos/png/scoutifyLogoBlack_Mesa%20de%20trabajo%201.png)
 ¡Bienvenido a Scoutify! Esta aplicación está diseñada específicamente para reclutadores y cazatalentos en el mundo del fútbol. Scoutify simplifica el seguimiento de jugadores en diversas ligas, te permite crear informes detallados de cada partido y jugador para que lo tengas todo bajo control ¿Te parece poco? Nuestra aplicación tambien cuenta con un comparador de estadisticas de todos los jugadores disponibles.
 
 ## Asi se ve nuestra web :soccer:
