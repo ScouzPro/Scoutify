@@ -35,7 +35,12 @@ export class PlayerServiceService {
 
   async getPlayerFollowed(): Promise<any> {
     try {
-      const response = await axios.get('http://localhost:3001/player');
+      const optionsLoad = {
+        headers: {
+          'auth': localStorage.getItem('token de admin')
+        }
+      }
+      const response = await axios.get('http://localhost:3001/player', optionsLoad);
       // Filtrar los campos que necesitas del JSON
       const filteredData = response.data.map((player: any) => ({
         name: player.name,

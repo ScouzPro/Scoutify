@@ -1,11 +1,11 @@
 <div class="container" style="margin-top: 5%;">
   <!-- Título -->
-    <h2>Detalles de la temporada</h2> 
+    <h2 class="bg-[#142740 text-white ">Detalles de la temporada</h2> 
     <!-- Primer div con los valores de games, goals y valorationMedia -->
-    <div *ngIf="seasonData" >
+    <div *ngIf="seasonData">
         <div>            
             <table>
-                <tr>
+                <tr >
                   <th style="padding-right: 60px;">Partidos</th>
                   <th style="padding-right: 60px;">Goles</th>
                   <th>Valoracion Media</th>
@@ -46,9 +46,9 @@
         </table>
     </div>  
 </div>
-<div>
-  <button (click)="openEditModal()" style="background-color: red; width: 100%; color: aliceblue;">Editar</button>
-
+<div class="flex justify-center">
+  
+  <button (click)="openEditModal()" class="btn px-1 w-full bg-[#C84343] text-white text-center hover:bg-white hover:text-black disabled:opacity-50 disabled:pointer-events-none dark:bg-[#142740] dark:border-red-800 dark:text-white dark:hover:bg-red-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-red-800" >Editar</button>
   <!-- Modal de edición -->
   <div class="fixed z-10 inset-0 overflow-y-auto flex items-center justify-center" aria-labelledby="modal-title" role="dialog" aria-modal="true" *ngIf="seasonData && showEditModal">
     <div style="padding-top: 90px;" class="bg-white w-1/3 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 rounded-lg">

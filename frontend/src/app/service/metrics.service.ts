@@ -1,5 +1,6 @@
+
 import { Injectable } from '@angular/core';
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 
 @Injectable({
   providedIn: 'root'
@@ -50,7 +51,12 @@ export class MetricsService {
 
   async deletePlayerMetrics(_id: string): Promise<any> {
     try {
-      const response = await axios.delete(`http://localhost:3001/metrics/${_id}`);
+      const options = {
+        headers: {
+          'auth': localStorage.getItem('token admin')!
+        }
+      }
+      const response = await axios.delete(`http://localhost:3001/metrics/${_id}`, options);
       return response.data;
     } catch (error) {
       console.error(error);

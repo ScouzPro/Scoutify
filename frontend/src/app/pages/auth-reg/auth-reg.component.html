@@ -2,7 +2,7 @@
 
 <!-- Cabecera Registro -->
 <div class="pt-4 pl-6">
-    <button class="btn btn-xs btn-ghost btn-outline"
+    <button class="btn text-xs bg-transparent border border-black text-black hover:bg-black hover:text-white mb-4 text-center"
         (click)="navigateToHeroLanding()">Back</button>
     <h2 class="mx-auto max-w-md mb-5 mt-5 text-center text-3xl">Registro</h2>
 </div>
@@ -145,7 +145,7 @@
         <div *ngIf="showSuccessMessage" class="text-green-500 input-bordered bg-green-100 border border-green-400 px-4 py-2 mb-4 rounded-md absolute z-10" role="alert alert-success">
             Te has registrado con éxito</div>
         <button
-            class="btn btn-s btn-wide btn-outline btn-secondary mb-20 mt-10 text-center"
+            class="btn px-20 bg-[#F2D16D] border border-transparent mb-4 text-center hover:bg-transparent hover:border-yellow-400"
             [disabled]="!areAllFieldsFilled()"
             (click)="onSubmit()">
             Enviar

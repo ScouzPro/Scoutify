@@ -5,13 +5,13 @@
 <div class="container">
   <!-- Iteración sobre las tarjetas de informes -->
   <ng-container *ngFor="let player of players">
-    <div *ngFor="let metric of getPlayerMetrics(player.id)" class="card1 bg-[#efede5] rounded-2xl m-4">
+    <div *ngFor="let metric of getPlayerMetrics(player.id)" class="card1 bg-[#efede5] rounded-2xl m-4 transition-transform duration-300 ease-in-out transform hover:scale-110">
       <div class="PrincipalCard" >
         <img src="{{player.photo}}" alt="{{player.name}}" style="border-radius: 12px;"/>
         <div class="playerInfo">       
           <p>{{ player.name }}</p>
-          <p>{{player.position}}</p>
-          <p>{{player.dorsal}}</p>
+          <p>{{ player.position }}</p>
+          <p>{{ player.dorsal }}</p>
         </div>
       </div>
       <div>
@@ -31,18 +31,17 @@
             </div>
           </div>
       </div>
+
       <!-- Botones de Editar y Eliminar -->
-      <div class="buttonMetrics">        
+      <div class="buttonMetrics">
         <button (click)="openConfirmModal()" class="text-white bg-[#C84343] hover:bg-[#142740] font-medium rounded-full text-xs px-3 py-1 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Borrar informe</button>
       </div>
-      <div>
-      <!-- Modal de confirmación -->
-      <div *ngIf="confirmModal" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <!-- Fondo oscuro -->
-            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
-            <!-- Contenido del modal de confirmación -->
+      <!-- Modal de confirmación -->
+      <div>
+        <div *ngIf="confirmModal" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+          <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
             <div class="inline-block align-middle bg-white rounded-lg text-center overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div class="sm:flex sm:flex-col sm:justify-evenly">
