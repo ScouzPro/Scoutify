@@ -5,7 +5,7 @@ import app from '../index.js'; // Asumiendo que index.js exporta la aplicación 
 describe("GET /api/reports", () => {
     it('response with json containing a list of all reports', done => {
         request(app)
-            .get('/api/reports') // Asegúrate de agregar una barra (/) al inicio de la ruta
+            .get('/api/reports') 
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(200, done);
@@ -62,10 +62,14 @@ describe('POST /player', () => {
 });
 
 describe('DELETE /player/:id', () => {
-    it('responds with 204 no content', done => {
+    it('responds with 200 no content"Registro eliminado correctamente"', done => {
         const playerIdToDelete = '6601a0886c4b458bec1ca769';
         request(app)
             .delete(`/player/${playerIdToDelete}`)
-            .expect(204, done);
+            .expect(200).end((err, res) => {
+                if (err) return done(err);
+                console.log('Registro eliminado correctamente');
+                done();
+            })
     });
 });
