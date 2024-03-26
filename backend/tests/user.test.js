@@ -47,9 +47,9 @@ describe('POST /player', () => {
             dorsal: 8,
             nationality:"Alemania",
             position: "portero",
-            weight: 70,
-            heigh: 1.70,
-            strongFoot: "Ambas",
+            weight: "70",
+            height: "1.70",
+            strongFoot: "Ambas"
 
         };
         request(app)
