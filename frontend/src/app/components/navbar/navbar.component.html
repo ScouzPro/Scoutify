@@ -19,14 +19,15 @@
   </div>
   <div class="navbar-center hidden lg:flex text-white">
     <ul class="menu menu-horizontal px-8">
-      <li><a (click)="navigateToPlayers()" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+      <li><a routerLink="/players" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
           class="text-xl">Jugadores</a></li>
-      <li><a (click)="navigateToReports()" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+      <li><a routerLink="/reports" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
           class="text-xl">Informes</a></li>
-      <li><a (click)="navigateToGraph()" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+      <li><a routerLink="/graph" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
           class="text-xl">Estadísticas</a></li>
     </ul>
   </div>
+  
   <div class="navbar-end">
     <div class="flex items-center gap-5">
       <!-- Icono de home-->
