@@ -9,7 +9,7 @@
 <div class="container">
   <!-- Iteración sobre las tarjetas de informes -->
   <ng-container *ngFor="let player of players">
-    <div *ngFor="let metric of getPlayerMetrics(player.id)" class="card1 bg-[#efede5] rounded-2xl m-4">
+    <div *ngFor="let metric of getPlayerMetrics(player.id)" class="card1 bg-[#efede5] rounded-2xl m-4 transition-transform duration-300 ease-in-out transform hover:scale-110">
       <div class="PrincipalCard">
         <img [src]="player.photo" [alt]="player.name" style="border-radius: 12px;"/>
         <div class="playerInfo">
