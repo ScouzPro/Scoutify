@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IconsNavbarComponent } from "../icons-navbar/icons-navbar.component";
+
 import { Router, RouterModule } from "@angular/router";
-import { CarouselComponent } from "../carousel/carousel.component";
 
 @Component({
     selector: 'app-navbar',
@@ -9,7 +8,7 @@ import { CarouselComponent } from "../carousel/carousel.component";
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.css'] // Usa styleUrls en lugar de styleUrl
     ,
-    imports: [IconsNavbarComponent, CarouselComponent, RouterModule]
+    imports: [ RouterModule]
 })
 export class NavbarComponent {
 navigateToLandingComponent() {
@@ -30,6 +29,12 @@ throw new Error('Method not implemented.');
   }
   navigateToGraph() {
     this.router.navigate(['/graph']);
+  }
+
+  onClickLogout(){
+    localStorage.removeItem('token de admin');
+    this.router.navigate(['login'])
+
   }
 }
 
