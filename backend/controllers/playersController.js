@@ -45,7 +45,7 @@ export const deletePlayer = async (req, res) => {
     const id = req.params.id
     try {
         await Player.deleteOne({_id:id},req.body) 
-        res.status(204).json({message:"Player Borrado Satisfactoriamente", id})
+        res.status(200).json({message:"Player Borrado Satisfactoriamente", id})
     } catch (error) {
         res.status(500).json({message:"no funciona", error})
     }
