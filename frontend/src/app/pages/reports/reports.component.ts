@@ -21,6 +21,8 @@ export class ReportsComponent implements OnInit {
     playerMetricsMap: Map<string, any[]> = new Map<string, any[]>(); // Mapa para almacenar las métricas de cada jugador
     nuevasMetricas: any;
     confirmModal: boolean = false ;
+    playerToDelete: any;
+    metricToDelete: any;
     constructor(private playerService: PlayerServiceService, private playerMetricService: MetricsService) { }
   
     ngOnInit(): void {
@@ -44,8 +46,10 @@ export class ReportsComponent implements OnInit {
       return this.playerMetricsMap.get(playerId) || [];
     }
 
-    openConfirmModal() {
-      this.confirmModal = true ;
+    openConfirmModal(player: any, metric: any) {
+      this.playerToDelete = player;
+      this.metricToDelete = metric;
+      this.confirmModal = true;
     }
     
     formatCreatedAt(dateString: string): string {
