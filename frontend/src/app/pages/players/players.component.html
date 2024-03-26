@@ -3,17 +3,19 @@
 </div>
 <app-header-secondary></app-header-secondary>
 
-<main class="flex" style="margin-bottom: 60px;">
-  <div class="w-1/4 p-2 m-5">
-    <div class="relative group duration-1000 cursor-pointer group overflow-hidden relative text-gray-50 h-[37rem] w-full md:w-[108%] rounded-2xl">
-      <div class="w-full w-400 h-auto h-[25rem] bg-[#142740] text-white pt-3 pl-1">
-        <span class="p-3 text-white font-bold text-1xl ">FILTROS</span>
-        <p class="p-3 text-white text-xs mb-4">Selecciona uno o más filtros para encontrar jugadores</p>
+<main class="flex flex-col sm:flex-row-reverse justify-center items-center" style="margin-bottom: 60px;">
+  
+<!-- filtros -->
+<div class="w-full sm:w-1/5 p-3 pr-4 m-5 order-first sm:order-last">
+  <div class="relative group duration-1000 cursor-pointer group overflow-hidden text-gray-50 h-[37rem] w-full md:w-[108%] rounded-2xl">
+      <div class="w-full w-400 h-[25rem] bg-[#142740] text-white pt-2 pl-1">
+        <span class="p-3 text-white font-bold text-2xl ">FILTROS</span>
+        <p class="p-3 text-white text-m mb-4 pb-2">Selecciona uno o más filtros para encontrar jugadores</p>
       </div>
       <div class="absolute top-20 w-full md:w-200 h-198 bg-gray-100 pl-4">
         <!-- Aquí van los filtros -->
         <label class="label text-lg sm:text-xl font-bold text-black -mb-0.5">Nacionalidad</label>
-        <select [(ngModel)]="nacionalidadFiltro" class="select select-bordered w-full text-black">
+        <select [(ngModel)]="nacionalidadFiltro" class="select select-bordered w-80 text-black">
           <option value="">Seleccione una nacionalidad:</option>
           <option *ngFor="let nacionalidad of nacionalidadesUnicas" [value]="nacionalidad">{{ nacionalidad }}</option>
         </select>
@@ -49,7 +51,7 @@
       </div>
     </div>
     
-    <div class="flex justify-left px-2 pt-6 pb-2">
+    <div class="flex justify-center px-2 pt-6 pb-2">
       <button (click)="filtrarJugadores()" class="text-white bg-[#142740] hover:bg-[#22426d] font-medium rounded-full text-sm px-5 w-30 h-8 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 w-auto">Aplicar</button>
       <button (click)="limpiarFiltros()" class="text-white bg-[#C84343] hover:bg-[#d16161] font-medium rounded-full text-sm px-5 w-30 h-8 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 w-auto">Limpiar</button>
   </div>
@@ -60,8 +62,9 @@
     </div>
 </div>
 
-<div class="w-full md:w-2/3 p-4">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+<!-- tarjetas jugadores -->
+<div class="w-full sm:w-2/3 p-4 justify-center">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       <div *ngFor="let player of filteredPlayers | paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
         <div class="card-background bg-white rounded-lg shadow-lg mb-4 h-auto sm:h-90 transition-transform duration-300 ease-in-out transform hover:scale-110">
           <figure>

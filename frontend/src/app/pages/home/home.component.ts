@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   pagedPlayers: any[] = [];
   fechaSeguimiento: string = "2024-03-20";
   p: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 4;
 
   constructor(private playerService: PlayerServiceService) {}
 
