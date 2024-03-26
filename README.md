@@ -1,14 +1,10 @@
-![Landing](frontend/src/assets/logos/png/scoutifyLogoBlack_Mesa%20de%20trabajo%201.png)
+![Logo](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 ¡Bienvenido a Scoutify! Esta aplicación está diseñada específicamente para reclutadores y cazatalentos en el mundo del fútbol. Scoutify simplifica el seguimiento de jugadores en diversas ligas, te permite crear informes detallados de cada partido y jugador para que lo tengas todo bajo control ¿Te parece poco? Nuestra aplicación tambien cuenta con un comparador de estadisticas de todos los jugadores disponibles.
 
 ## Asi se ve nuestra web :soccer:
 
-![Landing](frontend/src/assets/img/landing.png)
-![Login](frontend/src/assets/img/login.png)
-![Home](frontend/src/assets/img/home.png)
-![Players](frontend/src/assets/img/players.png)
-![Player](frontend/src/assets/img/player.png)
-![Graph](frontend/src/assets/img/graph.png)
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
 
 ## Como empezar :rocket:
 
@@ -49,6 +45,10 @@ ng serve
 
 Finalmente, abre tu navegador web y visita [http://localhost:4200](http://localhost:4200)
 
+## Deployment :stars:
+
+También puedes simplemente visitar nuestro despliegue de la aplicación: [enlace al despliegue](aquí_va_el_enlace)
+
 ## Features
 Nuestra aplicación ofrece las siguientes funcionalidades principales:
 
@@ -75,7 +75,7 @@ Nuestra aplicación utiliza el siguiente stack tecnológico:
 
 **Server:** ![NPM](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white) ![Node](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)![Express](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 
-**Testing:** ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white) ![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
+**Testing:** ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white) ![Cypress](https://img.shields.io/badge/Cypress-17202C?style=for-the-badge&logo=cypress&logoColor=white) ![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
 ## Desarrolladores :trophy:
 
 - :man_technologist: [@JeanCarlosPerez](https://github.com/JeanCarlosPerez) como Scrum Master
@@ -87,11 +87,19 @@ Nuestra aplicación utiliza el siguiente stack tecnológico:
 - :woman_technologist: [@DANIELAZAPATA0724](https://github.com/DANIELAZAPATA0724)
 
 - :woman_technologist: [@angarce25](https://github.com/angarce25)
-
+<<<<<<< HEAD
+<<<<<<< HEAD
 ## ¡Gracias!
-
+¡Gracias por usar Scoutify! Si tienes alguna pregunta o sugerencia, no dudes en ponerte en contacto con nosotros. ¡Que disfrutes reclutando talentos futbolísticos! :soccer:
+=======
+=======
+>>>>>>> feff6dca955168e33cd4e833b7bf54c7e154257f
+- 
 ## Documentación
 
 :art:[Figma](https://www.figma.com/file/vLIheYKJB9lvBT8WcwNyfL/ScouzPro?type=design&node-id=0%3A1&mode=design&t=aOTNPTg4N8qUA3tE-1):card_index_dividers:[Trello](https://trello.com/b/0XztzvWY/scouz-pro):desktop_computer:[Repo](https://github.com/ScouzPro/ScouzPro)
 ## ¡Gracias por usar Scoutify! Si tienes alguna pregunta o sugerencia, no dudes en ponerte en contacto con nosotros. ¡Que disfrutes reclutando talentos futbolísticos! :soccer:
-
+<<<<<<< HEAD
+>>>>>>> 4005f5cb2b10709b33011932b2b7bff6170fc09b
+=======
+>>>>>>> feff6dca955168e33cd4e833b7bf54c7e154257f
