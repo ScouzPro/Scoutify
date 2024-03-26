@@ -9,26 +9,17 @@
       <div class="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-20 md:items-center">
           <div>
               <h3 class="block text-3xl font-bold text-gray-800 sm:text-4xl lg:text-6xl lg:leading-tight dark:text-white">
-                  {{player.dorsal}} <span class="text-blue-600">{{player.name}} </span></h3>
+                  {{player.dorsal}} <span class="text-[#C84343]">{{player.name}} </span></h3>
               <p class="mt-3 text-lg text-gray-800 dark:text-gray-400">{{player.strongFoot}}</p>
     
               <!-- Buttons -->
               <div class="mt-7 grid gap-3 w-full sm:inline-flex">
-                  <a class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-xs font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                      href="#">
-                      Get started
-                      <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                          stroke-linejoin="round">
-                          <path d="m9 18 6-6-6-6" />
-                      </svg>
-                  </a>
                   <!-- Botón para abrir el modal -->
-                  <button (click)="openModal()" class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#">
+                  <button (click)="openModal()" class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-xs font-medium rounded-lg border border-blue-900 bg-blue-900 text-white shadow-sm hover:bg-white hover:text-black disabled:opacity-50 disabled:pointer-events-none dark:bg-[#142740] dark:border-gray-700 dark:text-white dark:hover:bg-blue-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-blue-600" href="#">
                       Editar jugador
                   </button>
               </div>
-              <!-- End Buttons -->
+
     
               <!-- Review -->
               <div class="mt-6 lg:mt-10 grid grid-cols-2 gap-x-5">
@@ -125,13 +116,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <div class="px-4 py-3 flex flex-row-reverse">
                     <!-- Botón para actualizar -->
-                    <button (click)="updatePlayerData()" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    <button (click)="updatePlayerData()" type="button" class="rounded-md border border-transparent px-2 py-1 font-medium text-white bg-[#142740] hover:bg-blue-600 text-sm">
                         Actualizar
                     </button>
                     <!-- Botón para cerrar el modal -->
-                    <button (click)="closeModal()" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    <button (click)="closeModal()" type="button" class="rounded-md border px-2 py-1 font-medium text-white bg-[#142740] hover:bg-blue-600 text-sm">
                         Cancelar
                     </button>
                 </div>
@@ -141,9 +132,9 @@
     <!-- Fin del Modal -->
   </div>
 
-<div *ngIf="player" class="mt-8">
-  <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-    <thead class="bg-gray-800 text-white">
+<div *ngIf="player" class="mt-8 w-full flex flex-col space-evenly">
+  <table class=" bg-white shadow-md rounded-lg overflow-hidden ">
+    <thead class="bg-[#F2D16D] text-black">
       <tr>
         <th class="py-2 px-4">Dorsal</th>
         <th class="py-2 px-4">Peso</th>
