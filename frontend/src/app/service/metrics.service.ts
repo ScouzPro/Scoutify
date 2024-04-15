@@ -11,7 +11,7 @@ export class MetricsService {
 
   async getPlayerMetrics(playerId: string): Promise<any> {
     try {
-      const response = await axios.get(`http://localhost:3001/metrics/${playerId}`);
+      const response = await axios.get(`https://scouzpro-znd8.onrender.com/metrics/${playerId}`);
       
       
       // Verifica si la respuesta es un objeto
