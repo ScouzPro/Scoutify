@@ -4,7 +4,7 @@
         <h3 class="font-bold text-lg mb-3 ">Crear Jugador</h3>
         <form method="dialog">
             <button (click)="closeModal()" class="btn btn-sm btn-circle btn-ghost absolute right-4 top-2">✕</button>
-          </form>
+        </form>
         <form #playerForm="ngForm" (ngSubmit)="submitForm(playerForm)" class="flex flex-col items-center">
             <input type="text" placeholder="Nombre y Apellidos" class="input input-bordered w-full max-w-xs mb-3" name="name" ngModel required />
             <input type="number" placeholder="Edad" class="input input-bordered w-full max-w-xs mb-3" name="age" ngModel required />
