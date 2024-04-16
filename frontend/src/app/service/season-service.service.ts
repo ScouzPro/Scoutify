@@ -5,7 +5,7 @@ import axios from 'axios';
   providedIn: 'root'
 })
 export class SeasonService {
-  private url: string = 'http://localhost:3001/season/';
+  private url: string = 'https://scouzpro-znd8.onrender.com/season/';
   constructor() { }
 
   async getSeasonValues(playerId: string): Promise<any> {

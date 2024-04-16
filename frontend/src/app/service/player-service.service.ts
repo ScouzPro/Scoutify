@@ -25,7 +25,7 @@ export class PlayerServiceService {
         strongFoot: newPlayer.strongFoot
       };
 
-      const response = await axios.post('http://localhost:3001/player', playerData);
+      const response = await axios.post('https://scouzpro-znd8.onrender.com/player', playerData);
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -40,7 +40,7 @@ export class PlayerServiceService {
           'auth': localStorage.getItem('token de admin')
         }
       }
-      const response = await axios.get('http://localhost:3001/player', optionsLoad);
+      const response = await axios.get('https://scouzpro-znd8.onrender.com/player', optionsLoad);
       // Filtrar los campos que necesitas del JSON
       const filteredData = response.data.map((player: any) => ({
         name: player.name,
@@ -64,7 +64,7 @@ export class PlayerServiceService {
   async getPlayerById(playerId: string): Promise<any> {
     
     try {
-      const response = await axios.get(`http://localhost:3001/player/${playerId}`);
+      const response = await axios.get(`https://scouzpro-znd8.onrender.com/player/${playerId}`);
       console.log('Datos del jugador obtenidos:', response.data); // Agregar este console.log
       
       return response.data; // Devuelve directamente los datos de la respuesta
@@ -75,7 +75,7 @@ export class PlayerServiceService {
 }
 async deletePlayer(playerId: string): Promise<boolean> {
   try {
-    const response = await axios.delete(`http://localhost:3001/player/${playerId}`);
+    const response = await axios.delete(`https://scouzpro-znd8.onrender.com/player/${playerId}`);
     console.log('Jugador eliminado:', response.data); // Agrega este console.log para verificar
     return true; // Retorna true si la eliminación fue exitosa
   } catch (error) {
@@ -86,7 +86,7 @@ async deletePlayer(playerId: string): Promise<boolean> {
 
 async updatePlayer(playerId: string, updatedPlayerData: any): Promise<boolean> {
   try {
-    const response = await axios.put(`http://localhost:3001/player/${playerId}`, updatedPlayerData);
+    const response = await axios.put(`https://scouzpro-znd8.onrender.com/player/${playerId}`, updatedPlayerData);
     console.log('Datos del jugador actualizados:', response.data); // Agrega este console.log para verificar
     return true; // Retorna true si la actualización fue exitosa
   } catch (error) {
