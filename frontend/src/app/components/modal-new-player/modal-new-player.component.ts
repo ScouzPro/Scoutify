@@ -20,9 +20,12 @@ export class ModalNewPlayerComponent {
     const modal = document.getElementById('my_modal_4') as HTMLDialogElement;
     if (modal) {
       modal.showModal();
+<<<<<<< HEAD
       setTimeout(() => {
         this.reloadPageAfterDelay();
       }, 4000); // Espera 3 segundos antes de recargar la página
+=======
+>>>>>>> main
     }
   }
 
@@ -36,6 +39,12 @@ export class ModalNewPlayerComponent {
       await this.playerService.CreatePlayer(newPlayer);
       this.openCreatePlayer();
     }
+<<<<<<< HEAD
+=======
+    setTimeout(() => {
+      this.reloadPageAfterDelay();
+    }, 4000); // Espera 3 segundos antes de recargar la página
+>>>>>>> main
   }
 
   closeModal() {

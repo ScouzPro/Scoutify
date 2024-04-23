@@ -5,7 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+<<<<<<< HEAD
     "test": "mocha tests/user.test.js --exit"
+=======
+    "test": "mocha tests/user.test.js --exit",
+    "build": "npm install"
+>>>>>>> main
   },
   "keywords": [],
   "author": "",
