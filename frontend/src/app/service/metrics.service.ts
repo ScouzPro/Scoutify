@@ -11,11 +11,7 @@ export class MetricsService {
 
   async getPlayerMetrics(playerId: string): Promise<any> {
     try {
-<<<<<<< HEAD
-      const response = await axios.get(`http://localhost:3001/metrics/${playerId}`);
-=======
       const response = await axios.get(`https://scouzpro-znd8.onrender.com/metrics/${playerId}`);
->>>>>>> main
       
       
       // Verifica si la respuesta es un objeto
@@ -36,11 +32,7 @@ export class MetricsService {
 
   async submitMetrics(formData: any): Promise<any> {
     try {
-<<<<<<< HEAD
-      const response = await axios.post('http://localhost:3001/metrics', formData);
-=======
       const response = await axios.post('https://scouzpro-znd8.onrender.com/metrics', formData);
->>>>>>> main
       return response.data;
     } catch (error) {
       console.error(error);
@@ -49,11 +41,7 @@ export class MetricsService {
   }
   async editPlayerMetrics(playerId: string, updatedMetrics: any): Promise<any> {
     try {
-<<<<<<< HEAD
-      const response = await axios.put(`http://localhost:3001/metrics/${playerId}`, updatedMetrics);
-=======
       const response = await axios.put(`https://scouzpro-znd8.onrender.com/metrics/${playerId}`, updatedMetrics);
->>>>>>> main
       return response.data;
     } catch (error) {
       console.error(error);
@@ -68,11 +56,7 @@ export class MetricsService {
           'auth': localStorage.getItem('token admin')!
         }
       }
-<<<<<<< HEAD
-      const response = await axios.delete(`http://localhost:3001/metrics/${_id}`, options);
-=======
       const response = await axios.delete(`https://scouzpro-znd8.onrender.com/metrics/${_id}`, options);
->>>>>>> main
       return response.data;
     } catch (error) {
       console.error(error);
@@ -82,11 +66,7 @@ export class MetricsService {
 
   async getPlayerMetricsById(playerId: string): Promise<any> {
     try {
-<<<<<<< HEAD
-      const response = await axios.get(`http://localhost:3001/metrics/${playerId}`);      
-=======
       const response = await axios.get(`https://scouzpro-znd8.onrender.com/metrics/${playerId}`);      
->>>>>>> main
       return response.data;
     } catch (error) {
       console.error(error);
