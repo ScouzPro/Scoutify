@@ -18,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class AuthComponent {
   formUser = new FormGroup({
       'username': new FormControl('', [Validators.required]),
-      'password': new FormControl('', [Validators.required])
+      'password': new FormControl('', [Validators.required]),
+      'hiddenField': new FormControl('') // Agrega este control para el campo oculto
   });
   showAlert= false;
   alertMessage: string = '';

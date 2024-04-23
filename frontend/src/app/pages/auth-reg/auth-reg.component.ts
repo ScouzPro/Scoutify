@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, FormBuilder } from '@angular/forms';
 import { UsersService } from '../../service/users.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -41,17 +41,18 @@ export class AuthRegComponent {
 
     //GRUPO DE CONTROLADORES 
     formNewUser = new FormGroup({ //esto a la cabeza del form
-        'name': new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]+$/)]),
-        'lastName': new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]+$/)]),
+        'name': new FormControl('', [Validators.required, Validators.maxLength(80), Validators.pattern(/^[a-zA-Z0-9]+$/)]),
+        'lastName': new FormControl('', [Validators.required, Validators.maxLength(80), Validators.pattern(/^[a-zA-Z0-9]+$/)]),
         'username': new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]/)]),
-        'email': new FormControl('', [Validators.required, Validators.email]),
+        'email': new FormControl('', [Validators.required, Validators.email,Validators.maxLength(100)]),
         'password': new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)]),
         'repeatPassword': new FormControl('', Validators.required),
-        'terms': new FormControl(false) // Add a FormControl for the checkbox
+        'terms': new FormControl(false), // Add a FormControl for the checkbox
+        'hiddenField': new FormControl('') // Agrega este control para el campo oculto
     }, { validators: this.passwordMatchValidator }); // Add custom validator for matching passwords)
 
     //Constructor para las rutas de navegación de la pagina
-    constructor (private userService: UsersService, private router: Router) {}
+    constructor (private userService: UsersService, private router: Router, private formBuilder: FormBuilder) {}
 
     navigateToHeroLanding() { //Ruta que vueve a landing al pulsar btn
         this.router.navigate([""]);
